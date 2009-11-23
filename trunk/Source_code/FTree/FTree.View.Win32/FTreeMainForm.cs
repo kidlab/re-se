@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FTree
+namespace FTree.View.Win32
 {
     public partial class FTreeMainForm : Form
     {
