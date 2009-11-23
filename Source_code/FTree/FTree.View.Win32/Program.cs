@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace FTree
+namespace FTree.View.Win32
 {
     static class Program
     {
