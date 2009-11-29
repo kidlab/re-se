@@ -6,6 +6,10 @@ namespace FTree.Common
 {
     public interface IValidatable
     {
+        /// <summary>
+        /// Validates user's input data.
+        /// </summary>
+        /// <returns></returns>
         bool Validate();
     }
 }

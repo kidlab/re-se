@@ -1,24 +1,30 @@
 ﻿using System;
-using System.Text;
 using System.Collections;
-using System.ComponentModel;
 using System.Collections.Generic;
-using FTree.Common;
 
 namespace MVPCore
 {
-    public interface IModel : INotifyPropertyChanged, IValidatable
+    /// <summary>
+    /// Skeleton of all model or data access objects in Model layer of MVP pattern.
+    /// </summary>
+    public interface IModel
     {
-		bool IsExists(object id);
+        IList GetAll();
+        Object GetOne(int id);
+        bool Add(Object obj);
+        bool Delete(Object obj);
+        bool Save();
+    }
 
-        bool Add(object dataTransferObject);
-        
-        bool Delete(object id);
-		
-		bool Update(object dataTransferObject);
-
-		object GetObject(object id);
-		
-        IList<object> GetData(string dataName);
+    /// <summary>
+    /// Skeleton of model (data access objects) of a specific data type (T)
+    /// in Model layer of MVP pattern.
+    /// </summary>
+    public interface IModel<T> : IModel
+    {
+        IList<T> GetAll();
+        T GetOne(int id);
+        bool Add(T obj);
+        bool Delete(T obj);
     }
 }

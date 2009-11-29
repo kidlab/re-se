@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace FTree.DTO
+namespace FTree.Presenter
 {
-    public class DataObject
+    public class DeathInfoPresenter
     {
-		public int ID {get; set;}
     }
 }

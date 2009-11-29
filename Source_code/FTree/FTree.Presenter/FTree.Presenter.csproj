@@ -45,16 +45,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddPersonPresenter.cs" />
-    <Compile Include="FamilyTreePresenter.cs" />
-    <Compile Include="PersonPresenter.cs" />
+    <Compile Include="AchievementPresenter.cs" />
+    <Compile Include="DeathInfoPresenter.cs" />
+    <Compile Include="FamilyReportPresenter.cs" />
+    <Compile Include="IAchievementReportView.cs" />
+    <Compile Include="IDeathInfoView.cs" />
+    <Compile Include="IFamilyReportView.cs" />
+    <Compile Include="MembersListPresenter.cs" />
+    <Compile Include="IAchievementView.cs" />
+    <Compile Include="IMembersList.cs" />
+    <Compile Include="IFamilyMemberView.cs" />
+    <Compile Include="FamilyMemberPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FTree.Common\FTree.Common.csproj">
       <Project>{6C2F443E-9BA2-4507-B3D9-85CB3878FB28}</Project>
       <Name>FTree.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FTree.DTO\FTree.DTO.csproj">
+      <Project>{40865DC9-05AA-4786-8914-E5F673578971}</Project>
+      <Name>FTree.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\MVPCore\MVPCore.csproj">
       <Project>{52CD5CB6-DD37-4441-AB08-2C498094A64E}</Project>

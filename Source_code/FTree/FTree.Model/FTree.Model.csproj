@@ -39,8 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MSSqlSeverDatabase.cs" />
-    <Compile Include="PersonModel.cs" />
+    <Compile Include="FamilyMemberModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

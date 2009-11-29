@@ -5,8 +5,8 @@ using FTree.DTO;
 
 namespace FTree.Model
 {
-    public class PersonModel
+    public class FamilyMemberModel
     {
-		public PersonDTO PersonInfo {get; set;}
+		public FamilyMemberDTO PersonInfo {get; set;}
     }
 }

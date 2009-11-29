@@ -6,7 +6,7 @@ using MVPCore;
 
 namespace FTree.Presenter
 {
-    public class PersonPresenter : IPresenter
+    public class FamilyMemberPresenter : IPresenter
     {
         #region IPresenter Members
 
