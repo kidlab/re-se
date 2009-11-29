@@ -66,5 +66,12 @@ namespace FTree.View.Win32.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap person_add {
+            get {
+                object obj = ResourceManager.GetObject("person_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

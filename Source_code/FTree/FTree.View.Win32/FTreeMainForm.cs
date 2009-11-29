@@ -15,5 +15,11 @@ namespace FTree.View.Win32
         {
             InitializeComponent();
         }
+
+        private void addPersonToolStripButton_Click(object sender, EventArgs e)
+        {
+            FamilyMemberForm frmMember = new FamilyMemberForm();
+            frmMember.ShowDialog();
+        }
     }
 }

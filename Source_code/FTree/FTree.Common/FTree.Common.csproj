@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FTreeBaseException.cs" />
     <Compile Include="IReport.cs" />
     <Compile Include="IValidatable.cs" />
     <Compile Include="Util.cs" />

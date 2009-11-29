@@ -15,7 +15,6 @@ namespace MVPCore
         string ViewName
         {
             get;
-            set;
         }
     }
 }

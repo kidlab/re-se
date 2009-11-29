@@ -48,6 +48,7 @@
     <Compile Include="AchievementPresenter.cs" />
     <Compile Include="DeathInfoPresenter.cs" />
     <Compile Include="FamilyReportPresenter.cs" />
+    <Compile Include="FTreePresenterException.cs" />
     <Compile Include="IAchievementReportView.cs" />
     <Compile Include="IDeathInfoView.cs" />
     <Compile Include="IFamilyReportView.cs" />
@@ -66,6 +67,10 @@
     <ProjectReference Include="..\FTree.DTO\FTree.DTO.csproj">
       <Project>{40865DC9-05AA-4786-8914-E5F673578971}</Project>
       <Name>FTree.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FTree.Model\FTree.Model.csproj">
+      <Project>{4EAB8784-1267-4C62-8A43-C828ADC7A37B}</Project>
+      <Name>FTree.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\MVPCore\MVPCore.csproj">
       <Project>{52CD5CB6-DD37-4441-AB08-2C498094A64E}</Project>
