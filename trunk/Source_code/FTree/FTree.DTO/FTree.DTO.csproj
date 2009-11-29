@@ -46,9 +46,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AchievementInfo.cs" />
-    <Compile Include="DataObject.cs" />
-    <Compile Include="PersonDTO.cs" />
+    <Compile Include="AchievementReportDTO.cs" />
+    <Compile Include="AchievementType.cs" />
+    <Compile Include="BuryPlaceDTO.cs" />
+    <Compile Include="CareerDTO.cs" />
+    <Compile Include="DataTransferObject.cs" />
+    <Compile Include="DeathInfo.cs" />
+    <Compile Include="DeathReasonDTO.cs" />
+    <Compile Include="FamilyMemberDTO.cs" />
+    <Compile Include="FamilyReportDTO.cs" />
+    <Compile Include="HomeTownDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelationTypeDTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

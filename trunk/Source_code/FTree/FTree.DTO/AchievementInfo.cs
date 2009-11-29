@@ -5,9 +5,9 @@ using System.Text;
 
 namespace FTree.DTO
 {
-    public class AchievementInfo : DataObject
+    public class AchievementInfo : DataTransferObject
 	{
-		public string Title {get; set;}
+        public AchievementType AchievementType { get; set; }
 		public string Description {get; set;}
 		public DateTime AchievementDate {get; set;}
 	}
