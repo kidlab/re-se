@@ -11,20 +11,21 @@ namespace MVPCore
     {
         IList GetAll();
         Object GetOne(int id);
-        bool Add(Object obj);
-        bool Delete(Object obj);
-        bool Save();
+        void Add(Object obj);
+        void Delete(Object obj);
+        void Save();
     }
 
     /// <summary>
     /// Skeleton of model (data access objects) of a specific data type (T)
     /// in Model layer of MVP pattern.
     /// </summary>
-    public interface IModel<T> : IModel
+    public interface IModel<T>
     {
         IList<T> GetAll();
         T GetOne(int id);
-        bool Add(T obj);
-        bool Delete(T obj);
+        void Add(T obj);
+        void Delete(T obj);
+        void Save();
     }
 }

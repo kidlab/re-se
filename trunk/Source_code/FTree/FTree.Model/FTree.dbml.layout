@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="FTree">
+  <DataContextMoniker Name="/FTreeDataContext" />
+  <nestedChildShapes>
+    <classShape Id="20ca88c3-2ade-432c-9637-74ce8bb59b91" absoluteBounds="2.125, 1.125, 2, 2.24658447265625">
+      <DataClassMoniker Name="/FTreeDataContext/FAMILYMEMBER_TEST" />
+      <nestedChildShapes>
+        <elementListCompartment Id="44c62b28-ad7e-4f42-baab-dd72f0d0df71" absoluteBounds="2.14, 1.585, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

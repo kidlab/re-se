@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="ILinqModel.cs" />
     <Compile Include="IModel.cs" />
-    <Compile Include="IPresenter.cs" />
+    <Compile Include="BasePresenter.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

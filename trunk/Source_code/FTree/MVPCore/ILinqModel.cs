@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,15 +12,15 @@ namespace MVPCore
     /// </summary>
     public interface ILinqModel : IModel
     {
-        IQueryable GetAll();
+        IEnumerable GetEnumerator();
     }
 
     /// <summary>
     /// Skeleton of all LINQ model or data access objects using LINQ technology
     /// of a specific data type (T) in Model layer of MVP pattern.
     /// </summary>
-    public interface ILinqModel<T> : ILinqModel, IModel<T>, IModel
+    public interface ILinqModel<T> : IModel<T>
     {
-        IQueryable<T> GetAll();
+        IEnumerable<T> GetEnumerator();
     }
 }

@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FamilyMemberForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FamilyMemberForm.Designer.cs">
+      <DependentUpon>FamilyMemberForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FTreeMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +63,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FamilyMemberForm.resx">
+      <DependentUpon>FamilyMemberForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FTreeMainForm.resx">
       <DependentUpon>FTreeMainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,8 +94,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ftree.ico" />
+    <None Include="images\person_add.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FTree.Common\FTree.Common.csproj">
+      <Project>{6C2F443E-9BA2-4507-B3D9-85CB3878FB28}</Project>
+      <Name>FTree.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FTree.DTO\FTree.DTO.csproj">
+      <Project>{40865DC9-05AA-4786-8914-E5F673578971}</Project>
+      <Name>FTree.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FTree.Presenter\FTree.Presenter.csproj">
+      <Project>{A499AF79-1052-4946-8E23-D36A922606FE}</Project>
+      <Name>FTree.Presenter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MVPCore\MVPCore.csproj">
       <Project>{52CD5CB6-DD37-4441-AB08-2C498094A64E}</Project>
       <Name>MVPCore</Name>

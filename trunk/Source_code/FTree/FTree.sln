@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTreeWin32", "FTree.View.Win32\FTreeWin32.csproj", "{68885AA1-24FE-47F8-BEFA-DEC49EF1B71F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTree.View.Win32", "FTree.View.Win32\FTree.View.Win32.csproj", "{68885AA1-24FE-47F8-BEFA-DEC49EF1B71F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVPCore", "MVPCore\MVPCore.csproj", "{52CD5CB6-DD37-4441-AB08-2C498094A64E}"
 EndProject
