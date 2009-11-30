@@ -7,5 +7,6 @@ namespace FTree.Common
 {
     public class Util
     {
+
     }
 }

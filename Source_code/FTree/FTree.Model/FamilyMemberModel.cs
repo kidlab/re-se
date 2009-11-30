@@ -14,6 +14,14 @@ namespace FTree.Model
 
         #endregion
 
+        #region CONSTRUCTOR
+
+        public FamilyMemberModel()
+        {
+        }
+
+        #endregion
+
         #region ILinqModel<FamilyMemberDTO> Members
 
         public IEnumerable<FamilyMemberDTO> GetEnumerator()
@@ -39,7 +47,8 @@ namespace FTree.Model
         {
             try
             {
-                db.FAMILYMEMBER_TESTs.InsertOnSubmit(_convertFromDTO(obj));
+                db.FamilyMember_Tests.InsertOnSubmit(_convertFromDTO(obj));
+                db.SubmitChanges();
             }
             catch (Exception exc)
             {
@@ -61,9 +70,9 @@ namespace FTree.Model
         
         #region UTILITY METHODS
 
-        private FAMILYMEMBER_TEST _convertFromDTO(FamilyMemberDTO memberDto)
+        private FamilyMember_Test _convertFromDTO(FamilyMemberDTO memberDto)
         {
-            FAMILYMEMBER_TEST member = new FAMILYMEMBER_TEST();
+            FamilyMember_Test member = new FamilyMember_Test();
 
             member.FirstName = memberDto.FirstName;
             member.LastName = memberDto.LastName;

@@ -19,7 +19,12 @@ namespace FTree.View.Win32
         private void addPersonToolStripButton_Click(object sender, EventArgs e)
         {
             FamilyMemberForm frmMember = new FamilyMemberForm();
-            frmMember.ShowDialog();
+            frmMember.ShowDialog(false);
+        }
+
+        private void exitToolStripButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

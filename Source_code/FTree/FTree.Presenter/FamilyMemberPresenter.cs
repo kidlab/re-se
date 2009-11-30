@@ -54,6 +54,15 @@ namespace FTree.Presenter
         {
             FamilyMemberDTO member = new FamilyMemberDTO();
 
+            member.FirstName = _view.FirstName;
+            member.LastName = _view.LastName;
+            member.IsFemale = _view.IsFemale;
+            member.Address = _view.Address;
+            member.HomeTown = _view.HomeTown;
+            member.BirthDay = _view.BirthDay;
+            member.DateJoinFamily = _view.DateJoinFamily;
+            member.Career = _view.Career; 
+
             return member;
         }
 

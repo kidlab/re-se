@@ -14,9 +14,9 @@ namespace FTree.Presenter
         bool IsFemale { get; set; }
         
         /// <summary>
-        /// List of all available home towns.
+        /// Sets the list of all available home towns.
         /// </summary>
-        IList<HomeTownDTO> HomeTownsList { get; set; }
+        IList<HomeTownDTO> HomeTownsList { set; }
 
         /// <summary>
         /// The selected home town.
@@ -24,9 +24,9 @@ namespace FTree.Presenter
         HomeTownDTO HomeTown { get; set; }
 
         /// <summary>
-        /// List of all available occupations.
+        /// Sets the list of all available occupations.
         /// </summary>
-        IList<CareerDTO> CareersList { get; set; }
+        IList<CareerDTO> CareersList { set; }
 
         /// <summary>
         /// The selected occupation.
@@ -44,9 +44,9 @@ namespace FTree.Presenter
         FamilyMemberDTO RelativePerson { get; set; }
 
         /// <summary>
-        /// List of all available relation types.
+        /// Sets the list of all available relation types.
         /// </summary>
-        IList<RelationTypeDTO> RelationTypesList { get; set; }
+        IList<RelationTypeDTO> RelationTypesList {set; }
 
         /// <summary>
         /// The selected relation type.

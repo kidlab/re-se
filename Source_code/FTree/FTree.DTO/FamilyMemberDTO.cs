@@ -30,5 +30,12 @@ namespace FTree.DTO
             
         public bool IsDead { get; set; }
         public DeathInfo DeathInfo { get; set; }
+
+        public FamilyMemberDTO()
+        {
+            Career = new CareerDTO();
+            HomeTown = new HomeTownDTO();
+            Descendants = new Hashtable();
+        }
     }
 }
