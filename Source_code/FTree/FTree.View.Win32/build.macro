@@ -3,6 +3,6 @@
 
 xcopy "$(SolutionDir)FTree.Model\Data\*.*" "$(SolutionDir)FTree.View.Win32\bin\Debug\Data\" /c /y
 
-# To disable this macro, right click on FTree.View.Win32.
+# To disable this macro, right click on FTree.View.Win32, choose "Properties".
 # On the tab of Build Events, delete the command in "Post-build event command line" 
 # or "Pre-build event command line".
