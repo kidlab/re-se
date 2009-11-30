@@ -30,9 +30,9 @@ namespace FTree.Model
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertFAMILYMEMBER_TEST(FAMILYMEMBER_TEST instance);
-    partial void UpdateFAMILYMEMBER_TEST(FAMILYMEMBER_TEST instance);
-    partial void DeleteFAMILYMEMBER_TEST(FAMILYMEMBER_TEST instance);
+    partial void InsertFamilyMember_Test(FamilyMember_Test instance);
+    partial void UpdateFamilyMember_Test(FamilyMember_Test instance);
+    partial void DeleteFamilyMember_Test(FamilyMember_Test instance);
     #endregion
 		
 		public FTreeDataContext() : 
@@ -65,17 +65,17 @@ namespace FTree.Model
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<FAMILYMEMBER_TEST> FAMILYMEMBER_TESTs
+		public System.Data.Linq.Table<FamilyMember_Test> FamilyMember_Tests
 		{
 			get
 			{
-				return this.GetTable<FAMILYMEMBER_TEST>();
+				return this.GetTable<FamilyMember_Test>();
 			}
 		}
 	}
 	
-	[Table(Name="dbo.FAMILYMEMBER_TEST")]
-	public partial class FAMILYMEMBER_TEST : INotifyPropertyChanging, INotifyPropertyChanged
+	[Table(Name="dbo.FamilyMember_Test")]
+	public partial class FamilyMember_Test : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -122,12 +122,12 @@ namespace FTree.Model
     partial void OnCareerChanged();
     #endregion
 		
-		public FAMILYMEMBER_TEST()
+		public FamilyMember_Test()
 		{
 			OnCreated();
 		}
 		
-		[Column(Storage="_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[Column(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int ID
 		{
 			get

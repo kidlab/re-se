@@ -12,12 +12,29 @@ using FTree.Common;
 
 namespace FTree.View.Win32
 {
-    public partial class FamilyMemberForm : Form, IFamilyMemberView
+    public partial class FamilyMemberForm : BaseDialogForm, IFamilyMemberView, IValidator
     {
+        #region VARIABLES
+
+        private FamilyMemberPresenter _presenter;
+        private HomeTownDTO _homeTown = new HomeTownDTO();
+        private CareerDTO _career = new CareerDTO();
+
+        #endregion
+
+        #region CONSTRUCTOR
+
         public FamilyMemberForm()
         {
             InitializeComponent();
+            _presenter = new FamilyMemberPresenter(this);
         }
+
+        #endregion
+
+        #region UTILITY METHODS
+
+        #endregion        
 
         #region IFamilyMemberView Members
 
@@ -25,11 +42,11 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return this.txtFirstname.Text;
             }
             set
             {
-                throw new NotImplementedException();
+                this.txtFirstname.Text = value;
             }
         }
 
@@ -37,11 +54,11 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return this.txtLastname.Text;
             }
             set
             {
-                throw new NotImplementedException();
+                this.txtLastname.Text = value;
             }
         }
 
@@ -49,20 +66,16 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return this.rbFemale.Checked;
             }
             set
             {
-                throw new NotImplementedException();
+                this.rbFemale.Checked = value;
             }
         }
 
         public IList<HomeTownDTO> HomeTownsList
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
             set
             {
                 throw new NotImplementedException();
@@ -73,20 +86,16 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return _homeTown;
             }
             set
             {
-                throw new NotImplementedException();
+                _homeTown = value;
             }
         }
 
         public IList<CareerDTO> CareersList
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
             set
             {
                 throw new NotImplementedException();
@@ -97,11 +106,11 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return _career;
             }
             set
             {
-                throw new NotImplementedException();
+                _career = value;
             }
         }
 
@@ -109,11 +118,11 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return this.txtAddress.Text;
             }
             set
             {
-                throw new NotImplementedException();
+                this.txtAddress.Text = value;
             }
         }
 
@@ -121,11 +130,11 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return this.dateJointPicker.Value;
             }
             set
             {
-                throw new NotImplementedException();
+                this.dateJointPicker.Value = value;
             }
         }
 
@@ -133,11 +142,11 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return this.birthdayPicker.Value;
             }
             set
             {
-                throw new NotImplementedException();
+                this.birthdayPicker.Value = value;
             }
         }
 
@@ -155,10 +164,6 @@ namespace FTree.View.Win32
 
         public IList<RelationTypeDTO> RelationTypesList
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
             set
             {
                 throw new NotImplementedException();
@@ -187,6 +192,39 @@ namespace FTree.View.Win32
             {
                 return this.ToString();
             }
+        }
+
+        #endregion
+
+        #region UI EVENTS
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!this.ValidateInputData())
+                    return;
+
+                _presenter.Add();
+
+                UIUtils.Info("Person Added Successfully!");
+                this.DialogResult = DialogResult.OK;
+            }
+            catch (FTreePresenterException exc)
+            {
+                UIUtils.Error(exc.ToString());
+            }
+        }
+
+        #endregion
+
+
+        #region IValidator Members
+
+        public bool ValidateInputData()
+        {
+            // Test only :)
+            return true;
         }
 
         #endregion

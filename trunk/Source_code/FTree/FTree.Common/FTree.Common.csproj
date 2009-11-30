@@ -45,9 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseObject.cs" />
     <Compile Include="FTreeBaseException.cs" />
+    <Compile Include="FTreeConst.cs" />
     <Compile Include="IReport.cs" />
-    <Compile Include="IValidatable.cs" />
+    <Compile Include="IValidator.cs" />
+    <Compile Include="Tracer.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

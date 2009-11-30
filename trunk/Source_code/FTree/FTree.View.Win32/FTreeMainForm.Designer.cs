@@ -52,6 +52,8 @@
             this.mainLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
             this.addPersonToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.mainMenuStrip.SuspendLayout();
             this.mainLayoutPanel.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -66,7 +68,7 @@
             this.helpToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(681, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(717, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "Main Menu Bar";
             // 
@@ -87,7 +89,7 @@
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // openToolStripMenuItem
@@ -229,7 +231,7 @@
             this.mainLayoutPanel.RowCount = 2;
             this.mainLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mainLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mainLayoutPanel.Size = new System.Drawing.Size(681, 457);
+            this.mainLayoutPanel.Size = new System.Drawing.Size(717, 498);
             this.mainLayoutPanel.TabIndex = 1;
             // 
             // mainToolStrip
@@ -237,10 +239,12 @@
             this.mainToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.mainToolStrip.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addPersonToolStripButton});
+            this.addPersonToolStripButton,
+            this.toolStripSeparator1,
+            this.exitToolStripButton});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.Size = new System.Drawing.Size(681, 68);
+            this.mainToolStrip.Size = new System.Drawing.Size(717, 68);
             this.mainToolStrip.TabIndex = 0;
             this.mainToolStrip.Text = "Main Tool Strip";
             // 
@@ -254,11 +258,26 @@
             this.addPersonToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.addPersonToolStripButton.Click += new System.EventHandler(this.addPersonToolStripButton_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 68);
+            // 
+            // exitToolStripButton
+            // 
+            this.exitToolStripButton.Image = global::FTree.View.Win32.Properties.Resources.exit;
+            this.exitToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exitToolStripButton.Name = "exitToolStripButton";
+            this.exitToolStripButton.Size = new System.Drawing.Size(52, 65);
+            this.exitToolStripButton.Text = "Exit";
+            this.exitToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.exitToolStripButton.Click += new System.EventHandler(this.exitToolStripButton_Click);
+            // 
             // FTreeMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 481);
+            this.ClientSize = new System.Drawing.Size(717, 522);
             this.Controls.Add(this.mainLayoutPanel);
             this.Controls.Add(this.mainMenuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -302,6 +321,8 @@
         private System.Windows.Forms.TableLayoutPanel mainLayoutPanel;
         private System.Windows.Forms.ToolStrip mainToolStrip;
         private System.Windows.Forms.ToolStripButton addPersonToolStripButton;
+        private System.Windows.Forms.ToolStripButton exitToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

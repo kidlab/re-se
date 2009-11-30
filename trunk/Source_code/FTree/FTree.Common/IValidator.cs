@@ -4,12 +4,12 @@ using System.Text;
 
 namespace FTree.Common
 {
-    public interface IValidatable
+    public interface IValidator
     {
         /// <summary>
         /// Validates user's input data.
         /// </summary>
         /// <returns></returns>
-        bool Validate();
+        bool ValidateInputData();
     }
 }
