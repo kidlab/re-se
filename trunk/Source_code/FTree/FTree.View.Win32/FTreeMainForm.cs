@@ -26,5 +26,11 @@ namespace FTree.View.Win32
         {
             Application.Exit();
         }
+
+        private void achivementToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AchievementReport ach = new AchievementReport();
+            ach.ShowDialog(false);
+        }
     }
 }
