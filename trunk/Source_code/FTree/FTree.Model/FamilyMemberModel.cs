@@ -18,6 +18,7 @@ namespace FTree.Model
 
         public FamilyMemberModel()
         {
+
         }
 
         #endregion
