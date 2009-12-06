@@ -208,6 +208,8 @@ namespace FTree.View.Win32
                 _presenter.Add();
 
                 UIUtils.Info("Person Added Successfully!");
+
+               
                 this.DialogResult = DialogResult.OK;
             }
             catch (FTreePresenterException exc)
