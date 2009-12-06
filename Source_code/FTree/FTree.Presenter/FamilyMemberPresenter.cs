@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Linq;
 using System.Text;
 using MVPCore;
 using FTree.Model;
@@ -18,7 +19,8 @@ namespace FTree.Presenter
             _view = view;
         }
 
-        public FamilyMemberPresenter(IFamilyMemberView view) : this(new FamilyMemberModel(), view)
+        public FamilyMemberPresenter(IFamilyMemberView view)
+            : this(new FamilyMemberModel(), view)
         {
         }
         #endregion
@@ -29,6 +31,7 @@ namespace FTree.Presenter
         {
             try
             {
+                
                 _model.Add(_generateDTO());
             }
             catch (FTreeDbAccessException exc)
@@ -61,7 +64,7 @@ namespace FTree.Presenter
             member.HomeTown = _view.HomeTown;
             member.BirthDay = _view.BirthDay;
             member.DateJoinFamily = _view.DateJoinFamily;
-            member.Career = _view.Career; 
+            member.Career = _view.Career;
 
             return member;
         }
