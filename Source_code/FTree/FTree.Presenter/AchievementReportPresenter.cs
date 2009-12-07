@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using MVPCore;
 using FTree.Model;
 using FTree.DTO;
@@ -35,12 +36,15 @@ namespace FTree.Presenter
         #endregion
 
         #region CORE METHOD
-        public List<MEMBER_EVENT> AchievementReport()
+        public List<AchievementReportDTO> AchievementReport(int fromYear, int toYear)
+        //public void AchievementReport()
         {
             try
             {
-                List<MEMBER_EVENT> query = this._model.AchievementReport();
-                this.listAchievment = query;
+                List<AchievementReportDTO> query = this._model.AchievementReport(fromYear, toYear);
+                //this.listAchievment = query;
+                //this._view.dgview.DataSource = query;
+                //this.dtgrid.DataSource = query;
                 return query;
             }
             catch (FTreeDbAccessException exc)
@@ -87,13 +91,15 @@ namespace FTree.Presenter
                 throw new FTreePresenterException();
             }
         }
-        public List<MEMBER_EVENT> Add()
+        //public List<MEMBER_EVENT> Add()
+        public void Add()
         {
             try
             {
                 List<MEMBER_EVENT> query = this._model.Add();
                 this.listAchievment = query;
-                return query;
+                //this.dtgrid.DataSource = this.listAchievment;
+                //return query;
             }
             catch (FTreeDbAccessException exc)
             {
@@ -101,7 +107,7 @@ namespace FTree.Presenter
             }
             catch (Exception exc)
             {
-                throw new FTreePresenterException();
+                MessageBox.Show(exc.Message);
             }
         }
         #endregion
@@ -111,6 +117,8 @@ namespace FTree.Presenter
         #region VARIABLE
         //public System.Windows.Forms.DataGridView dgview;
         public List<MEMBER_EVENT> listAchievment;
+        public DataGridView dtgrid;
+        public List<AchievementReportDTO> list_arDTO;
            
         #endregion
     }
