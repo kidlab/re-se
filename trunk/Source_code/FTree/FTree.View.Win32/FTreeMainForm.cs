@@ -29,7 +29,13 @@ namespace FTree.View.Win32
 
         private void achivementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AchievementReport ach = new AchievementReport();
+            AchievementReportForm ach = new AchievementReportForm();
+            ach.ShowDialog(false);
+        }
+
+        private void familyMemberToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FamilyReportForm ach = new FamilyReportForm();
             ach.ShowDialog(false);
         }
     }
