@@ -57,17 +57,23 @@
     <Compile Include="Components\BaseTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AchievementReport.cs">
+    <Compile Include="AchievementReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AchievementReport.Designer.cs">
-      <DependentUpon>AchievementReport.cs</DependentUpon>
+    <Compile Include="AchievementReportForm.Designer.cs">
+      <DependentUpon>AchievementReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FamilyMemberForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FamilyMemberForm.Designer.cs">
       <DependentUpon>FamilyMemberForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FamilyReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FamilyReportForm.Designer.cs">
+      <DependentUpon>FamilyReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FTreeMainForm.cs">
       <SubType>Form</SubType>
@@ -77,11 +83,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AchievementReport.resx">
-      <DependentUpon>AchievementReport.cs</DependentUpon>
+    <EmbeddedResource Include="AchievementReportForm.resx">
+      <DependentUpon>AchievementReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FamilyMemberForm.resx">
       <DependentUpon>FamilyMemberForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FamilyReportForm.resx">
+      <DependentUpon>FamilyReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FTreeMainForm.resx">
       <DependentUpon>FTreeMainForm.cs</DependentUpon>

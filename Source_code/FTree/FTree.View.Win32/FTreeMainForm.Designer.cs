@@ -46,6 +46,8 @@
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.achivementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,8 +56,7 @@
             this.addPersonToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.achivementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.familyMemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.mainLayoutPanel.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -199,8 +200,24 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
+            // 
+            // reportToolStripMenuItem
+            // 
+            this.reportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.achivementToolStripMenuItem,
+            this.familyMemberToolStripMenuItem});
+            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+            this.reportToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.reportToolStripMenuItem.Text = "Report";
+            // 
+            // achivementToolStripMenuItem
+            // 
+            this.achivementToolStripMenuItem.Name = "achivementToolStripMenuItem";
+            this.achivementToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.achivementToolStripMenuItem.Text = "Achivement";
+            this.achivementToolStripMenuItem.Click += new System.EventHandler(this.achivementToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -214,13 +231,13 @@
             // contentsToolStripMenuItem
             // 
             this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.contentsToolStripMenuItem.Text = "&Contents";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // mainLayoutPanel
@@ -276,20 +293,12 @@
             this.exitToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.exitToolStripButton.Click += new System.EventHandler(this.exitToolStripButton_Click);
             // 
-            // reportToolStripMenuItem
+            // familyMemberToolStripMenuItem
             // 
-            this.reportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.achivementToolStripMenuItem});
-            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-            this.reportToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.reportToolStripMenuItem.Text = "Report";
-            // 
-            // achivementToolStripMenuItem
-            // 
-            this.achivementToolStripMenuItem.Name = "achivementToolStripMenuItem";
-            this.achivementToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.achivementToolStripMenuItem.Text = "Achivement";
-            this.achivementToolStripMenuItem.Click += new System.EventHandler(this.achivementToolStripMenuItem_Click);
+            this.familyMemberToolStripMenuItem.Name = "familyMemberToolStripMenuItem";
+            this.familyMemberToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.familyMemberToolStripMenuItem.Text = "Family Member";
+            this.familyMemberToolStripMenuItem.Click += new System.EventHandler(this.familyMemberToolStripMenuItem_Click);
             // 
             // FTreeMainForm
             // 
@@ -343,6 +352,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem achivementToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem familyMemberToolStripMenuItem;
     }
 }
 
