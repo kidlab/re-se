@@ -78,7 +78,7 @@ namespace FTree.Model
         {
             MEMBER_EVENT achivement = new MEMBER_EVENT();
 
-            achivement.IDAchievement = arDTO.ID;
+            //achivement.IDAchievement = arDTO.ID;
             //achivement. = arDTO.
 
             return achivement;
@@ -137,37 +137,35 @@ namespace FTree.Model
 
         }
         /// <summary>
-        /// !!phat need to do
+        /// core method for update row to Datagridview
         /// </summary>
         /// <returns></returns>
-        public List<MEMBER_EVENT> AchievementReport()
+        public List<AchievementReportDTO> AchievementReport(int fromYear, int toYear)
         {
+            
             FTreeDataContext ftree = new FTreeDataContext();
-            Table<MEMBER_EVENT> me = ftree.GetTable<MEMBER_EVENT>();
+            Table<MEMBER_EVENT> mee = ftree.GetTable<MEMBER_EVENT>();
+            Table<EVENT> eve = ftree.GetTable<EVENT>();
 
-            //var matches = from entity in me
-            //              select entity;
-            //SELECT idevent, COUNT(idmember) AS Total
-            //FROM member_event 
-            //where (YEAR(achievementdate) < Todate.int) AND (YEAR(achievementdate) >20)
-            //GROUP BY idevent
-            var matches = from o in me
-                          //where o.AchievementDate
-                          group o by o.IDAchievement into g
-                          select new
-                          {
-                              Achievement = g.Key,
-                              Total = g.Count()
-                              };
-            //***
-            //1.xac dinh ham linq cho Year(date)
-            //2.Tim IEnumerable<IGrouping<,>> để show cho DataGridView
+            
+            var matches1 = from me in mee
+                           join e in eve on me.EVENT.IDAchievement equals e.IDAchievement
+                           where (me.AchievementDate.GetValueOrDefault().Year <= toYear &&
+                            me.AchievementDate.GetValueOrDefault().Year >= fromYear
+                            ) 
+                           group me by me.EVENT.Name into g
+                           select new { Name = g.Key, Num = g.Count() };
 
-            //IEnumerable<IGrouping<Int32,>> lmem_event = matches.ToList();
-            //var lmem_event = matches.ToList();
-
-            return null;
-            //return lmem_event;
+            List<AchievementReportDTO> list_arDTO = new List<AchievementReportDTO>();
+            
+            foreach (var achive in matches1)
+            {
+                AchievementReportDTO arDTO = new AchievementReportDTO();
+                arDTO.AchievementName = achive.Name;
+                arDTO.Total = achive.Num;
+                list_arDTO.Add(arDTO);
+            }
+            return list_arDTO;            
         }
         #endregion
 

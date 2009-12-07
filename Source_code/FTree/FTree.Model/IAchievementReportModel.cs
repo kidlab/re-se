@@ -14,7 +14,7 @@ namespace FTree.Model
 
         Array AddWithArray();
 
-        List<MEMBER_EVENT> AchievementReport();
+        List<AchievementReportDTO> AchievementReport(int from, int to);
 
     }
 }
