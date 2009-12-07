@@ -18,7 +18,10 @@ namespace FTree.View.Win32
 
         private FamilyMemberPresenter _presenter;
         private HomeTownDTO _homeTown = new HomeTownDTO();
-        private CareerDTO _career = new CareerDTO();
+        private JobDTO _career = new JobDTO();
+        private FamilyMemberDTO _relativePerson;
+        private bool _isRootPerson = false;
+        private FamilyDTO _family;
 
         #endregion
 
@@ -27,12 +30,73 @@ namespace FTree.View.Win32
         public FamilyMemberForm()
         {
             InitializeComponent();
-            _presenter = new FamilyMemberPresenter(this);
+        }
+
+        public FamilyMemberForm(bool isCreatingRootPerson)
+        {
+            InitializeComponent();
+            _isRootPerson = true;
+        }
+
+        #endregion
+
+        #region UI EVENTS
+
+        private void FamilyMemberForm_Load(object sender, EventArgs e)
+        {
+            if (_family != null)
+                lblFamilyName.Text = _family.Name;
+            if (_isRootPerson)
+            {
+                this.lblRootPersonWarning.Visible = true;
+                this.gbxRelationship.Enabled = false;
+            }
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!this.ValidateInputData())
+                    return;
+
+                // Insert new person.
+                _addNewPerson();
+
+                UIUtils.Info("Person Added Successfully!");
+                this.DialogResult = DialogResult.OK;
+            }
+            catch (FTreePresenterException exc)
+            {
+                UIUtils.Error(exc.Message);            
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_INSERT_PERSON_FAILED));
+            }
+        }
+
+        #endregion
+
+        #region CORE METHODS
+
+        private void _addNewPerson()
+        {
+            if (_presenter == null)
+                _presenter = new FamilyMemberPresenter(this);
+            _presenter.Add();
         }
 
         #endregion
 
         #region UTILITY METHODS
+
+        private void _setErrorToolTip(Control control, string message)
+        {
+            this.errorToolTip.SetToolTip(control, message);
+            this.errorToolTip.Show(message, control, 3000);
+        }
 
         #endregion        
 
@@ -78,7 +142,7 @@ namespace FTree.View.Win32
         {
             set
             {
-                throw new NotImplementedException();
+                this.cbHomeTown.DataSource = value;
             }
         }
 
@@ -94,15 +158,15 @@ namespace FTree.View.Win32
             }
         }
 
-        public IList<CareerDTO> CareersList
+        public IList<JobDTO> CareersList
         {
             set
             {
-                throw new NotImplementedException();
+                this.cbOccupation.DataSource = value;
             }
         }
 
-        public CareerDTO Career
+        public JobDTO Career
         {
             get
             {
@@ -142,11 +206,20 @@ namespace FTree.View.Win32
         {
             get
             {
-                return this.birthdayPicker.Value;
+                // Combines values of Birthday and Birthtime.
+                DateTime birthday = new DateTime(
+                    birthdayPicker.Value.Year,
+                    birthdayPicker.Value.Month,
+                    birthdayPicker.Value.Day,
+                    birthtimePicker.Value.Hour,
+                    birthtimePicker.Value.Minute,
+                    birthtimePicker.Value.Second);
+                return birthday;
             }
             set
             {
                 this.birthdayPicker.Value = value;
+                this.birthtimePicker.Value = value;
             }
         }
 
@@ -154,11 +227,11 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return _relativePerson;
             }
             set
             {
-                throw new NotImplementedException();
+                this.cbRelativePerson.DataSource = value;
             }
         }
 
@@ -166,7 +239,7 @@ namespace FTree.View.Win32
         {
             set
             {
-                throw new NotImplementedException();
+                this.cbRelativePerson.DataSource = value;
             }
         }
 
@@ -174,13 +247,27 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return this.cbRelativePerson.SelectedItem as RelationTypeDTO;
             }
             set
             {
-                throw new NotImplementedException();
+                this.cbRelativePerson.SelectedItem = value;
             }
         }
+
+
+        public FamilyDTO Family
+        {
+            get
+            {
+                return _family;
+            }
+            set
+            {
+                _family = value;
+            }
+        }
+
 
         #endregion
 
@@ -196,39 +283,64 @@ namespace FTree.View.Win32
 
         #endregion
 
-        #region UI EVENTS
-
-        private void btnOK_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!this.ValidateInputData())
-                    return;
-
-                _presenter.Add();
-
-                UIUtils.Info("Person Added Successfully!");
-
-               
-                this.DialogResult = DialogResult.OK;
-            }
-            catch (FTreePresenterException exc)
-            {
-                UIUtils.Error(exc.ToString());
-            }
-        }
-
-        #endregion
-
-
         #region IValidator Members
 
         public bool ValidateInputData()
         {
-            // Test only :)
+            if (!_isRootPerson)
+            {
+                if (this.cbRelativePerson.SelectedIndex < 0
+                    && (this.cbRelationshipType.SelectedIndex < 0
+                            || this.cbRelationshipType.SelectedIndex >= 0))
+                {
+                    _setErrorToolTip(cbRelativePerson, Util.GetStringResource(StringResName.MSG_FINISH_RELATIONSHIP));
+                    return false;
+                }
+
+                if (this.cbRelationshipType.SelectedIndex < 0
+                    && (this.cbRelativePerson.SelectedIndex < 0
+                            || this.cbRelativePerson.SelectedIndex >= 0))
+                {
+                    _setErrorToolTip(cbRelativePerson, Util.GetStringResource(StringResName.MSG_FINISH_RELATIONSHIP));
+                    return false;
+                }
+            }
+
+            if (!rbFemale.Checked && !rbMale.Checked)
+            {
+                _setErrorToolTip(rbMale, Util.GetStringResource(StringResName.MSG_SELECT_GENDER));
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(txtFirstname.Text.Trim()))
+            {
+                _setErrorToolTip(txtFirstname, Util.GetStringResource(StringResName.MSG_ENTER_FIRSTNAME));
+                return false;
+            }
+
+            if ( String.IsNullOrEmpty(txtLastname.Text.Trim()))
+            {
+                _setErrorToolTip(txtLastname, Util.GetStringResource(StringResName.MSG_ENTER_LASTNAME));
+                return false;
+            }
+
+            if (birthdayPicker.Value.Date.CompareTo(DateTime.Now.Date) > 0)
+            {
+                _setErrorToolTip(birthdayPicker, Util.GetStringResource(StringResName.ERR_INVALID_BIRTHDAY));
+                return false;
+            }
+
+            if ((dateJointPicker.Value.Date.CompareTo(DateTime.Now.Date) > 0)
+                    || (dateJointPicker.Value.Date.CompareTo(birthdayPicker.Value.Date) < 0))
+            {
+                _setErrorToolTip(birthdayPicker, Util.GetStringResource(StringResName.ERR_INVALID_DATE));
+                return false;
+            }
+
             return true;
         }
 
         #endregion
+
     }
 }

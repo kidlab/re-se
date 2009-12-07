@@ -9,5 +9,8 @@ namespace FTree.Model
 {
     public interface IFamilyMemberModel : ILinqModel<FamilyMemberDTO>
     {
+        void AddRelative(FamilyMemberDTO person, FamilyMemberDTO relative, RelationTypeDTO relationType);
+        void AssignAchievement(FamilyMemberDTO person, AchievementInfo achievement);
+        void ReportDeath(FamilyMemberDTO person, DeathInfo deathInfo);
     }
 }

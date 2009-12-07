@@ -61,23 +61,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AchievementReportModel.cs" />
-    <Compile Include="FamilyMemberModel.cs" />
+    <Compile Include="AchievementTypeModel.cs" />
+    <Compile Include="BaseModel.cs" />
+    <Compile Include="BuryPlaceModel.cs" />
+    <Compile Include="DeadReasonModel.cs" />
+    <Compile Include="FamilyModel.cs" />
     <Compile Include="FamilyReportModel.cs" />
+    <Compile Include="HomeTownModel.cs" />
+    <Compile Include="IAchievementReportModel.cs" />
+    <Compile Include="IAchievementTypeModel.cs" />
+    <Compile Include="IBuryPlaceModel.cs" />
+    <Compile Include="IDeathReasonModel.cs" />
+    <Compile Include="IFamilyModel.cs" />
+    <Compile Include="IFamilyReportModel.cs" />
+    <Compile Include="IHomeTownModel.cs" />
+    <Compile Include="IRelationTypeModel.cs" />
+    <Compile Include="JobModel.cs" />
+    <Compile Include="FamilyMemberModel.cs" />
     <Compile Include="FTree.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FTree.dbml</DependentUpon>
     </Compile>
     <Compile Include="FTreeDbAccessException.cs" />
-    <Compile Include="IAchievementReportModel.cs" />
+    <Compile Include="IJobModel.cs" />
     <Compile Include="IFamilyMemberModel.cs" />
-    <Compile Include="IFamilyReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RelationTypeModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FTree.Common\FTree.Common.csproj">

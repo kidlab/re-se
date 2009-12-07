@@ -13,9 +13,16 @@ namespace FTree.View.Win32
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FTreeMainForm());
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new FTreeMainForm());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Sorry for this inconvenience, an expected error was occured. Please re-start the program.");
+            }
         }
     }
 }

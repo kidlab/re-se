@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,25 +117,60 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="ID.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Achievement.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Total.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="ID.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Achievement.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Total.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <data name="ERR_DELETE_FAMILY_FAILED" xml:space="preserve">
+    <value>Cannot delete family</value>
+  </data>
+  <data name="ERR_DELETE_PERSON_FAILED" xml:space="preserve">
+    <value>Cannot delete person</value>
+  </data>
+  <data name="ERR_FAMILY_ALREADY_EXIST" xml:space="preserve">
+    <value>The name of family {0} already exist</value>
+  </data>
+  <data name="ERR_INSERT_FAMILY_FAILED" xml:space="preserve">
+    <value>Cannot add new family</value>
+  </data>
+  <data name="ERR_INSERT_PERSON_FAILED" xml:space="preserve">
+    <value>Cannot add new person</value>
+  </data>
+  <data name="ERR_INVALID_BIRTHDAY" xml:space="preserve">
+    <value>Invalid birthday</value>
+  </data>
+  <data name="ERR_INVALID_DATE" xml:space="preserve">
+    <value>Invalid date</value>
+  </data>
+  <data name="ERR_LOAD_FAMILIES_FAILED" xml:space="preserve">
+    <value>Cannot load families' information</value>
+  </data>
+  <data name="ERR_UPDATE_FAMILY_FAILED" xml:space="preserve">
+    <value>Cannot update family information</value>
+  </data>
+  <data name="ERR_UPDATE_PERSON_FAILED" xml:space="preserve">
+    <value>Cannot update person information</value>
+  </data>
+  <data name="MSG_CONFIRM_DEL_FAMILY" xml:space="preserve">
+    <value>Are you sure that you want to delete the family of {0} ?
+CAUTION: This will delete all information of family members in database.</value>
+  </data>
+  <data name="MSG_ENTER_FAMILY_NAME" xml:space="preserve">
+    <value>Please enter the name of family</value>
+  </data>
+  <data name="MSG_ENTER_FIRSTNAME" xml:space="preserve">
+    <value>Please enter the firstname</value>
+  </data>
+  <data name="MSG_ENTER_LASTNAME" xml:space="preserve">
+    <value>Please enter the lastname</value>
+  </data>
+  <data name="MSG_FINISH_RELATIONSHIP" xml:space="preserve">
+    <value>Please supply the relative person and the relationship type. 
+You can leave both of them blank</value>
+  </data>
+  <data name="MSG_SELECT_GENDER" xml:space="preserve">
+    <value>Please select a gender</value>
+  </data>
+  <data name="MSG_SELECT_RELATION_TYPE" xml:space="preserve">
+    <value>Please select the type of thier relationship</value>
+  </data>
+  <data name="MSG_SELECT_RELATIVE_PERSON" xml:space="preserve">
+    <value>Please select relative of this person</value>
+  </data>
 </root>

@@ -16,10 +16,14 @@ namespace FTree.View.Win32
             InitializeComponent();
         }
 
+        private void addFamilyToolStripButton_Click(object sender, EventArgs e)
+        {
+            _showFamilyForm(DataFormMode.CreateNew);
+        }
+
         private void addPersonToolStripButton_Click(object sender, EventArgs e)
         {
-            FamilyMemberForm frmMember = new FamilyMemberForm();
-            frmMember.ShowDialog(false);
+            _showAddMemberForm();
         }
 
         private void exitToolStripButton_Click(object sender, EventArgs e)
@@ -27,16 +31,95 @@ namespace FTree.View.Win32
             Application.Exit();
         }
 
-        private void achivementToolStripMenuItem_Click(object sender, EventArgs e)
+        private void settingsToolStripButton_Click(object sender, EventArgs e)
         {
-            AchievementReportForm ach = new AchievementReportForm();
-            ach.ShowDialog(false);
+            _showSettingsForm();
         }
 
-        private void familyMemberToolStripMenuItem_Click(object sender, EventArgs e)
+        private void achieveToolStripButton_Click(object sender, EventArgs e)
         {
-            FamilyReportForm ach = new FamilyReportForm();
-            ach.ShowDialog(false);
+            _showAchievementForm();
         }
+
+        private void reportDeathToolStripButton_Click(object sender, EventArgs e)
+        {
+            _showSadNewsForm();
+        }
+
+        private void reportToolStripSplitButton_ButtonClick(object sender, EventArgs e)
+        {
+            _showMemberReportForm();
+        }
+
+
+        private void familyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _showMemberReportForm();
+        }
+
+        private void achievementToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _showAchievementReportForm();
+        }
+        private void familyManagerToolStripButton_Click(object sender, EventArgs e)
+        {
+            _showFamilyManager();
+        }
+
+        #region UTILITY METHODS
+        
+        private void _showFamilyForm(DataFormMode mode)
+        {
+            FamilyForm frmFamily = new FamilyForm(mode);
+            frmFamily.ShowDialog(false);
+            if (frmFamily.DialogResult == DialogResult.OK
+                    && frmFamily.AcquireAddFirstPerson)
+                _showAddMemberForm();
+        }
+
+        private void _showFamilyManager()
+        {
+            FamilyManagerForm frmFamilyManger = new FamilyManagerForm();
+            frmFamilyManger.ShowDialog(false);
+        }
+
+        private void _showAddMemberForm()
+        {
+            FamilyMemberForm frmMember = new FamilyMemberForm();
+            frmMember.ShowDialog(false);
+        }
+
+        private void _showAchievementForm()
+        {
+            AchievementForm frmAchievement = new AchievementForm();
+            frmAchievement.ShowDialog(false);
+        }
+
+        private void _showSadNewsForm()
+        {
+            SadNewsForm frmSadNews = new SadNewsForm();
+            frmSadNews.ShowDialog(false);
+        }
+
+        private void _showMemberReportForm()
+        {
+            FamilyReportForm frmFamilyReport = new FamilyReportForm();
+            frmFamilyReport.ShowDialog(false);
+        }
+
+        private void _showAchievementReportForm()
+        {
+            AchievementReportForm frmAchievement = new AchievementReportForm();
+            frmAchievement.ShowDialog(false);
+        }
+
+        private void _showSettingsForm()
+        {
+            SettingsForm frmSetting = new SettingsForm();
+            frmSetting.ShowDialog(false);
+        }
+
+        #endregion
+
     }
 }

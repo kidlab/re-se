@@ -10,5 +10,15 @@ namespace FTree.DTO
         public AchievementType AchievementType { get; set; }
 		public string Description {get; set;}
 		public DateTime AchievementDate {get; set;}
+
+        public AchievementInfo()
+        {
+            AchievementType = new AchievementType();
+        }
+
+        public override string ToString()
+        {
+            return AchievementType.ToString();
+        }
 	}
 }

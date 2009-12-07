@@ -26,12 +26,12 @@ namespace FTree.Presenter
         /// <summary>
         /// Sets the list of all available occupations.
         /// </summary>
-        IList<CareerDTO> CareersList { set; }
+        IList<JobDTO> CareersList { set; }
 
         /// <summary>
         /// The selected occupation.
         /// </summary>
-        CareerDTO Career { get; set; }
+        JobDTO Career { get; set; }
 
         string Address { get; set; }
 
@@ -47,6 +47,11 @@ namespace FTree.Presenter
         /// Sets the list of all available relation types.
         /// </summary>
         IList<RelationTypeDTO> RelationTypesList {set; }
+
+        /// <summary>
+        /// The family associate with this person.
+        /// </summary>
+        FamilyDTO Family { get; set; }
 
         /// <summary>
         /// The selected relation type.

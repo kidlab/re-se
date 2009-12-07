@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace FTree.Model
 {
-    public class FamilyReportModel : IFamilyReportModel
+    public class FamilyReportModel : BaseModel, IFamilyReportModel
     {
         #region ILinqModel<FamilyReportDTO> Members
 
@@ -41,10 +41,11 @@ namespace FTree.Model
             throw new NotImplementedException();
         }
 
-        public void Save()
+        public void Update(FamilyReportDTO obj)
         {
             throw new NotImplementedException();
         }
+
 
         #endregion
 
