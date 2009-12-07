@@ -12,6 +12,6 @@ namespace FTree.DTO
         /// <summary>
         /// Identification number of this object.
         /// </summary>
-		public int ID {get; set;}
+        public int ID {get; set;}
     }
 }
