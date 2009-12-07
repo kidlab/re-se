@@ -107,12 +107,11 @@ namespace FTree.Presenter
             }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message);
+                throw new FTreePresenterException(exc);
             }
         }
         #endregion
-
-        
+               
 
         #region VARIABLE
         //public System.Windows.Forms.DataGridView dgview;

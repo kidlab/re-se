@@ -27,6 +27,26 @@ namespace FTree.Common
         }
 
         /// <summary>
+        /// Save a exception to log file with a specific Type and a thread's name.
+        /// </summary>
+        /// <param name="type">A kind of CLR Type.</param>
+        /// <param name="exc">The Exception needs saving.</param>
+        public static void Log(Type type, Exception exc)
+        {
+            Log(type.ToString(), exc);
+        }
+
+        /// <summary>
+        /// Save a message to log file with a specific Type and a thread's name.
+        /// </summary>
+        /// <param name="type">A kind of CLR Type.</param>
+        /// <param name="message">The message needs saving.</param>
+        public static void Log(Type type, string message)
+        {
+            Log(type.ToString(), message);
+        }
+
+        /// <summary>
         /// Save the specified exception message to log file with a thread's name.
         /// </summary>
         /// <param name="threadName">The thread's name.</param>

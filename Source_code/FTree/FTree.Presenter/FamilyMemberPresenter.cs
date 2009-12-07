@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Linq;
 using System.Text;
 using MVPCore;
 using FTree.Model;
 using FTree.DTO;
+using FTree.Common;
 
 namespace FTree.Presenter
 {
@@ -19,8 +19,7 @@ namespace FTree.Presenter
             _view = view;
         }
 
-        public FamilyMemberPresenter(IFamilyMemberView view)
-            : this(new FamilyMemberModel(), view)
+        public FamilyMemberPresenter(IFamilyMemberView view) : this(new FamilyMemberModel(), view)
         {
         }
         #endregion
@@ -31,16 +30,53 @@ namespace FTree.Presenter
         {
             try
             {
-                
                 _model.Add(_generateDTO());
             }
             catch (FTreeDbAccessException exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_PERSON_FAILED));
             }
             catch (Exception exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_PERSON_FAILED));
+            }
+        }
+
+        public void Update()
+        {
+            try
+            {
+                _model.Update(_generateDTO());
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_PERSON_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_PERSON_FAILED));
+            }
+        }
+
+        public void Delete(FamilyMemberDTO member)
+        {
+            try
+            {
+                _model.Delete(member);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_PERSON_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_PERSON_FAILED));
             }
         }
 
@@ -50,21 +86,22 @@ namespace FTree.Presenter
 
         protected override void _disposeComponents()
         {
-            throw new NotImplementedException();
+            _model = null;
+            _view = null;
         }
 
         private FamilyMemberDTO _generateDTO()
         {
             FamilyMemberDTO member = new FamilyMemberDTO();
-
+            member.Family = _view.Family;
             member.FirstName = _view.FirstName;
             member.LastName = _view.LastName;
             member.IsFemale = _view.IsFemale;
             member.Address = _view.Address;
             member.HomeTown = _view.HomeTown;
-            member.BirthDay = _view.BirthDay;
-            member.DateJoinFamily = _view.DateJoinFamily;
-            member.Career = _view.Career;
+            member.Birthday = _view.BirthDay;
+            member.DateJointFamily = _view.DateJoinFamily;
+            member.Job = _view.Career; 
 
             return member;
         }

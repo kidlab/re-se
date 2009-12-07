@@ -8,5 +8,19 @@ namespace FTree.Model
 {
     public class FTreeDbAccessException : FTreeBaseException
     {
+        public FTreeDbAccessException()
+            : base()
+        {
+        }
+
+        public FTreeDbAccessException(Exception reason)
+            : base(reason)
+        {
+        }
+
+        public FTreeDbAccessException(Exception reason, string message)
+            : base(reason, message)
+        {
+        }
     }
 }

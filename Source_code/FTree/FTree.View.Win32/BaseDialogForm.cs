@@ -15,6 +15,7 @@ namespace FTree.View.Win32
         public DialogResult ShowDialog(bool showInTaskBar)
         {
             this.ShowInTaskbar = ShowInTaskbar = showInTaskBar;
+            this.StartPosition = FormStartPosition.CenterParent;
             return this.ShowDialog();
         }
     }

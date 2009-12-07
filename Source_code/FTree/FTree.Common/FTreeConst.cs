@@ -23,5 +23,20 @@ namespace FTree.Common
         /// Name of the log file created by the GUI module of the program (MainForm).
         /// </summary>
         public const string LOG_FILE = "FTree.log";
+
+        /// <summary>
+        /// Men.
+        /// </summary>
+        public const int MALE = 0;
+
+        /// <summary>
+        /// Women.
+        /// </summary>
+        public const int FEMALE = 1;
+
+        /// <summary>
+        /// The number to identify the root person or the first generation of a family.
+        /// </summary>
+        public const int FIRST_GENERATION = 1;
     }
 }

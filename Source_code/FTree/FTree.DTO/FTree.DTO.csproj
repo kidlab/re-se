@@ -49,10 +49,11 @@
     <Compile Include="AchievementReportDTO.cs" />
     <Compile Include="AchievementType.cs" />
     <Compile Include="BuryPlaceDTO.cs" />
-    <Compile Include="CareerDTO.cs" />
+    <Compile Include="JobDTO.cs" />
     <Compile Include="DataTransferObject.cs" />
     <Compile Include="DeathInfo.cs" />
     <Compile Include="DeathReasonDTO.cs" />
+    <Compile Include="FamilyDTO.cs" />
     <Compile Include="FamilyMemberDTO.cs" />
     <Compile Include="FamilyReportDTO.cs" />
     <Compile Include="HomeTownDTO.cs" />

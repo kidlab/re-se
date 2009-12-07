@@ -9,5 +9,16 @@ namespace FTree.DTO
     {
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public DeathReasonDTO()
+        {
+            Name = String.Empty;
+            Description = String.Empty;
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace FTree.Model
 {
-    public class AchievementReportModel : IAchievementReportModel
+    public class AchievementReportModel : BaseModel, IAchievementReportModel
     {
 
         #region ILinqModel<AchievementReportDTO> Members
@@ -57,8 +57,7 @@ namespace FTree.Model
         }
 
         #endregion
-
-        
+                
         #region VARIABLE
         FTreeDataContext db = new FTreeDataContext();
 
@@ -85,8 +84,7 @@ namespace FTree.Model
         }
 
         #endregion
-
-
+        
         #region IAchievementReportModel Members
 
         public string AddWithString()
@@ -149,9 +147,9 @@ namespace FTree.Model
 
             
             var matches1 = from me in mee
-                           join e in eve on me.EVENT.IDAchievement equals e.IDAchievement
-                           where (me.AchievementDate.GetValueOrDefault().Year <= toYear &&
-                            me.AchievementDate.GetValueOrDefault().Year >= fromYear
+                           join e in eve on me.EVENT.IDEvent equals e.IDEvent
+                           where (me.EventDate.GetValueOrDefault().Year <= toYear &&
+                            me.EventDate.GetValueOrDefault().Year >= fromYear
                             ) 
                            group me by me.EVENT.Name into g
                            select new { Name = g.Key, Num = g.Count() };
@@ -168,11 +166,77 @@ namespace FTree.Model
             return list_arDTO;            
         }
         #endregion
+        
+        #region IModel<AchievementReportDTO> Members
 
-       
 
-       
+        public void Update(AchievementReportDTO obj)
+        {
+            throw new NotImplementedException();
+        }
 
-      
+        #endregion
+
+        #region IAchievementReportModel Members
+
+        string IAchievementReportModel.AddWithString()
+        {
+            throw new NotImplementedException();
+        }
+
+        List<MEMBER_EVENT> IAchievementReportModel.Add()
+        {
+            throw new NotImplementedException();
+        }
+
+        Array IAchievementReportModel.AddWithArray()
+        {
+            throw new NotImplementedException();
+        }
+
+        List<AchievementReportDTO> IAchievementReportModel.AchievementReport(int from, int to)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region ILinqModel<AchievementReportDTO> Members
+
+        IEnumerable<AchievementReportDTO> MVPCore.ILinqModel<AchievementReportDTO>.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IModel<AchievementReportDTO> Members
+
+        IList<AchievementReportDTO> MVPCore.IModel<AchievementReportDTO>.GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        AchievementReportDTO MVPCore.IModel<AchievementReportDTO>.GetOne(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void MVPCore.IModel<AchievementReportDTO>.Add(AchievementReportDTO obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        void MVPCore.IModel<AchievementReportDTO>.Delete(AchievementReportDTO obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        void MVPCore.IModel<AchievementReportDTO>.Update(AchievementReportDTO obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

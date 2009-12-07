@@ -53,9 +53,19 @@ namespace FTree.View.Win32
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public static DialogResult ConfirmWithCancel(string msg)
+        public static DialogResult ConfirmYesNoCancel(string msg)
         {
             return MessageBox.Show(msg, FTreeConst.PRODUCT_NAME, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+        }
+
+        /// <summary>
+        /// Shows a confirm dialog with three options: OK and Cancel.
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static DialogResult ConfirmOKCancel(string msg)
+        {
+            return MessageBox.Show(msg, FTreeConst.PRODUCT_NAME, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
         }
     }
 }

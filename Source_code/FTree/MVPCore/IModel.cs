@@ -13,7 +13,7 @@ namespace MVPCore
         Object GetOne(int id);
         void Add(Object obj);
         void Delete(Object obj);
-        void Save();
+        void Update(Object obj);
     }
 
     /// <summary>
@@ -26,6 +26,6 @@ namespace MVPCore
         T GetOne(int id);
         void Add(T obj);
         void Delete(T obj);
-        void Save();
+        void Update(T obj);
     }
 }
