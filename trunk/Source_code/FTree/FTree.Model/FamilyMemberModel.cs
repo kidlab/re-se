@@ -48,7 +48,7 @@ namespace FTree.Model
         {
             try
             {
-                db.FamilyMember_Tests.InsertOnSubmit(_convertFromDTO(obj));
+                //db.FamilyMember_Tests.InsertOnSubmit(_convertFromDTO(obj));
                 db.SubmitChanges();
             }
             catch (Exception exc)
@@ -71,21 +71,21 @@ namespace FTree.Model
         
         #region UTILITY METHODS
 
-        private FamilyMember_Test _convertFromDTO(FamilyMemberDTO memberDto)
-        {
-            FamilyMember_Test member = new FamilyMember_Test();
+        //private FamilyMember_Test _convertFromDTO(FamilyMemberDTO memberDto)
+        //{
+        //    //FamilyMember_Test member = new FamilyMember_Test();
 
-            member.FirstName = memberDto.FirstName;
-            member.LastName = memberDto.LastName;
-            member.Gender = memberDto.IsFemale ? (byte)1 : (byte)0;
-            member.Address = memberDto.Address;
-            member.HomeTown = memberDto.HomeTown.Name;
-            member.BirthDay = memberDto.BirthDay;
-            member.DayJoinFamily = memberDto.DateJoinFamily;
-            member.Career = memberDto.Career.Name;
+        //    member.FirstName = memberDto.FirstName;
+        //    member.LastName = memberDto.LastName;
+        //    member.Gender = memberDto.IsFemale ? (byte)1 : (byte)0;
+        //    member.Address = memberDto.Address;
+        //    member.HomeTown = memberDto.HomeTown.Name;
+        //    member.BirthDay = memberDto.BirthDay;
+        //    member.DayJoinFamily = memberDto.DateJoinFamily;
+        //    member.Career = memberDto.Career.Name;
 
-            return member;
-        }
+        //    return member;
+        //}
 
         #endregion
     }
