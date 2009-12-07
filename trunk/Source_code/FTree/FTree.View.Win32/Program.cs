@@ -21,7 +21,7 @@ namespace FTree.View.Win32
             }
             catch (Exception)
             {
-                MessageBox.Show("Sorry for this inconvenience, an expected error was occured. Please re-start the program.");
+                MessageBox.Show("Sorry for this inconvenience, an unexpected error was occured. Please re-start the program.");
             }
         }
     }
