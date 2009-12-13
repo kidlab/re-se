@@ -8,11 +8,19 @@ using FTree.Presenter.ViewModel;
 using FTree.DTO;
 using FTree.Common;
 
-namespace FTree.View.Win32
+namespace FTree.View.Win32.Components.Wpf
 {
     public partial class FamilyTreeView : UserControl
     {
         private FamilyTreeViewModel _familyTree;
+
+        /// <summary>
+        /// Gets the internal TreeView that actually renders the tree structure.
+        /// </summary>
+        public TreeView InternalTreeView
+        {
+            get { return treeview; }
+        }
 
         public FamilyTreeView()
         {
@@ -70,7 +78,8 @@ namespace FTree.View.Win32
         {
             try
             {
-                _familyTree.ExecuteSearch();
+                if (_familyTree != null)
+                    _familyTree.ExecuteSearch();
             }
             catch (Exception exc)
             {
