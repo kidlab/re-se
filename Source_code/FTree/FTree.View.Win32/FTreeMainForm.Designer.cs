@@ -64,12 +64,15 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.contentSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.familyTreeView = new FTree.View.Win32.FamilyTreeView();
+            this.wpfTreeViewHost = new System.Windows.Forms.Integration.ElementHost();
+            this.familyTreeView = new FTree.View.Win32.Components.Wpf.FamilyTreeView();
+            this.wpfVisualFTreeHost = new System.Windows.Forms.Integration.ElementHost();
+            this.visualFamilyTreeView = new FTree.View.Win32.Components.Wpf.VisualFamilyTreeView();
             this.mainMenuStrip.SuspendLayout();
             this.mainLayoutPanel.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
             this.contentSplitContainer.Panel1.SuspendLayout();
+            this.contentSplitContainer.Panel2.SuspendLayout();
             this.contentSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -389,20 +392,34 @@
             // 
             // contentSplitContainer.Panel1
             // 
-            this.contentSplitContainer.Panel1.Controls.Add(this.elementHost1);
+            this.contentSplitContainer.Panel1.Controls.Add(this.wpfTreeViewHost);
+            // 
+            // contentSplitContainer.Panel2
+            // 
+            this.contentSplitContainer.Panel2.Controls.Add(this.wpfVisualFTreeHost);
             this.contentSplitContainer.Size = new System.Drawing.Size(744, 448);
             this.contentSplitContainer.SplitterDistance = 231;
             this.contentSplitContainer.TabIndex = 1;
             // 
-            // elementHost1
+            // wpfTreeViewHost
             // 
-            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.elementHost1.Location = new System.Drawing.Point(0, 0);
-            this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(231, 448);
-            this.elementHost1.TabIndex = 0;
-            this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.familyTreeView;
+            this.wpfTreeViewHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wpfTreeViewHost.Location = new System.Drawing.Point(0, 0);
+            this.wpfTreeViewHost.Name = "wpfTreeViewHost";
+            this.wpfTreeViewHost.Size = new System.Drawing.Size(231, 448);
+            this.wpfTreeViewHost.TabIndex = 0;
+            this.wpfTreeViewHost.Text = "wpfTreeViewHost";
+            this.wpfTreeViewHost.Child = this.familyTreeView;
+            // 
+            // wpfVisualFTreeHost
+            // 
+            this.wpfVisualFTreeHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wpfVisualFTreeHost.Location = new System.Drawing.Point(0, 0);
+            this.wpfVisualFTreeHost.Name = "wpfVisualFTreeHost";
+            this.wpfVisualFTreeHost.Size = new System.Drawing.Size(509, 448);
+            this.wpfVisualFTreeHost.TabIndex = 0;
+            this.wpfVisualFTreeHost.Text = "wpfVisualFTreeHost";
+            this.wpfVisualFTreeHost.Child = this.visualFamilyTreeView;
             // 
             // FTreeMainForm
             // 
@@ -424,6 +441,7 @@
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
             this.contentSplitContainer.Panel1.ResumeLayout(false);
+            this.contentSplitContainer.Panel2.ResumeLayout(false);
             this.contentSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -467,8 +485,10 @@
         private System.Windows.Forms.ToolStripMenuItem achievementToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton familyManagerToolStripButton;
         private System.Windows.Forms.SplitContainer contentSplitContainer;
-        private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private FamilyTreeView familyTreeView;
+        private System.Windows.Forms.Integration.ElementHost wpfTreeViewHost;
+        private FTree.View.Win32.Components.Wpf.FamilyTreeView familyTreeView;
+        private System.Windows.Forms.Integration.ElementHost wpfVisualFTreeHost;
+        private FTree.View.Win32.Components.Wpf.VisualFamilyTreeView visualFamilyTreeView;
     }
 }
 

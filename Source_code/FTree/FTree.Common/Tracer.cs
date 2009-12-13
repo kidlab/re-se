@@ -104,7 +104,7 @@ namespace FTree.Common
             if (String.IsNullOrEmpty(logFilePath))
                 return;
 
-            StreamWriter writer = new StreamWriter(logFilePath, true);
+            StreamWriter writer = new StreamWriter(logFilePath, true, System.Text.Encoding.UTF8);
 
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
 

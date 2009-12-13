@@ -11,9 +11,30 @@ namespace FTree.View.Win32
 {
     public partial class SettingsForm : BaseDialogForm
     {
+        #region CONSTRUCTOR
+
         public SettingsForm()
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region UI EVENTS
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region CORE METHODS
+
+        #endregion
+
+        #region UTILITTY METHODS
+
+        #endregion
     }
 }

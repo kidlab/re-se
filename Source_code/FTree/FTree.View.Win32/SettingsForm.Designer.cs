@@ -50,6 +50,7 @@
             this.dgBuryPlaces = new System.Windows.Forms.DataGridView();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.btnDeleteRelationType = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.tabRelation_Type.SuspendLayout();
             this.gbxRelationTypes.SuspendLayout();
@@ -91,6 +92,7 @@
             // 
             // tabRelation_Type
             // 
+            this.tabRelation_Type.Controls.Add(this.btnDeleteRelationType);
             this.tabRelation_Type.Controls.Add(this.gbxRelationTypes);
             this.tabRelation_Type.Location = new System.Drawing.Point(4, 22);
             this.tabRelation_Type.Name = "tabRelation_Type";
@@ -115,13 +117,16 @@
             // 
             // dgRelationTypes
             // 
+            this.dgRelationTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgRelationTypes.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgRelationTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgRelationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgRelationTypes.Location = new System.Drawing.Point(3, 16);
             this.dgRelationTypes.Name = "dgRelationTypes";
             this.dgRelationTypes.RowHeadersVisible = false;
+            this.dgRelationTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgRelationTypes.Size = new System.Drawing.Size(289, 312);
-            this.dgRelationTypes.TabIndex = 0;
+            this.dgRelationTypes.TabIndex = 1;
             // 
             // tabHomeTown
             // 
@@ -149,13 +154,18 @@
             // 
             // dgHomeTown
             // 
+            this.dgHomeTown.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgHomeTown.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgHomeTown.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgHomeTown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgHomeTown.Location = new System.Drawing.Point(3, 16);
+            this.dgHomeTown.MultiSelect = false;
             this.dgHomeTown.Name = "dgHomeTown";
+            this.dgHomeTown.ReadOnly = true;
+            this.dgHomeTown.RowHeadersVisible = false;
+            this.dgHomeTown.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgHomeTown.Size = new System.Drawing.Size(289, 312);
-            this.dgHomeTown.StandardTab = true;
-            this.dgHomeTown.TabIndex = 0;
+            this.dgHomeTown.TabIndex = 2;
             // 
             // tabOccupation
             // 
@@ -182,12 +192,18 @@
             // 
             // dgCareers
             // 
+            this.dgCareers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgCareers.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgCareers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgCareers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgCareers.Location = new System.Drawing.Point(3, 16);
+            this.dgCareers.MultiSelect = false;
             this.dgCareers.Name = "dgCareers";
+            this.dgCareers.ReadOnly = true;
+            this.dgCareers.RowHeadersVisible = false;
+            this.dgCareers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgCareers.Size = new System.Drawing.Size(289, 312);
-            this.dgCareers.TabIndex = 0;
+            this.dgCareers.TabIndex = 3;
             // 
             // tabAchievements
             // 
@@ -214,12 +230,18 @@
             // 
             // dgAchievements
             // 
+            this.dgAchievements.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgAchievements.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgAchievements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgAchievements.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgAchievements.Location = new System.Drawing.Point(3, 16);
+            this.dgAchievements.MultiSelect = false;
             this.dgAchievements.Name = "dgAchievements";
+            this.dgAchievements.ReadOnly = true;
+            this.dgAchievements.RowHeadersVisible = false;
+            this.dgAchievements.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgAchievements.Size = new System.Drawing.Size(289, 312);
-            this.dgAchievements.TabIndex = 0;
+            this.dgAchievements.TabIndex = 4;
             // 
             // tabDeathReason
             // 
@@ -246,12 +268,18 @@
             // 
             // dgDeathReasons
             // 
+            this.dgDeathReasons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgDeathReasons.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgDeathReasons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgDeathReasons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgDeathReasons.Location = new System.Drawing.Point(3, 16);
+            this.dgDeathReasons.MultiSelect = false;
             this.dgDeathReasons.Name = "dgDeathReasons";
+            this.dgDeathReasons.ReadOnly = true;
+            this.dgDeathReasons.RowHeadersVisible = false;
+            this.dgDeathReasons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgDeathReasons.Size = new System.Drawing.Size(289, 312);
-            this.dgDeathReasons.TabIndex = 0;
+            this.dgDeathReasons.TabIndex = 5;
             // 
             // tabBuryPlace
             // 
@@ -278,12 +306,18 @@
             // 
             // dgBuryPlaces
             // 
+            this.dgBuryPlaces.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgBuryPlaces.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgBuryPlaces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgBuryPlaces.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgBuryPlaces.Location = new System.Drawing.Point(3, 16);
+            this.dgBuryPlaces.MultiSelect = false;
             this.dgBuryPlaces.Name = "dgBuryPlaces";
+            this.dgBuryPlaces.ReadOnly = true;
+            this.dgBuryPlaces.RowHeadersVisible = false;
+            this.dgBuryPlaces.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgBuryPlaces.Size = new System.Drawing.Size(289, 312);
-            this.dgBuryPlaces.TabIndex = 0;
+            this.dgBuryPlaces.TabIndex = 5;
             // 
             // btnCancel
             // 
@@ -311,6 +345,18 @@
             this.btnOK.TabIndex = 3;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // btnDeleteRelationType
+            // 
+            this.btnDeleteRelationType.Image = global::FTree.View.Win32.Properties.Resources.trash;
+            this.btnDeleteRelationType.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteRelationType.Location = new System.Drawing.Point(304, 19);
+            this.btnDeleteRelationType.Name = "btnDeleteRelationType";
+            this.btnDeleteRelationType.Size = new System.Drawing.Size(155, 32);
+            this.btnDeleteRelationType.TabIndex = 11;
+            this.btnDeleteRelationType.Text = "Delete";
+            this.btnDeleteRelationType.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -361,16 +407,17 @@
         private System.Windows.Forms.TabPage tabDeathReason;
         private System.Windows.Forms.TabPage tabBuryPlace;
         private System.Windows.Forms.GroupBox gbxRelationTypes;
-        private System.Windows.Forms.DataGridView dgRelationTypes;
         private System.Windows.Forms.GroupBox gbxHomeTowns;
-        private System.Windows.Forms.DataGridView dgHomeTown;
         private System.Windows.Forms.GroupBox gbxCarrers;
-        private System.Windows.Forms.DataGridView dgCareers;
         private System.Windows.Forms.GroupBox gbxAchievement;
-        private System.Windows.Forms.DataGridView dgAchievements;
         private System.Windows.Forms.GroupBox gbxDeathReasons;
-        private System.Windows.Forms.DataGridView dgDeathReasons;
         private System.Windows.Forms.GroupBox gbxBuryPlaces;
+        private System.Windows.Forms.DataGridView dgRelationTypes;
+        private System.Windows.Forms.DataGridView dgHomeTown;
+        private System.Windows.Forms.DataGridView dgCareers;
+        private System.Windows.Forms.DataGridView dgAchievements;
+        private System.Windows.Forms.DataGridView dgDeathReasons;
         private System.Windows.Forms.DataGridView dgBuryPlaces;
+        private System.Windows.Forms.Button btnDeleteRelationType;
     }
 }

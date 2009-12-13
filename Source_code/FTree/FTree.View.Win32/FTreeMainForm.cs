@@ -20,32 +20,40 @@ namespace FTree.View.Win32
         public FTreeMainForm()
         {
             InitializeComponent();
+
+            this.familyTreeView.InternalTreeView.SelectedItemChanged += new System.Windows.RoutedPropertyChangedEventHandler<object>(InternalTreeView_SelectedItemChanged);
         }
 
         #endregion
 
         #region UI EVENTS
-        
+
         // Generate dummy data for testing.
         ObservableCollection<FamilyViewModel> fs = new ObservableCollection<FamilyViewModel>();
+
         private void FTreeMainForm_Load(object sender, EventArgs e)
         {
             try
             {
-                
-                for (int i = 0; i < 2; i++)
-                {
-                    FamilyDTO f = new FamilyDTO();
-                    f.Name = "Family " + i.ToString();
-                    f.RootPerson = _dummyPerson();
-                    fs.Add(new FamilyViewModel(f));
-                }
-                this.familyTreeView.SetDataBinding(fs);
+                _generateDummyData();
             }
             catch (Exception exc)
             {
                 Tracer.Log(typeof(FTreeMainForm), exc);
             }
+        }
+
+        Random _dummyRand = new Random();
+        private void _generateDummyData()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                FamilyDTO f = new FamilyDTO();
+                f.Name = "Family " + i.ToString();
+                f.RootPerson = _dummyPerson();
+                fs.Add(new FamilyViewModel(f));
+            }
+            this.familyTreeView.SetDataBinding(fs);
         }
 
         private FamilyMemberDTO _dummyPerson()
@@ -65,16 +73,27 @@ namespace FTree.View.Win32
         private string _dummyLastName()
         {
             string[] lastnames = new string[] {"Tran", "Nguyen", "Vuong" };
-            int i = rand.Next() % lastnames.Length;
+            int i = _dummyRand.Next() % lastnames.Length;
             return lastnames[i];
-        }
-        Random rand = new Random();
+        }        
             
         private string _dummyFirstName()
         {
             string[] firstnames = new string[] { "Teo", "Ti", "To" };
-            int i = rand.Next() % firstnames.Length;
+            int i = _dummyRand.Next() % firstnames.Length;
             return firstnames[i];
+        }
+
+
+        private void InternalTreeView_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (e.NewValue != null && e.NewValue is FamilyViewModel)
+            {
+                FamilyViewModel tmpFamily = e.NewValue as FamilyViewModel;
+                tmpFamily.IsExpanded = true;                
+                this.visualFamilyTreeView.SetDataBinding(tmpFamily);
+                //tmpFamily.IsExpanded = false;
+            }
         }
 
         private void addFamilyToolStripButton_Click(object sender, EventArgs e)
@@ -124,12 +143,7 @@ namespace FTree.View.Win32
         }
         private void familyManagerToolStripButton_Click(object sender, EventArgs e)
         {
-            FamilyDTO f = new FamilyDTO();
-            f.Name = "Family 2";
-            f.RootPerson = _dummyPerson();
-            fs.Add(new FamilyViewModel(f));
-            fs[0].FamilyName = "Man Vuong";
-            //_showFamilyManager();
+            _showFamilyManager();
         }
 
         #endregion
