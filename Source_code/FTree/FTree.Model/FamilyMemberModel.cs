@@ -356,9 +356,9 @@ namespace FTree.Model
             return parent;
         }
 
-        private static Hashtable _getSpouses(MEMBER personMapper)
+        private static List<FamilyMemberDTO> _getSpouses(MEMBER personMapper)
         {
-            Hashtable spouses = null;
+            List<FamilyMemberDTO> spouses = null;
             IEnumerable<RELATIONSHIP> relationships = null;
 
             if (IsFemale(personMapper))
@@ -372,11 +372,11 @@ namespace FTree.Model
                 List<RELATIONSHIP> lstRelations = relationships.ToList();
                 if (lstRelations.Count > 0)
                 {
-                    spouses = new Hashtable();
+                    spouses = new List<FamilyMemberDTO>();
                     foreach (RELATIONSHIP r in lstRelations)
                     {
                         FamilyMemberDTO husband = ConvertToDTO(r.MEMBER);
-                        spouses.Add(husband.ID, husband);
+                        spouses.Add(husband);
                     }
                 }
             }
@@ -391,11 +391,11 @@ namespace FTree.Model
                 List<RELATIONSHIP> lstRelations = relationships.ToList();
                 if (lstRelations.Count > 0)
                 {
-                    spouses = new Hashtable();
+                    spouses = new List<FamilyMemberDTO>();
                     foreach (RELATIONSHIP r in lstRelations)
                     {
                         FamilyMemberDTO wife = ConvertToDTO(r.MEMBER1);
-                        spouses.Add(wife.ID, wife);
+                        spouses.Add(wife);
                     }
                 }
             }
@@ -403,9 +403,9 @@ namespace FTree.Model
             return spouses;
         }
 
-        private static Hashtable _getChildren(MEMBER personMapper)
+        private static List<FamilyMemberDTO> _getChildren(MEMBER personMapper)
         {
-            Hashtable children = null;
+            List<FamilyMemberDTO> children = null;
             IEnumerable<RELATIONSHIP> relationships = null;
 
             relationships =
@@ -416,11 +416,11 @@ namespace FTree.Model
             List<RELATIONSHIP> lstRelations = relationships.ToList();
             if (lstRelations.Count > 0)
             {
-                children = new Hashtable();
+                children = new List<FamilyMemberDTO>();
                 foreach (RELATIONSHIP r in lstRelations)
                 {
                     FamilyMemberDTO child = ConvertToDTO(r.MEMBER);
-                    children.Add(child.ID, child);
+                    children.Add(child);
                 }
             }
 

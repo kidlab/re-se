@@ -6,14 +6,75 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
+using FTree.Common;
+using FTree.Presenter.ViewModel;
+using FTree.DTO;
 
 namespace FTree.View.Win32
 {
     public partial class FTreeMainForm : Form
     {
+        #region CONSTRUCTOR
+
         public FTreeMainForm()
         {
             InitializeComponent();
+        }
+
+        #endregion
+
+        #region UI EVENTS
+        
+        // Generate dummy data for testing.
+        ObservableCollection<FamilyViewModel> fs = new ObservableCollection<FamilyViewModel>();
+        private void FTreeMainForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                for (int i = 0; i < 2; i++)
+                {
+                    FamilyDTO f = new FamilyDTO();
+                    f.Name = "Family " + i.ToString();
+                    f.RootPerson = _dummyPerson();
+                    fs.Add(new FamilyViewModel(f));
+                }
+                this.familyTreeView.SetDataBinding(fs);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FTreeMainForm), exc);
+            }
+        }
+
+        private FamilyMemberDTO _dummyPerson()
+        {
+            FamilyMemberDTO p = new FamilyMemberDTO();
+            p.FirstName = _dummyFirstName();
+            p.LastName = _dummyLastName();
+            
+            FamilyMemberDTO p1 = new FamilyMemberDTO();
+            p1.FirstName = _dummyFirstName();
+            p1.LastName = _dummyLastName();
+
+            p.Descendants.Add(p1);
+            return p;
+        }
+
+        private string _dummyLastName()
+        {
+            string[] lastnames = new string[] {"Tran", "Nguyen", "Vuong" };
+            int i = rand.Next() % lastnames.Length;
+            return lastnames[i];
+        }
+        Random rand = new Random();
+            
+        private string _dummyFirstName()
+        {
+            string[] firstnames = new string[] { "Teo", "Ti", "To" };
+            int i = rand.Next() % firstnames.Length;
+            return firstnames[i];
         }
 
         private void addFamilyToolStripButton_Click(object sender, EventArgs e)
@@ -63,11 +124,18 @@ namespace FTree.View.Win32
         }
         private void familyManagerToolStripButton_Click(object sender, EventArgs e)
         {
-            _showFamilyManager();
+            FamilyDTO f = new FamilyDTO();
+            f.Name = "Family 2";
+            f.RootPerson = _dummyPerson();
+            fs.Add(new FamilyViewModel(f));
+            fs[0].FamilyName = "Man Vuong";
+            //_showFamilyManager();
         }
 
-        #region UTILITY METHODS
+        #endregion
         
+        #region UTILITY METHODS
+
         private void _showFamilyForm(DataFormMode mode)
         {
             FamilyForm frmFamily = new FamilyForm(mode);
@@ -120,6 +188,5 @@ namespace FTree.View.Win32
         }
 
         #endregion
-
     }
 }

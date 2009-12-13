@@ -25,8 +25,8 @@ namespace FTree.DTO
 
         public FamilyMemberDTO Father { get; set; }
         public FamilyMemberDTO Mother { get; set; }
-        public Hashtable Spouses { get; set; }
-		public Hashtable Descendants {get; set;}
+        public List<FamilyMemberDTO> Spouses { get; set; }
+        public List<FamilyMemberDTO> Descendants { get; set; }
         public int GenerationNumber { get; set; }
 
         public List<AchievementInfo> Achievements { get; set; }
@@ -51,8 +51,8 @@ namespace FTree.DTO
             Family = new FamilyDTO();
             Job = new JobDTO();
             HomeTown = new HomeTownDTO();
-            Spouses = new Hashtable();
-            Descendants = new Hashtable();
+            Spouses = new List<FamilyMemberDTO>();
+            Descendants = new List<FamilyMemberDTO>();
         }
 
         public FamilyMemberDTO(FamilyDTO family)
@@ -60,8 +60,8 @@ namespace FTree.DTO
             Family = family;
             Job = new JobDTO();
             HomeTown = new HomeTownDTO();
-            Spouses = new Hashtable();
-            Descendants = new Hashtable();
+            Spouses = new List<FamilyMemberDTO>();
+            Descendants = new List<FamilyMemberDTO>();
         }
     }
 }

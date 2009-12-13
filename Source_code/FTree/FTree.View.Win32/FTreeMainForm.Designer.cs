@@ -64,9 +64,12 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.contentSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.familyTreeView = new FTree.View.Win32.FamilyTreeView();
             this.mainMenuStrip.SuspendLayout();
             this.mainLayoutPanel.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
+            this.contentSplitContainer.Panel1.SuspendLayout();
             this.contentSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -383,9 +386,23 @@
             this.contentSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contentSplitContainer.Location = new System.Drawing.Point(3, 71);
             this.contentSplitContainer.Name = "contentSplitContainer";
+            // 
+            // contentSplitContainer.Panel1
+            // 
+            this.contentSplitContainer.Panel1.Controls.Add(this.elementHost1);
             this.contentSplitContainer.Size = new System.Drawing.Size(744, 448);
             this.contentSplitContainer.SplitterDistance = 231;
             this.contentSplitContainer.TabIndex = 1;
+            // 
+            // elementHost1
+            // 
+            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost1.Location = new System.Drawing.Point(0, 0);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(231, 448);
+            this.elementHost1.TabIndex = 0;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.familyTreeView;
             // 
             // FTreeMainForm
             // 
@@ -399,12 +416,14 @@
             this.Name = "FTreeMainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FTree - Family Tree Manager";
+            this.Load += new System.EventHandler(this.FTreeMainForm_Load);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.mainLayoutPanel.ResumeLayout(false);
             this.mainLayoutPanel.PerformLayout();
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
+            this.contentSplitContainer.Panel1.ResumeLayout(false);
             this.contentSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -448,6 +467,8 @@
         private System.Windows.Forms.ToolStripMenuItem achievementToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton familyManagerToolStripButton;
         private System.Windows.Forms.SplitContainer contentSplitContainer;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+        private FamilyTreeView familyTreeView;
     }
 }
 
