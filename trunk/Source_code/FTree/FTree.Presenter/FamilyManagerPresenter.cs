@@ -10,8 +10,7 @@ using FTree.Common;
 namespace FTree.Presenter
 {
     public class FamilyManagerPresenter : BasePresenter<IFamilyModel, IFamilyMangerView>
-    {
-        
+    {        
         #region CONSTRUCTOR
 
         public FamilyManagerPresenter(IFamilyModel model, IFamilyMangerView view)
@@ -26,6 +25,8 @@ namespace FTree.Presenter
         }
 
         #endregion
+
+        #region CORE METHODS
 
         public void LoadAllFamilies()
         {
@@ -63,10 +64,16 @@ namespace FTree.Presenter
             }
         }
 
+        #endregion
+
+        #region UTILITY METHODS
+
         protected override void _disposeComponents()
         {
             _model = null;
             _view = null;
         }
+
+        #endregion
     }
 }
