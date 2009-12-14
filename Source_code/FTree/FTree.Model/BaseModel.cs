@@ -10,7 +10,23 @@ namespace FTree.Model
     {
         #region VARIABLES
 
-        protected FTreeDataContext _db;
+        protected FTreeDataContext _db;        
+        protected bool _autoSubmitChanges;
+
+        /// <summary>
+        /// Gets or sets the value determining that the model will automatically submit all changes to DB or not. The default value is True.
+        /// </summary>
+        public bool AutoSubmitChanges
+        {
+            get
+            {
+                return _autoSubmitChanges;
+            }
+            set
+            {
+                _autoSubmitChanges = value;
+            }
+        }
 
         #endregion
 
@@ -19,6 +35,7 @@ namespace FTree.Model
         public BaseModel()
         {
             _refreshDataContext();
+            _autoSubmitChanges = true;
         }
 
         #endregion
@@ -26,14 +43,15 @@ namespace FTree.Model
         #region UTILITIY METHODS
         
         /// <summary>
-        /// Submit all changes and refresh DataContext.
+        /// Submit all changes and refresh DataContext 
+        /// if the value _autoSubmitChanges is True.
         /// </summary>
         protected virtual void _save()
         {
             try
             {
-                _db.SubmitChanges();
-                _refreshDataContext();
+                if (_autoSubmitChanges)
+                    Save();
             }
             catch (Exception exc)
             {
@@ -45,6 +63,23 @@ namespace FTree.Model
         protected void _refreshDataContext()
         {
             _db = new FTreeDataContext();
+        }
+
+        /// <summary>
+        /// Submit all changes to DB and refresh the data context.
+        /// </summary>
+        public virtual void Save()
+        {
+            try
+            {
+                _db.SubmitChanges();
+                _refreshDataContext();
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(BaseModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
         }
 
         #endregion

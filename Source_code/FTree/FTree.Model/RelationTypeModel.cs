@@ -126,6 +126,28 @@ namespace FTree.Model
 
         #endregion
 
+        #region IRelationTypeModel Members
+
+        public IEnumerable<RelationTypeDTO> FindByName(string relationName)
+        {
+            try
+            {
+                IEnumerable<RelationTypeDTO> matches =
+                    from type in _db.RELATIONSHIP_TYPEs
+                    where type.Name.ToUpper() == relationName.ToUpper()
+                    select ConvertToDTO(type);
+                
+                return matches;
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(RelationTypeModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        #endregion
+
         #region UTILITY METHODS
 
         internal static RELATIONSHIP_TYPE ConvertToMapper(RelationTypeDTO dto)
@@ -151,6 +173,6 @@ namespace FTree.Model
             mapper.Name = dto.Name;
         }
 
-        #endregion
+        #endregion        
     }
 }

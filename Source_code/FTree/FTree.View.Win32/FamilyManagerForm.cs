@@ -15,20 +15,29 @@ namespace FTree.View.Win32
 {
     public partial class FamilyManagerForm : BaseDialogForm, IFamilyMangerView
     {
+        #region VARIABLES
+
         private FamilyDTO _currentFamily = null;
         private IList<FamilyDTO> _families = null;
         private FamilyManagerPresenter _presenter;
 
+        #endregion
+
+        #region CONSTRUCTOR
+
         public FamilyManagerForm()
         {
             InitializeComponent();
-            _presenter = new FamilyManagerPresenter(this);
         }
+
+        #endregion
 
         #region UI EVENT
 
         private void FamilyManagerForm_Load(object sender, EventArgs e)
         {
+            ThreadHelper.DoWork(_initPresenter);
+
             _loadAllFamilies();
             _checkDataGrid();
         }
@@ -53,17 +62,32 @@ namespace FTree.View.Win32
             _deleteFamily();
         }
 
+        private void dgFamilies_SelectionChanged(object sender, EventArgs e)
+        {
+            if (_checkDataGrid())
+            {
+
+                int familyID = (int)dgFamilies.SelectedRows[0].Cells["ID"].Value;
+                _currentFamily =
+                    _families.SingleOrDefault(family => family.ID == familyID);
+            }
+        }
+
         #endregion
 
         #region UTILITY METHODS
+
+        private void _initPresenter()
+        {
+            _presenter = new FamilyManagerPresenter(this);
+        }
 
         private void _loadAllFamilies()
         {
             try
             {
                 // Run the operation in different thread to avoid freezing the GUI.
-                ThreadHelper.VoidDelegate del = _presenter.LoadAllFamilies;
-                ThreadHelper.DoWork(del);
+                ThreadHelper.DoWork(_presenter.LoadAllFamilies);
             }
             catch (Exception exc)
             {
@@ -83,8 +107,7 @@ namespace FTree.View.Win32
                     return;
 
                 // Run the operation in different thread to avoid freezing the GUI.
-                ThreadHelper.VoidDelegate del = _presenter.Delete;
-                ThreadHelper.DoWork(del);
+                ThreadHelper.DoWork(_presenter.Delete);
 
                 _loadAllFamilies();
             }
@@ -149,6 +172,9 @@ namespace FTree.View.Win32
             }
             set
             {
+                if (value == _families)
+                    return;
+
                 _families = value;
                 this.dgFamilies.DataSource = _families;
                 
@@ -177,17 +203,6 @@ namespace FTree.View.Win32
             get { return this.Text; }
         }
 
-        #endregion
-
-        private void dgFamilies_SelectionChanged(object sender, EventArgs e)
-        {
-            if (_checkDataGrid())
-            {
-
-                int familyID = (int)dgFamilies.SelectedRows[0].Cells["ID"].Value;
-                _currentFamily =
-                    _families.SingleOrDefault(family => family.ID == familyID);
-            }
-        }
+        #endregion        
     }
 }

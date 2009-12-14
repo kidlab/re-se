@@ -166,6 +166,9 @@
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SimpleEntryForm.resx">
+      <DependentUpon>SimpleEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -192,6 +195,12 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SimpleEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimpleEntryForm.Designer.cs">
+      <DependentUpon>SimpleEntryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ThreadHelper.cs" />
     <Compile Include="UIUtils.cs" />
   </ItemGroup>
@@ -200,6 +209,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ftree.ico" />
+    <None Include="images\delete.png" />
+    <None Include="images\add.png" />
     <None Include="images\edit.png" />
     <None Include="images\trash.png" />
     <None Include="images\loading.gif" />

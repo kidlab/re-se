@@ -152,7 +152,6 @@ namespace FTree.Model
 
         #endregion
 
-
         #region IFamilyModel Members
 
         public IEnumerable<FamilyDTO> FindByName(string familyName)
