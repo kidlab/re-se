@@ -79,6 +79,15 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot delete the relation type.
+        /// </summary>
+        internal static string ERR_DELETE_RELATION_TYPE_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_DELETE_RELATION_TYPE_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The name of family {0} already exist.
         /// </summary>
         internal static string ERR_FAMILY_ALREADY_EXIST {
@@ -97,11 +106,29 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot insert new entry.
+        /// </summary>
+        internal static string ERR_INSERT_NEW_ENTRY_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_INSERT_NEW_ENTRY_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot add new person.
         /// </summary>
         internal static string ERR_INSERT_PERSON_FAILED {
             get {
                 return ResourceManager.GetString("ERR_INSERT_PERSON_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot add new relation type.
+        /// </summary>
+        internal static string ERR_INSERT_RELATION_TYPE_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_INSERT_RELATION_TYPE_FAILED", resourceCulture);
             }
         }
         
@@ -124,11 +151,38 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot load data.
+        /// </summary>
+        internal static string ERR_LOAD_DATA_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_LOAD_DATA_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot load families&apos; information.
         /// </summary>
         internal static string ERR_LOAD_FAMILIES_FAILED {
             get {
                 return ResourceManager.GetString("ERR_LOAD_FAMILIES_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The relation type {0} already exist.
+        /// </summary>
+        internal static string ERR_RELATION_TYPE_ALREADY_EXIST {
+            get {
+                return ResourceManager.GetString("ERR_RELATION_TYPE_ALREADY_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot save data.
+        /// </summary>
+        internal static string ERR_SAVE_DATA_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_SAVE_DATA_FAILED", resourceCulture);
             }
         }
         
@@ -151,12 +205,30 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot update the relation type.
+        /// </summary>
+        internal static string ERR_UPDATE_RELATION_TYPE_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_UPDATE_RELATION_TYPE_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure that you want to delete the family of {0} ?
         ///CAUTION: This will delete all information of family members in database..
         /// </summary>
         internal static string MSG_CONFIRM_DEL_FAMILY {
             get {
                 return ResourceManager.GetString("MSG_CONFIRM_DEL_FAMILY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the data.
+        /// </summary>
+        internal static string MSG_ENTER_DATA {
+            get {
+                return ResourceManager.GetString("MSG_ENTER_DATA", resourceCulture);
             }
         }
         

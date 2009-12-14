@@ -61,12 +61,12 @@
     <Compile Include="IFamilyMangerView.cs" />
     <Compile Include="IFamilyView.cs" />
     <Compile Include="IFamilyReportView.cs" />
-    <Compile Include="MembersListPresenter.cs" />
+    <Compile Include="ISettingsManagerView.cs" />
     <Compile Include="IAchievementView.cs" />
-    <Compile Include="IMembersList.cs" />
     <Compile Include="IFamilyMemberView.cs" />
     <Compile Include="FamilyMemberPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsManagerPresenter.cs" />
     <Compile Include="ViewModel\FamilyTreeViewModel.cs" />
     <Compile Include="ViewModel\FamilyViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />

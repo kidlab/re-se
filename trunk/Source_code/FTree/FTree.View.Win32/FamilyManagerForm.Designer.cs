@@ -31,11 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FamilyManagerForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgFamilies = new System.Windows.Forms.DataGridView();
-            this.btnCreateFamily = new System.Windows.Forms.Button();
-            this.btnChangeName = new System.Windows.Forms.Button();
-            this.btnLoadFamily = new System.Windows.Forms.Button();
-            this.btnDeleteFamily = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.btnDeleteFamily = new System.Windows.Forms.Button();
+            this.btnLoadFamily = new System.Windows.Forms.Button();
+            this.btnChangeName = new System.Windows.Forms.Button();
+            this.btnCreateFamily = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgFamilies)).BeginInit();
             this.SuspendLayout();
@@ -62,60 +62,11 @@
             this.dgFamilies.Location = new System.Drawing.Point(3, 16);
             this.dgFamilies.MultiSelect = false;
             this.dgFamilies.Name = "dgFamilies";
-            this.dgFamilies.ReadOnly = true;
             this.dgFamilies.RowHeadersVisible = false;
             this.dgFamilies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgFamilies.Size = new System.Drawing.Size(282, 339);
             this.dgFamilies.TabIndex = 0;
             this.dgFamilies.SelectionChanged += new System.EventHandler(this.dgFamilies_SelectionChanged);
-            // 
-            // btnCreateFamily
-            // 
-            this.btnCreateFamily.Image = global::FTree.View.Win32.Properties.Resources.family_add;
-            this.btnCreateFamily.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCreateFamily.Location = new System.Drawing.Point(328, 28);
-            this.btnCreateFamily.Name = "btnCreateFamily";
-            this.btnCreateFamily.Size = new System.Drawing.Size(155, 32);
-            this.btnCreateFamily.TabIndex = 7;
-            this.btnCreateFamily.Text = "Create New Family";
-            this.btnCreateFamily.UseVisualStyleBackColor = true;
-            this.btnCreateFamily.Click += new System.EventHandler(this.btnCreateFamily_Click);
-            // 
-            // btnChangeName
-            // 
-            this.btnChangeName.Image = global::FTree.View.Win32.Properties.Resources.edit;
-            this.btnChangeName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnChangeName.Location = new System.Drawing.Point(328, 66);
-            this.btnChangeName.Name = "btnChangeName";
-            this.btnChangeName.Size = new System.Drawing.Size(155, 32);
-            this.btnChangeName.TabIndex = 8;
-            this.btnChangeName.Text = "Change Family Name";
-            this.btnChangeName.UseVisualStyleBackColor = true;
-            this.btnChangeName.Click += new System.EventHandler(this.btnChangeName_Click);
-            // 
-            // btnLoadFamily
-            // 
-            this.btnLoadFamily.Image = global::FTree.View.Win32.Properties.Resources.load;
-            this.btnLoadFamily.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLoadFamily.Location = new System.Drawing.Point(328, 104);
-            this.btnLoadFamily.Name = "btnLoadFamily";
-            this.btnLoadFamily.Size = new System.Drawing.Size(155, 32);
-            this.btnLoadFamily.TabIndex = 9;
-            this.btnLoadFamily.Text = "Load Family";
-            this.btnLoadFamily.UseVisualStyleBackColor = true;
-            this.btnLoadFamily.Click += new System.EventHandler(this.btnLoadFamily_Click);
-            // 
-            // btnDeleteFamily
-            // 
-            this.btnDeleteFamily.Image = global::FTree.View.Win32.Properties.Resources.trash;
-            this.btnDeleteFamily.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteFamily.Location = new System.Drawing.Point(328, 167);
-            this.btnDeleteFamily.Name = "btnDeleteFamily";
-            this.btnDeleteFamily.Size = new System.Drawing.Size(155, 32);
-            this.btnDeleteFamily.TabIndex = 10;
-            this.btnDeleteFamily.Text = "Delete Family";
-            this.btnDeleteFamily.UseVisualStyleBackColor = true;
-            this.btnDeleteFamily.Click += new System.EventHandler(this.btnDeleteFamily_Click);
             // 
             // btnClose
             // 
@@ -130,6 +81,54 @@
             this.btnClose.TabIndex = 6;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteFamily
+            // 
+            this.btnDeleteFamily.Image = global::FTree.View.Win32.Properties.Resources.delete;
+            this.btnDeleteFamily.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteFamily.Location = new System.Drawing.Point(328, 167);
+            this.btnDeleteFamily.Name = "btnDeleteFamily";
+            this.btnDeleteFamily.Size = new System.Drawing.Size(155, 32);
+            this.btnDeleteFamily.TabIndex = 10;
+            this.btnDeleteFamily.Text = "Delete Family";
+            this.btnDeleteFamily.UseVisualStyleBackColor = true;
+            this.btnDeleteFamily.Click += new System.EventHandler(this.btnDeleteFamily_Click);
+            // 
+            // btnLoadFamily
+            // 
+            this.btnLoadFamily.Image = global::FTree.View.Win32.Properties.Resources.load;
+            this.btnLoadFamily.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLoadFamily.Location = new System.Drawing.Point(328, 104);
+            this.btnLoadFamily.Name = "btnLoadFamily";
+            this.btnLoadFamily.Size = new System.Drawing.Size(155, 32);
+            this.btnLoadFamily.TabIndex = 9;
+            this.btnLoadFamily.Text = "Load Family";
+            this.btnLoadFamily.UseVisualStyleBackColor = true;
+            this.btnLoadFamily.Click += new System.EventHandler(this.btnLoadFamily_Click);
+            // 
+            // btnChangeName
+            // 
+            this.btnChangeName.Image = global::FTree.View.Win32.Properties.Resources.edit;
+            this.btnChangeName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnChangeName.Location = new System.Drawing.Point(328, 66);
+            this.btnChangeName.Name = "btnChangeName";
+            this.btnChangeName.Size = new System.Drawing.Size(155, 32);
+            this.btnChangeName.TabIndex = 8;
+            this.btnChangeName.Text = "Change Family Name";
+            this.btnChangeName.UseVisualStyleBackColor = true;
+            this.btnChangeName.Click += new System.EventHandler(this.btnChangeName_Click);
+            // 
+            // btnCreateFamily
+            // 
+            this.btnCreateFamily.Image = global::FTree.View.Win32.Properties.Resources.family_add;
+            this.btnCreateFamily.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateFamily.Location = new System.Drawing.Point(328, 28);
+            this.btnCreateFamily.Name = "btnCreateFamily";
+            this.btnCreateFamily.Size = new System.Drawing.Size(155, 32);
+            this.btnCreateFamily.TabIndex = 7;
+            this.btnCreateFamily.Text = "Create New Family";
+            this.btnCreateFamily.UseVisualStyleBackColor = true;
+            this.btnCreateFamily.Click += new System.EventHandler(this.btnCreateFamily_Click);
             // 
             // FamilyManagerForm
             // 

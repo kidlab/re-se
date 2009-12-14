@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabRelation_Type = new System.Windows.Forms.TabPage();
+            this.btnAddRelationType = new System.Windows.Forms.Button();
+            this.btnDeleteRelationType = new System.Windows.Forms.Button();
             this.gbxRelationTypes = new System.Windows.Forms.GroupBox();
             this.dgRelationTypes = new System.Windows.Forms.DataGridView();
             this.tabHomeTown = new System.Windows.Forms.TabPage();
@@ -50,7 +52,6 @@
             this.dgBuryPlaces = new System.Windows.Forms.DataGridView();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
-            this.btnDeleteRelationType = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.tabRelation_Type.SuspendLayout();
             this.gbxRelationTypes.SuspendLayout();
@@ -89,9 +90,11 @@
             this.mainTabControl.SelectedIndex = 0;
             this.mainTabControl.Size = new System.Drawing.Size(583, 414);
             this.mainTabControl.TabIndex = 0;
+            this.mainTabControl.SelectedIndexChanged += new System.EventHandler(this.mainTabControl_SelectedIndexChanged);
             // 
             // tabRelation_Type
             // 
+            this.tabRelation_Type.Controls.Add(this.btnAddRelationType);
             this.tabRelation_Type.Controls.Add(this.btnDeleteRelationType);
             this.tabRelation_Type.Controls.Add(this.gbxRelationTypes);
             this.tabRelation_Type.Location = new System.Drawing.Point(4, 22);
@@ -101,6 +104,32 @@
             this.tabRelation_Type.TabIndex = 0;
             this.tabRelation_Type.Text = "Relation Types";
             this.tabRelation_Type.UseVisualStyleBackColor = true;
+            // 
+            // btnAddRelationType
+            // 
+            this.btnAddRelationType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddRelationType.Image = global::FTree.View.Win32.Properties.Resources.add;
+            this.btnAddRelationType.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddRelationType.Location = new System.Drawing.Point(304, 19);
+            this.btnAddRelationType.Name = "btnAddRelationType";
+            this.btnAddRelationType.Size = new System.Drawing.Size(89, 32);
+            this.btnAddRelationType.TabIndex = 12;
+            this.btnAddRelationType.Text = "Add";
+            this.btnAddRelationType.UseVisualStyleBackColor = true;
+            this.btnAddRelationType.Click += new System.EventHandler(this.btnAddRelationType_Click);
+            // 
+            // btnDeleteRelationType
+            // 
+            this.btnDeleteRelationType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteRelationType.Image = global::FTree.View.Win32.Properties.Resources.delete;
+            this.btnDeleteRelationType.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteRelationType.Location = new System.Drawing.Point(304, 57);
+            this.btnDeleteRelationType.Name = "btnDeleteRelationType";
+            this.btnDeleteRelationType.Size = new System.Drawing.Size(89, 32);
+            this.btnDeleteRelationType.TabIndex = 11;
+            this.btnDeleteRelationType.Text = "Delete";
+            this.btnDeleteRelationType.UseVisualStyleBackColor = true;
+            this.btnDeleteRelationType.Click += new System.EventHandler(this.btnDeleteRelationType_Click);
             // 
             // gbxRelationTypes
             // 
@@ -117,6 +146,10 @@
             // 
             // dgRelationTypes
             // 
+            this.dgRelationTypes.AllowUserToAddRows = false;
+            this.dgRelationTypes.AllowUserToDeleteRows = false;
+            this.dgRelationTypes.AllowUserToResizeColumns = false;
+            this.dgRelationTypes.AllowUserToResizeRows = false;
             this.dgRelationTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgRelationTypes.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgRelationTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -347,17 +380,6 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // btnDeleteRelationType
-            // 
-            this.btnDeleteRelationType.Image = global::FTree.View.Win32.Properties.Resources.trash;
-            this.btnDeleteRelationType.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteRelationType.Location = new System.Drawing.Point(304, 19);
-            this.btnDeleteRelationType.Name = "btnDeleteRelationType";
-            this.btnDeleteRelationType.Size = new System.Drawing.Size(155, 32);
-            this.btnDeleteRelationType.TabIndex = 11;
-            this.btnDeleteRelationType.Text = "Delete";
-            this.btnDeleteRelationType.UseVisualStyleBackColor = true;
-            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOK;
@@ -371,6 +393,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
             this.Text = "Settings Manager";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.mainTabControl.ResumeLayout(false);
             this.tabRelation_Type.ResumeLayout(false);
             this.gbxRelationTypes.ResumeLayout(false);
@@ -419,5 +442,6 @@
         private System.Windows.Forms.DataGridView dgDeathReasons;
         private System.Windows.Forms.DataGridView dgBuryPlaces;
         private System.Windows.Forms.Button btnDeleteRelationType;
+        private System.Windows.Forms.Button btnAddRelationType;
     }
 }

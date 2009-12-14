@@ -123,14 +123,23 @@
   <data name="ERR_DELETE_PERSON_FAILED" xml:space="preserve">
     <value>Cannot delete person</value>
   </data>
+  <data name="ERR_DELETE_RELATION_TYPE_FAILED" xml:space="preserve">
+    <value>Cannot delete the relation type</value>
+  </data>
   <data name="ERR_FAMILY_ALREADY_EXIST" xml:space="preserve">
     <value>The name of family {0} already exist</value>
   </data>
   <data name="ERR_INSERT_FAMILY_FAILED" xml:space="preserve">
     <value>Cannot add new family</value>
   </data>
+  <data name="ERR_INSERT_NEW_ENTRY_FAILED" xml:space="preserve">
+    <value>Cannot insert new entry</value>
+  </data>
   <data name="ERR_INSERT_PERSON_FAILED" xml:space="preserve">
     <value>Cannot add new person</value>
+  </data>
+  <data name="ERR_INSERT_RELATION_TYPE_FAILED" xml:space="preserve">
+    <value>Cannot add new relation type</value>
   </data>
   <data name="ERR_INVALID_BIRTHDAY" xml:space="preserve">
     <value>Invalid birthday</value>
@@ -138,8 +147,17 @@
   <data name="ERR_INVALID_DATE" xml:space="preserve">
     <value>Invalid date</value>
   </data>
+  <data name="ERR_LOAD_DATA_FAILED" xml:space="preserve">
+    <value>Cannot load data</value>
+  </data>
   <data name="ERR_LOAD_FAMILIES_FAILED" xml:space="preserve">
     <value>Cannot load families' information</value>
+  </data>
+  <data name="ERR_RELATION_TYPE_ALREADY_EXIST" xml:space="preserve">
+    <value>The relation type {0} already exist</value>
+  </data>
+  <data name="ERR_SAVE_DATA_FAILED" xml:space="preserve">
+    <value>Cannot save data</value>
   </data>
   <data name="ERR_UPDATE_FAMILY_FAILED" xml:space="preserve">
     <value>Cannot update family information</value>
@@ -147,9 +165,15 @@
   <data name="ERR_UPDATE_PERSON_FAILED" xml:space="preserve">
     <value>Cannot update person information</value>
   </data>
+  <data name="ERR_UPDATE_RELATION_TYPE_FAILED" xml:space="preserve">
+    <value>Cannot update the relation type</value>
+  </data>
   <data name="MSG_CONFIRM_DEL_FAMILY" xml:space="preserve">
     <value>Are you sure that you want to delete the family of {0} ?
 CAUTION: This will delete all information of family members in database.</value>
+  </data>
+  <data name="MSG_ENTER_DATA" xml:space="preserve">
+    <value>Please enter the data</value>
   </data>
   <data name="MSG_ENTER_FAMILY_NAME" xml:space="preserve">
     <value>Please enter the name of family</value>

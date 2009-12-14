@@ -13,6 +13,16 @@ namespace MVPCore
     public interface ILinqModel : IModel
     {
         IEnumerable GetEnumerator();
+
+        /// <summary>
+        /// Submit all changes to DB.
+        /// </summary>
+        void Save();
+
+        /// <summary>
+        /// Gets or sets the value determining that the model will automatically submit all changes to DB or not.
+        /// </summary>
+        bool AutoSubmitChanges { get; set; }
     }
 
     /// <summary>
@@ -22,5 +32,15 @@ namespace MVPCore
     public interface ILinqModel<T> : IModel<T>
     {
         IEnumerable<T> GetEnumerator();
+
+        /// <summary>
+        /// Submit all changes to DB.
+        /// </summary>
+        void Save();
+
+        /// <summary>
+        /// Gets or sets the value determining that the model will automatically submit all changes to DB or not.
+        /// </summary>
+        bool AutoSubmitChanges { get; set; }
     }
 }

@@ -9,5 +9,6 @@ namespace FTree.Model
 {
     public interface IRelationTypeModel : ILinqModel<RelationTypeDTO>
     {
+        IEnumerable<RelationTypeDTO> FindByName(String relationName);
     }
 }
