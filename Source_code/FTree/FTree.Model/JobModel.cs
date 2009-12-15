@@ -21,6 +21,12 @@ namespace FTree.Model
         {
         }
 
+        public JobModel(FTreeDataContext sharedDataContext)
+            : base(sharedDataContext)
+        {
+
+        }
+
         #endregion
 
         #region ILinqModel<JobDTO> Members

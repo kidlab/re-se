@@ -59,12 +59,18 @@ namespace FTree.Model
         #endregion
                 
         #region VARIABLE
-        FTreeDataContext db = new FTreeDataContext();
-
+       
         #endregion
 
         #region CONSTRUCTOR
+        
         public AchievementReportModel()
+            : base()
+        {
+        }
+
+        public AchievementReportModel(FTreeDataContext sharedDataContext)
+            : base(sharedDataContext)
         {
         }
 

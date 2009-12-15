@@ -22,6 +22,12 @@ namespace FTree.Model
         {
         }
 
+        public FamilyMemberModel(FTreeDataContext sharedDataContext)
+            : base(sharedDataContext)
+        {
+
+        }
+
         #endregion
 
         #region ILinqModel<FamilyMemberDTO> Members

@@ -17,6 +17,11 @@ namespace FTree.Model
 
         }
 
+        public AchievementTypeModel(FTreeDataContext sharedDataContext)
+            : base(sharedDataContext)
+        {
+        }
+
         #endregion
 
         #region ILinqModel<AchievementType> Members

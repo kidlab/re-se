@@ -17,6 +17,12 @@ namespace FTree.Model
 
         }
 
+        public RelationTypeModel(FTreeDataContext sharedDataContext)
+            : base(sharedDataContext)
+        {
+
+        }
+
         #endregion
 
         #region ILinqModel<RelationTypeDTO> Members

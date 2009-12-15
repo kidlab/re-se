@@ -17,6 +17,12 @@ namespace FTree.Model
 
         }
 
+        public DeadReasonModel(FTreeDataContext sharedDataContext)
+            : base(sharedDataContext)
+        {
+
+        }
+
         #endregion
 
         #region ILinqModel<DeathReasonDTO> Members

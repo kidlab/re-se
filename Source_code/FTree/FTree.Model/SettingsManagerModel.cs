@@ -12,7 +12,7 @@ namespace FTree.Model
     /// such as: Relationship types, home towns, Jobs, Achievements, 
     /// Death reasons and Bury places.
     /// </summary>
-    public class SettingsManagerModel
+    public class SettingsManagerModel : BaseModel
     {
         #region VARIABLES
 
@@ -81,6 +81,7 @@ namespace FTree.Model
         #region CONSTRCUTOR
 
         public SettingsManagerModel()
+            : base()
         {
             _initModels();
         }
@@ -94,12 +95,12 @@ namespace FTree.Model
         /// </summary>
         protected virtual void _initModels()
         {
-            _relationTypeModel      = new RelationTypeModel();
-            _homeTownModel          = new HomeTownModel();
-            _jobModel               = new JobModel();
-            _achievementTypeModel   = new AchievementTypeModel();
-            _deadReasonModel        = new DeadReasonModel();
-            _buryPlaceModel         = new BuryPlaceModel();
+            _relationTypeModel = new RelationTypeModel(_db);
+            _homeTownModel = new HomeTownModel(_db);
+            _jobModel = new JobModel(_db);
+            _achievementTypeModel = new AchievementTypeModel(_db);
+            _deadReasonModel = new DeadReasonModel(_db);
+            _buryPlaceModel = new BuryPlaceModel(_db);
         }
 
         /// <summary>
@@ -122,33 +123,12 @@ namespace FTree.Model
         /// otherwise, manually submit by programmer if False.</param>
         public virtual void SetAutoSubmitChanges(bool value)
         {
-            _relationTypeModel.AutoSubmitChanges    = value;
-            _homeTownModel.AutoSubmitChanges        = value;
-            _jobModel.AutoSubmitChanges             = value;
+            _relationTypeModel.AutoSubmitChanges = value;
+            _homeTownModel.AutoSubmitChanges = value;
+            _jobModel.AutoSubmitChanges = value;
             _achievementTypeModel.AutoSubmitChanges = value;
-            _deadReasonModel.AutoSubmitChanges      = value;
-            _buryPlaceModel.AutoSubmitChanges       = value;
-        }
-
-        /// <summary>
-        /// Submit all changes to DB.
-        /// </summary>
-        public virtual void SubmitAllChanges()
-        {
-            try
-            {
-                _relationTypeModel.Save();
-                _homeTownModel.Save();
-                _jobModel.Save();
-                _achievementTypeModel.Save();
-                _deadReasonModel.Save();
-                _buryPlaceModel.Save();
-            }
-            catch (Exception exc)
-            {
-                Tracer.Log(typeof(SettingsManagerModel), exc);
-                throw;  // Keep all original error stacks.
-            }
+            _deadReasonModel.AutoSubmitChanges = value;
+            _buryPlaceModel.AutoSubmitChanges = value;
         }
 
         #endregion

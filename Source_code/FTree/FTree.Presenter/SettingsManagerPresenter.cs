@@ -18,7 +18,7 @@ namespace FTree.Presenter
             _model = new SettingsManagerModel();
 
             // Turn off the auto-submit changes feature.
-            //_model.SetAutoSubmitChanges(false);
+            _model.SetAutoSubmitChanges(false);
 
             _view = view;
         }
@@ -57,6 +57,7 @@ namespace FTree.Presenter
                     throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_RELATION_TYPE_ALREADY_EXIST), dto.Name));
 
                 _model.RelationTypeModel.Add(dto);
+                _model.RelationTypeModel.Save();
             }
             catch (FTreeDbAccessException exc)
             {
@@ -92,7 +93,7 @@ namespace FTree.Presenter
                 throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_RELATION_TYPE_FAILED));
             }
         }
-
+        
         public void DeleteRelationType()
         {
             try
@@ -118,7 +119,7 @@ namespace FTree.Presenter
         {
             try
             {
-                _model.SubmitAllChanges();
+                _model.Save();
             }
             catch (FTreeDbAccessException exc)
             {

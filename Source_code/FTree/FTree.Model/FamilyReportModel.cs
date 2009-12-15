@@ -49,14 +49,20 @@ namespace FTree.Model
 
         #endregion
 
-         #region VARIABLE
-        FTreeDataContext db = new FTreeDataContext();
-
+        #region VARIABLE
+        
         #endregion
 
         #region CONSTRUCTOR
         public FamilyReportModel()
+            : base()
         {
+        }
+
+        public FamilyReportModel(FTreeDataContext sharedDataContext)
+            : base(sharedDataContext)
+        {
+
         }
 
         #endregion
@@ -79,8 +85,8 @@ namespace FTree.Model
                             m.Birthday.GetValueOrDefault().Year >= fromYear
                             )
                            select new { m.IDMember };
-                           //group me by me.EVENT.Name into g
-                           //select new { Name = g.Key, Num = g.Count() };
+            //group me by me.EVENT.Name into g
+            //select new { Name = g.Key, Num = g.Count() };
 
             List<FamilyReportDTO> list_frDTO = new List<FamilyReportDTO>();
 
