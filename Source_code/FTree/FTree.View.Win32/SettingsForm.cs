@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace FTree.View.Win32
         private IList<RelationTypeDTO> _relationTypes = null;
         private SettingsManagerPresenter _presenter;
 
+        private BindingSource _bindingSource;
+
         /// <summary>
         /// whenever a tab page finished loading data, 
         /// the assciate element in this array will be set to true.
@@ -35,6 +38,9 @@ namespace FTree.View.Win32
         {
             InitializeComponent();
             _alreadyLoaded = new bool[mainTabControl.TabPages.Count];
+
+            _relationTypes = new List<RelationTypeDTO>();
+            _bindingSource = new BindingSource();
         }
 
         #endregion
@@ -47,6 +53,7 @@ namespace FTree.View.Win32
 
             // Force the first tab be selected.
             this.mainTabControl.SelectedTab = this.mainTabControl.TabPages[0];
+            _loadData();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -54,8 +61,7 @@ namespace FTree.View.Win32
             try
             {
                 ThreadHelper.DoWork(_presenter.SaveAllChanges);
-                _loadRelationTypes();
-                //this.DialogResult = DialogResult.OK;
+                this.DialogResult = DialogResult.OK;
             }
             catch (FTreePresenterException exc)
             {
@@ -72,6 +78,36 @@ namespace FTree.View.Win32
         /// <param name="e"></param>
         private void mainTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _loadData();
+        }
+
+        private void btnDeleteRelationType_Click(object sender, EventArgs e)
+        {
+            _deleteRelationType();
+        }
+
+        private void btnAddRelationType_Click(object sender, EventArgs e)
+        {
+            _addRelationType();
+        }
+
+        private void dgRelationTypes_SelectionChanged(object sender, EventArgs e)
+        {
+            if (_checkRelationTypesDataGrid())
+            {
+
+                string name = (string)dgRelationTypes.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                _currentRelationType =
+                    _relationTypes.SingleOrDefault(type => type.Name == name);
+            }
+        }
+
+        #endregion
+
+        #region CORE METHODS
+
+        private void _loadData()
+        {
             TabPage selectedTab = this.mainTabControl.SelectedTab;
             int selectedIndex = this.mainTabControl.SelectedIndex;
 
@@ -83,6 +119,7 @@ namespace FTree.View.Win32
             if (selectedTab == tabRelation_Type)
             {
                 _loadRelationTypes();
+                _checkRelationTypesDataGrid();
                 _alreadyLoaded[selectedIndex] = true;
             }
             else if (selectedTab == tabHomeTown)
@@ -91,39 +128,6 @@ namespace FTree.View.Win32
             }
             // Add all other tab pages here...
         }
-
-        private void btnDeleteRelationType_Click(object sender, EventArgs e)
-        {
-            try
-            {
-            }
-            catch (Exception exc)
-            {
-                Tracer.Log(typeof(SettingsForm), exc);
-                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOAD_FAMILIES_FAILED));
-            }
-        }
-
-        private void btnAddRelationType_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SimpleEntryForm frmAdd = new SimpleEntryForm();
-                if (frmAdd.ShowDialog() != DialogResult.OK)
-                    return;
-                _currentRelationType = new RelationTypeDTO { Name = frmAdd.Data };
-                _presenter.AddRelationType();
-            }
-            catch (Exception exc)
-            {
-                Tracer.Log(typeof(SettingsForm), exc);
-                UIUtils.Error(Util.GetStringResource(StringResName.ERR_INSERT_RELATION_TYPE_FAILED));
-            }
-        }
-
-        #endregion
-
-        #region CORE METHODS
 
         private void _loadRelationTypes()
         {
@@ -152,6 +156,48 @@ namespace FTree.View.Win32
             }
         }
 
+        private void _addRelationType()
+        {
+            try
+            {
+                SimpleEntryForm frmAdd = new SimpleEntryForm();
+                if (frmAdd.ShowDialog() != DialogResult.OK)
+                    return;
+                _currentRelationType = new RelationTypeDTO { Name = frmAdd.Data };
+                ThreadHelper.DoWork(_presenter.AddRelationType);
+                _relationTypes.Add(_currentRelationType);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_INSERT_RELATION_TYPE_FAILED));
+            }
+        }
+
+        private void _deleteRelationType()
+        {
+            try
+            {
+                // Ask for confirm.
+                DialogResult result = UIUtils.ConfirmOKCancel(Util.GetStringResource(StringResName.MSG_CONFIRM_DEL_ENTRY));
+
+                if (result != DialogResult.OK)
+                    return;
+
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.DeleteRelationType);
+
+                _relationTypes.Remove(_currentRelationType);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_DELETE_RELATION_TYPE_FAILED));
+            }
+        }
+
         #endregion
 
         #region UTILITTY METHODS
@@ -159,6 +205,32 @@ namespace FTree.View.Win32
         private void _initPresenter()
         {
             _presenter = new SettingsManagerPresenter(this);
+        }
+        
+        private void _setRelationTypesDataBindings()
+        {
+            _bindingSource.DataSource = _relationTypes;
+            this.dgRelationTypes.DataSource = _bindingSource;
+
+            foreach (DataGridViewColumn col in dgRelationTypes.Columns)
+            {
+                if (col.Name != "Name")
+                    col.Visible = false;
+            }
+        }
+
+        private bool _checkRelationTypesDataGrid()
+        {
+            bool enabled = true;
+            if (dgRelationTypes.DataSource == null
+                    || dgRelationTypes.Columns.Count <= 0
+                    || dgRelationTypes.Rows.Count <= 0
+                    || dgRelationTypes.SelectedRows.Count <= 0)
+                enabled = false;
+
+            this.btnDeleteRelationType.Enabled = enabled;
+
+            return enabled;
         }
 
         #endregion
@@ -177,13 +249,9 @@ namespace FTree.View.Win32
                     return;
 
                 _relationTypes = value;
-                this.dgRelationTypes.DataSource = _relationTypes;
 
-                foreach (DataGridViewColumn col in dgRelationTypes.Columns)
-                {
-                    if (col.Name != "Name")
-                        col.Visible = false;
-                }
+                if(mainTabControl.SelectedTab == tabRelation_Type)
+                    _setRelationTypesDataBindings();
             }
         }
 
@@ -287,6 +355,5 @@ namespace FTree.View.Win32
         }
 
         #endregion
-
     }
 }

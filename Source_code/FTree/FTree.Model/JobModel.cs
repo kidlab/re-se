@@ -103,7 +103,8 @@ namespace FTree.Model
         {
             try
             {
-                _db.JOBs.DeleteOnSubmit(ConvertToMapper(obj));
+                JOB mapper = _search(obj).SingleOrDefault();
+                _db.JOBs.DeleteOnSubmit(mapper);
                 this._save();
             }
             catch (Exception exc)
@@ -117,15 +118,8 @@ namespace FTree.Model
         {
             try
             {
-                IEnumerable<JOB> matches =
-                    from job in _db.JOBs
-                    where job.IDJob == obj.ID
-                    select job;
-                //_db.MEMBERs.Where(member => member.IDMember == obj.ID)
-                //.Select(member);
-
-                JOB jobMapper = matches.SingleOrDefault();
-                _updateModel(ref jobMapper, obj);
+                JOB mapper = _search(obj).SingleOrDefault();
+                _updateModel(ref mapper, obj);
                 this._save();
             }
             catch (Exception exc)
@@ -163,6 +157,16 @@ namespace FTree.Model
             mapper.IDJob = dto.ID;
             mapper.Name = dto.Name;
             mapper.Description = dto.Description;
+        }
+
+        private IEnumerable<JOB> _search(JobDTO obj)
+        {
+            IEnumerable<JOB> matches =
+                from entry in _db.JOBs
+                where entry.IDJob == obj.ID
+                select entry;
+
+            return matches;
         }
 
         #endregion

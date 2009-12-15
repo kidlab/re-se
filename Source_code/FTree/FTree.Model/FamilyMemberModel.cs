@@ -247,14 +247,7 @@ namespace FTree.Model
         {
             try
             {
-                IEnumerable<MEMBER> matches =
-                    from member in _db.MEMBERs
-                    where member.IDMember == obj.ID
-                    select member;
-                //_db.MEMBERs.Where(member => member.IDMember == obj.ID)
-                //.Select(member);
-
-                MEMBER memberMapper = matches.SingleOrDefault();
+                MEMBER memberMapper = _search(obj).SingleOrDefault();
                 _updateModel(ref memberMapper, obj);
                 this._save();
             }
@@ -496,6 +489,16 @@ namespace FTree.Model
                 mapper.DEATH_INFO.IDBuryReason = dto.DeathInfo.Reason.ID;
                 mapper.DEATH_INFO.IDBuryPlace = dto.DeathInfo.BuryPlace.ID;
             }
+        }
+
+        private IEnumerable<MEMBER> _search(FamilyMemberDTO obj)
+        {
+            IEnumerable<MEMBER> matches =
+                from entry in _db.MEMBERs
+                where entry.IDMember == obj.ID
+                select entry;
+
+            return matches;
         }
 
         #endregion

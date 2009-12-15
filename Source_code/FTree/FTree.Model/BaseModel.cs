@@ -13,6 +13,7 @@ namespace FTree.Model
 
         protected FTreeDataContext _db;        
         protected bool _autoSubmitChanges;
+        protected bool _isDataContextShared;
 
         /// <summary>
         /// Gets or sets the value determining that the model will automatically submit all changes to DB or not. The default value is True.
@@ -29,6 +30,14 @@ namespace FTree.Model
             }
         }
 
+        /// <summary>
+        /// Gets the value indicating that FTreeDataContext is shared across model classes or not.
+        /// </summary>
+        public bool IsDataContextShared
+        {
+            get { return _isDataContextShared; }
+        }
+
         #endregion
 
         #region CONSTRUCTOR
@@ -40,6 +49,7 @@ namespace FTree.Model
         {
             _refreshDataContext();
             _autoSubmitChanges = true;
+            _isDataContextShared = false;
         }
 
         /// <summary>
@@ -50,6 +60,7 @@ namespace FTree.Model
         {
             _db = sharedDataContext;
             _autoSubmitChanges = true;
+            _isDataContextShared = true;
         }
 
         #endregion
@@ -76,7 +87,10 @@ namespace FTree.Model
 
         protected void _refreshDataContext()
         {
-            _db = new FTreeDataContext();
+            // Should not re-create data context in shared mode,
+            // because of conflicting data.
+            if(!_isDataContextShared)
+                _db = new FTreeDataContext();
         }
 
         /// <summary>
@@ -87,7 +101,7 @@ namespace FTree.Model
             try
             {
                 _db.SubmitChanges();
-                _refreshDataContext();
+                _refreshDataContext();                
             }
             catch (Exception exc)
             {

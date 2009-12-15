@@ -160,6 +160,7 @@
             this.dgRelationTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgRelationTypes.Size = new System.Drawing.Size(289, 312);
             this.dgRelationTypes.TabIndex = 1;
+            this.dgRelationTypes.SelectionChanged += new System.EventHandler(this.dgRelationTypes_SelectionChanged);
             // 
             // tabHomeTown
             // 

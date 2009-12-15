@@ -23,7 +23,10 @@ namespace FTree.Model
         /// </summary>
         public IRelationTypeModel RelationTypeModel
         {
-            get { return _relationTypeModel; }
+            get
+            {
+                return _relationTypeModel;
+            }
         }
 
         private IHomeTownModel _homeTownModel;

@@ -214,6 +214,15 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want to delete this entry ?.
+        /// </summary>
+        internal static string MSG_CONFIRM_DEL_ENTRY {
+            get {
+                return ResourceManager.GetString("MSG_CONFIRM_DEL_ENTRY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure that you want to delete the family of {0} ?
         ///CAUTION: This will delete all information of family members in database..
         /// </summary>
