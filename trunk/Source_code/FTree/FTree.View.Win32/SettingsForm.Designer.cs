@@ -36,8 +36,10 @@
             this.gbxRelationTypes = new System.Windows.Forms.GroupBox();
             this.dgRelationTypes = new System.Windows.Forms.DataGridView();
             this.tabHomeTown = new System.Windows.Forms.TabPage();
+            this.btnAddHomeTown = new System.Windows.Forms.Button();
+            this.btnDeleteHomeTown = new System.Windows.Forms.Button();
             this.gbxHomeTowns = new System.Windows.Forms.GroupBox();
-            this.dgHomeTown = new System.Windows.Forms.DataGridView();
+            this.dgHomeTowns = new System.Windows.Forms.DataGridView();
             this.tabOccupation = new System.Windows.Forms.TabPage();
             this.gbxCarrers = new System.Windows.Forms.GroupBox();
             this.dgCareers = new System.Windows.Forms.DataGridView();
@@ -58,7 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgRelationTypes)).BeginInit();
             this.tabHomeTown.SuspendLayout();
             this.gbxHomeTowns.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgHomeTown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgHomeTowns)).BeginInit();
             this.tabOccupation.SuspendLayout();
             this.gbxCarrers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgCareers)).BeginInit();
@@ -155,15 +157,20 @@
             this.dgRelationTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgRelationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgRelationTypes.Location = new System.Drawing.Point(3, 16);
+            this.dgRelationTypes.MultiSelect = false;
             this.dgRelationTypes.Name = "dgRelationTypes";
             this.dgRelationTypes.RowHeadersVisible = false;
             this.dgRelationTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgRelationTypes.Size = new System.Drawing.Size(289, 312);
             this.dgRelationTypes.TabIndex = 1;
+            this.dgRelationTypes.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgRelationTypes_CellBeginEdit);
+            this.dgRelationTypes.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgRelationTypes_CellEndEdit);
             this.dgRelationTypes.SelectionChanged += new System.EventHandler(this.dgRelationTypes_SelectionChanged);
             // 
             // tabHomeTown
             // 
+            this.tabHomeTown.Controls.Add(this.btnAddHomeTown);
+            this.tabHomeTown.Controls.Add(this.btnDeleteHomeTown);
             this.tabHomeTown.Controls.Add(this.gbxHomeTowns);
             this.tabHomeTown.Location = new System.Drawing.Point(4, 22);
             this.tabHomeTown.Name = "tabHomeTown";
@@ -173,12 +180,38 @@
             this.tabHomeTown.Text = "Home Towns";
             this.tabHomeTown.UseVisualStyleBackColor = true;
             // 
+            // btnAddHomeTown
+            // 
+            this.btnAddHomeTown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddHomeTown.Image = global::FTree.View.Win32.Properties.Resources.add;
+            this.btnAddHomeTown.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddHomeTown.Location = new System.Drawing.Point(304, 19);
+            this.btnAddHomeTown.Name = "btnAddHomeTown";
+            this.btnAddHomeTown.Size = new System.Drawing.Size(89, 32);
+            this.btnAddHomeTown.TabIndex = 14;
+            this.btnAddHomeTown.Text = "Add";
+            this.btnAddHomeTown.UseVisualStyleBackColor = true;
+            this.btnAddHomeTown.Click += new System.EventHandler(this.btnAddHomeTown_Click);
+            // 
+            // btnDeleteHomeTown
+            // 
+            this.btnDeleteHomeTown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteHomeTown.Image = global::FTree.View.Win32.Properties.Resources.delete;
+            this.btnDeleteHomeTown.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteHomeTown.Location = new System.Drawing.Point(304, 57);
+            this.btnDeleteHomeTown.Name = "btnDeleteHomeTown";
+            this.btnDeleteHomeTown.Size = new System.Drawing.Size(89, 32);
+            this.btnDeleteHomeTown.TabIndex = 13;
+            this.btnDeleteHomeTown.Text = "Delete";
+            this.btnDeleteHomeTown.UseVisualStyleBackColor = true;
+            this.btnDeleteHomeTown.Click += new System.EventHandler(this.btnDeleteHomeTown_Click);
+            // 
             // gbxHomeTowns
             // 
             this.gbxHomeTowns.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbxHomeTowns.Controls.Add(this.dgHomeTown);
+            this.gbxHomeTowns.Controls.Add(this.dgHomeTowns);
             this.gbxHomeTowns.Location = new System.Drawing.Point(3, 3);
             this.gbxHomeTowns.Name = "gbxHomeTowns";
             this.gbxHomeTowns.Size = new System.Drawing.Size(295, 331);
@@ -186,20 +219,26 @@
             this.gbxHomeTowns.TabStop = false;
             this.gbxHomeTowns.Text = "Available Home Towns";
             // 
-            // dgHomeTown
+            // dgHomeTowns
             // 
-            this.dgHomeTown.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgHomeTown.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgHomeTown.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgHomeTown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgHomeTown.Location = new System.Drawing.Point(3, 16);
-            this.dgHomeTown.MultiSelect = false;
-            this.dgHomeTown.Name = "dgHomeTown";
-            this.dgHomeTown.ReadOnly = true;
-            this.dgHomeTown.RowHeadersVisible = false;
-            this.dgHomeTown.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgHomeTown.Size = new System.Drawing.Size(289, 312);
-            this.dgHomeTown.TabIndex = 2;
+            this.dgHomeTowns.AllowUserToAddRows = false;
+            this.dgHomeTowns.AllowUserToDeleteRows = false;
+            this.dgHomeTowns.AllowUserToResizeColumns = false;
+            this.dgHomeTowns.AllowUserToResizeRows = false;
+            this.dgHomeTowns.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgHomeTowns.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dgHomeTowns.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgHomeTowns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgHomeTowns.Location = new System.Drawing.Point(3, 16);
+            this.dgHomeTowns.MultiSelect = false;
+            this.dgHomeTowns.Name = "dgHomeTowns";
+            this.dgHomeTowns.RowHeadersVisible = false;
+            this.dgHomeTowns.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgHomeTowns.Size = new System.Drawing.Size(289, 312);
+            this.dgHomeTowns.TabIndex = 2;
+            this.dgHomeTowns.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgHomeTowns_CellBeginEdit);
+            this.dgHomeTowns.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgHomeTowns_CellEndEdit);
+            this.dgHomeTowns.SelectionChanged += new System.EventHandler(this.dgHomeTowns_SelectionChanged);
             // 
             // tabOccupation
             // 
@@ -401,7 +440,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgRelationTypes)).EndInit();
             this.tabHomeTown.ResumeLayout(false);
             this.gbxHomeTowns.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgHomeTown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgHomeTowns)).EndInit();
             this.tabOccupation.ResumeLayout(false);
             this.gbxCarrers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgCareers)).EndInit();
@@ -437,12 +476,14 @@
         private System.Windows.Forms.GroupBox gbxDeathReasons;
         private System.Windows.Forms.GroupBox gbxBuryPlaces;
         private System.Windows.Forms.DataGridView dgRelationTypes;
-        private System.Windows.Forms.DataGridView dgHomeTown;
+        private System.Windows.Forms.DataGridView dgHomeTowns;
         private System.Windows.Forms.DataGridView dgCareers;
         private System.Windows.Forms.DataGridView dgAchievements;
         private System.Windows.Forms.DataGridView dgDeathReasons;
         private System.Windows.Forms.DataGridView dgBuryPlaces;
         private System.Windows.Forms.Button btnDeleteRelationType;
         private System.Windows.Forms.Button btnAddRelationType;
+        private System.Windows.Forms.Button btnAddHomeTown;
+        private System.Windows.Forms.Button btnDeleteHomeTown;
     }
 }

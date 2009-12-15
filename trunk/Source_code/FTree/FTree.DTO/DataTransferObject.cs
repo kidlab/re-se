@@ -13,5 +13,15 @@ namespace FTree.DTO
         /// Identification number of this object.
         /// </summary>
 		public int ID {get; set;}
+
+        /// <summary>
+        /// The currrent status of this object (ex: just created, copied, updated or deleted).
+        /// </summary>
+        public DataState State { get; set; }
+
+        public DataTransferObject()
+        {
+            State = DataState.New;
+        }
     }
 }

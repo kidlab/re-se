@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimpleEntryForm));
             this.txtName = new FTree.View.Win32.Components.BaseTextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.errorToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // txtName
@@ -69,7 +71,6 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.AutoSize = true;
-            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnOK.Image = global::FTree.View.Win32.Properties.Resources.ok;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOK.Location = new System.Drawing.Point(133, 52);
@@ -79,6 +80,16 @@
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // errorToolTip
+            // 
+            this.errorToolTip.AutomaticDelay = 10;
+            this.errorToolTip.AutoPopDelay = 400;
+            this.errorToolTip.ForeColor = System.Drawing.Color.Red;
+            this.errorToolTip.InitialDelay = 10;
+            this.errorToolTip.IsBalloon = true;
+            this.errorToolTip.ReshowDelay = 2;
+            this.errorToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
             // 
             // SimpleEntryForm
             // 
@@ -110,5 +121,6 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.ToolTip errorToolTip;
     }
 }

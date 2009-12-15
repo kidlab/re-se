@@ -9,5 +9,6 @@ namespace FTree.Model
 {
     public interface IHomeTownModel : ILinqModel<HomeTownDTO>
     {
+        IEnumerable<HomeTownDTO> FindByName(String name);
     }
 }

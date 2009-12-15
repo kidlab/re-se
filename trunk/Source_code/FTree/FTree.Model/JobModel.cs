@@ -148,7 +148,7 @@ namespace FTree.Model
             dto.ID = mapper.IDJob;
             dto.Name = mapper.Name;
             dto.Description = mapper.Description;
-
+            dto.State = DataState.Copied;
             return dto;
         }
 

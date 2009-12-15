@@ -174,6 +174,7 @@ namespace FTree.Model
             RelationTypeDTO dto = new RelationTypeDTO();
             dto.ID = mapper.IDRelationship;
             dto.Name = mapper.Name;
+            dto.State = DataState.Copied;
             return dto;
         }
 

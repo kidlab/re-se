@@ -12,6 +12,7 @@ namespace FTree.DTO
 		public DateTime AchievementDate {get; set;}
 
         public AchievementInfo()
+            : base()
         {
             AchievementType = new AchievementType();
         }

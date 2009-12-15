@@ -47,6 +47,7 @@ namespace FTree.DTO
         }
 
         public FamilyMemberDTO()
+            : base()
         {
             Family = new FamilyDTO();
             Job = new JobDTO();
@@ -56,6 +57,7 @@ namespace FTree.DTO
         }
 
         public FamilyMemberDTO(FamilyDTO family)
+            : base()
         {
             Family = family;
             Job = new JobDTO();

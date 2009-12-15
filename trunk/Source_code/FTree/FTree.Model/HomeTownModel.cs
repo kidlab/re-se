@@ -126,6 +126,28 @@ namespace FTree.Model
 
         #endregion
 
+        #region IHomeTownModel Members
+
+        public IEnumerable<HomeTownDTO> FindByName(string name)
+        {
+            try
+            {
+                IEnumerable<HomeTownDTO> matches =
+                    from entity in _db.BIRTHPLACEs
+                    where entity.Name.ToUpper() == name.ToUpper()
+                    select ConvertToDTO(entity);
+
+                return matches;
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(HomeTownModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        #endregion
+
         #region UTILITY METHODS
 
         internal static BIRTHPLACE ConvertToMapper(HomeTownDTO dto)
@@ -142,6 +164,7 @@ namespace FTree.Model
             HomeTownDTO dto = new HomeTownDTO();
             dto.ID = mapper.IDBirthPlace;
             dto.Name = mapper.Name;
+            dto.State = DataState.Copied;
             return dto;
         }
 

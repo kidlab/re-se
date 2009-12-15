@@ -6,8 +6,15 @@ using FTree.Common;
 
 namespace FTree.View.Win32
 {
-    class UIUtils
+    public class UIUtils
     {
+        /// <summary>
+        /// To count entries already existing..
+        /// </summary>
+        /// <param name="data">Data to count.</param>
+        /// <returns>Number of existing entities with the specific name</returns>
+        public delegate int CountExistentEntryDelegate(string data);
+
         /// <summary>
         /// Shows an error message.
         /// </summary>

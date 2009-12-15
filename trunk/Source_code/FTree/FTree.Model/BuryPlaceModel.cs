@@ -144,6 +144,7 @@ namespace FTree.Model
             BuryPlaceDTO dto = new BuryPlaceDTO();
             dto.ID = mapper.IDBuryPlace;
             dto.Name = mapper.Name;
+            dto.State = DataState.Copied;
             return dto;
         }
 
