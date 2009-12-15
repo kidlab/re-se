@@ -13,5 +13,10 @@ namespace FTree.DTO
         public int BirthQuantity { get; set; }
         public int MarriageQuantity { get; set; }
         public int DeathQuantity { get; set; }
+
+        public FamilyReportDTO()
+            : base()
+        {
+        }
     }
 }

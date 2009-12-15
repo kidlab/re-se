@@ -9,6 +9,10 @@ namespace FTree.DTO
     {
         public string Name { get; set; }
 
+        public AchievementType()
+            : base()
+        {
+        }
         public override string ToString()
         {
             return Name;

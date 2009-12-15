@@ -300,6 +300,8 @@ namespace FTree.Model
             dto.DateJointFamily = mapper.DayJointFamily.GetValueOrDefault();
             dto.DeathInfo = _getDeathInfo(mapper);
 
+            dto.State = DataState.Copied;
+
             return dto;
         }
 

@@ -11,14 +11,38 @@ namespace FTree.Presenter
 {
     public class SettingsManagerPresenter : BasePresenter<SettingsManagerModel, ISettingsManagerView>
     {
+        #region VARIABLES
+
+        private bool _autoSubmit;
+
+        /// <summary>
+        /// Gets or sets the value determining that the model will automatically submit all changes to DB or not. The default value is True.
+        /// </summary>
+        public bool AutoSubmitChanges
+        {
+            get
+            {
+                return this._autoSubmit;
+            }
+            set
+            {
+                _autoSubmit = value;
+                _model.SetAutoSubmitChanges(_autoSubmit);
+            }
+        }
+
+        #endregion
+
         #region CONSTRUCTOR
 
         public SettingsManagerPresenter(ISettingsManagerView view)
         {
             _model = new SettingsManagerModel();
-            
+           
+            _autoSubmit = false;
+           
             // Turn off the auto-submit changes feature.
-            _model.SetAutoSubmitChanges(false);
+            _model.SetAutoSubmitChanges(_autoSubmit);
 
             _view = view;
         }
@@ -27,7 +51,7 @@ namespace FTree.Presenter
 
         #region CORE METHODS
 
-        #region RELATION SHIP
+        #region RELATION TYPE
 
         public void LoadAllRelationTypes()
         {
@@ -52,11 +76,10 @@ namespace FTree.Presenter
             try
             {
                 RelationTypeDTO dto = _view.RelationType;
-                if (IsRelationTypeExistent(dto))
+                if (CountRelationTypeWithName(dto.Name) > 0)
                     throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_RELATION_TYPE_ALREADY_EXIST), dto.Name));
 
                 _model.RelationTypeModel.Add(dto);
-                _model.Save();                
             }
             catch (FTreeDbAccessException exc)
             {
@@ -76,7 +99,7 @@ namespace FTree.Presenter
             {
                 RelationTypeDTO dto = _view.RelationType;
 
-                if (IsRelationTypeExistent(dto))
+                if (CountRelationTypeWithName(dto.Name) > 1)
                     throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_RELATION_TYPE_ALREADY_EXIST), dto.Name));
 
                 _model.RelationTypeModel.Update(dto);
@@ -111,6 +134,93 @@ namespace FTree.Presenter
             }
         }
 
+        #endregion
+
+        #region HOMETOWN
+
+        public void LoadAllHomeTowns()
+        {
+            try
+            {
+                _view.HomeTowns = _model.HomeTownModel.GetAll();
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        public void AddHomeTown()
+        {
+            try
+            {
+                HomeTownDTO dto = _view.HomeTown;
+                if (CountHomeTownWithName(dto.Name) > 0)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.HomeTownModel.Add(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+        }
+
+        public void UpdateHomeTown()
+        {
+            try
+            {
+                HomeTownDTO dto = _view.HomeTown;
+
+                if (CountHomeTownWithName(dto.Name) > 1)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.HomeTownModel.Update(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+        }
+
+        public void DeleteHomeTown()
+        {
+            try
+            {
+                _model.HomeTownModel.Delete(_view.HomeTown);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Save all changes to DB.
         /// </summary>
@@ -118,32 +228,83 @@ namespace FTree.Presenter
         {
             try
             {
+                if (!_autoSubmit)
+                {
+                    #region RELATION TYPE
+
+                    if (_view.RelationTypes != null)
+                        foreach (RelationTypeDTO dto in _view.RelationTypes)
+                        {
+                            switch (dto.State)
+                            {
+                                case DataState.New:
+                                    _model.RelationTypeModel.Add(dto);
+                                    break;
+                                case DataState.Modified:
+                                    _model.RelationTypeModel.Update(dto);
+                                    break;
+                                case DataState.Deleted:
+                                    _model.RelationTypeModel.Delete(dto);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                    #endregion
+
+                    #region HOMETOWN
+
+                    if (_view.HomeTowns != null)
+                        foreach (HomeTownDTO dto in _view.HomeTowns)
+                        {
+                            switch (dto.State)
+                            {
+                                case DataState.New:
+                                    _model.HomeTownModel.Add(dto);
+                                    break;
+                                case DataState.Modified:
+                                    _model.HomeTownModel.Update(dto);
+                                    break;
+                                case DataState.Deleted:
+                                    _model.HomeTownModel.Delete(dto);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                    #endregion
+                }
+
                 _model.Save();
             }
             catch (FTreeDbAccessException exc)
             {
                 Tracer.Log(typeof(SettingsManagerPresenter), exc);
-                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_RELATION_TYPE_FAILED));
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
             }
             catch (Exception exc)
             {
                 Tracer.Log(typeof(SettingsManagerPresenter), exc);
-                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_RELATION_TYPE_FAILED));
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
             }
         }
 
         #endregion
 
-        #endregion
-
         #region UTILIY METHODS
 
-        public bool IsRelationTypeExistent(RelationTypeDTO dto)
+        public int CountRelationTypeWithName(string name)
         {
-            IEnumerable<RelationTypeDTO> matches = _model.RelationTypeModel.FindByName(dto.Name);
-            if (matches.Count() > 0)
-                return true;
-            return false;
+            IEnumerable<RelationTypeDTO> matches = _model.RelationTypeModel.FindByName(name);
+            return matches.Count();
+        }
+
+        public int CountHomeTownWithName(string name)
+        {
+            IEnumerable<HomeTownDTO> matches = _model.HomeTownModel.FindByName(name);
+            return matches.Count();
         }
 
         #endregion

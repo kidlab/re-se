@@ -61,6 +61,15 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot delete data.
+        /// </summary>
+        internal static string ERR_DELETE_ENTRY_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_DELETE_ENTRY_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot delete family.
         /// </summary>
         internal static string ERR_DELETE_FAMILY_FAILED {
@@ -88,7 +97,16 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The name of family {0} already exist.
+        ///   Looks up a localized string similar to The entry with name &apos;{0}/ already ezist.
+        /// </summary>
+        internal static string ERR_ENTRY_ALREADY_EXIST {
+            get {
+                return ResourceManager.GetString("ERR_ENTRY_ALREADY_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of family &apos;{0}&apos; already exist.
         /// </summary>
         internal static string ERR_FAMILY_ALREADY_EXIST {
             get {
@@ -169,7 +187,7 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The relation type {0} already exist.
+        ///   Looks up a localized string similar to The relation type &apos;{0}&apos; already exist.
         /// </summary>
         internal static string ERR_RELATION_TYPE_ALREADY_EXIST {
             get {
@@ -183,6 +201,15 @@ namespace FTree.Common {
         internal static string ERR_SAVE_DATA_FAILED {
             get {
                 return ResourceManager.GetString("ERR_SAVE_DATA_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot update data.
+        /// </summary>
+        internal static string ERR_UPDATE_ENTRY_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_UPDATE_ENTRY_FAILED", resourceCulture);
             }
         }
         
@@ -223,7 +250,7 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure that you want to delete the family of {0} ?
+        ///   Looks up a localized string similar to Are you sure that you want to delete the family of &apos;{0}&apos; ?
         ///CAUTION: This will delete all information of family members in database..
         /// </summary>
         internal static string MSG_CONFIRM_DEL_FAMILY {
@@ -233,7 +260,7 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter the data.
+        ///   Looks up a localized string similar to Please enter data.
         /// </summary>
         internal static string MSG_ENTER_DATA {
             get {

@@ -49,6 +49,7 @@
     <Compile Include="AchievementReportDTO.cs" />
     <Compile Include="AchievementType.cs" />
     <Compile Include="BuryPlaceDTO.cs" />
+    <Compile Include="DataState.cs" />
     <Compile Include="JobDTO.cs" />
     <Compile Include="DataTransferObject.cs" />
     <Compile Include="DeathInfo.cs" />

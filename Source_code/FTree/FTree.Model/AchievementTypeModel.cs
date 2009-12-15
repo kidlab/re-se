@@ -155,6 +155,7 @@ namespace FTree.Model
             AchievementType dto = new AchievementType();
             dto.ID = mapper.IDEvent;
             dto.Name = mapper.Name;
+            dto.State = DataState.Copied;
             return dto;
         }
 

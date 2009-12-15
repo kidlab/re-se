@@ -10,5 +10,12 @@ namespace FTree.DTO
         public DeathReasonDTO Reason { get; set; }
         public DateTime DeathDay { get; set; }
         public BuryPlaceDTO BuryPlace { get; set; }
+
+        public DeathInfo()
+            : base()
+        {
+            Reason = new DeathReasonDTO();
+            BuryPlace = new BuryPlaceDTO();
+        }
     }
 }

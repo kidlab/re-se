@@ -11,6 +11,7 @@ namespace FTree.DTO
         public FamilyMemberDTO RootPerson { get; set; }
 
         public FamilyDTO()
+            : base()
         {
             Name = String.Empty;
         }

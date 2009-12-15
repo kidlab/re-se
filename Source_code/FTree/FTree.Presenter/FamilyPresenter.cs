@@ -34,7 +34,7 @@ namespace FTree.Presenter
             {
                 FamilyDTO dto = _view.Family;
 
-                if (IsExistent(dto.Name))
+                if (CountWithName(dto.Name) > 0)
                     throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_FAMILY_ALREADY_EXIST), dto.Name));
 
                 _model.Add(dto);
@@ -62,7 +62,7 @@ namespace FTree.Presenter
             {
                 FamilyDTO dto = _view.Family;
 
-                if (IsExistent(dto.Name))
+                if (CountWithName(dto.Name) > 1)
                     throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_FAMILY_ALREADY_EXIST), dto.Name));
 
                 _model.Update(_view.Family);
@@ -89,12 +89,10 @@ namespace FTree.Presenter
 
         #region UTILITY METHODS
 
-        public bool IsExistent(string familyName)
+        public int CountWithName(string familyName)
         {
             IEnumerable<FamilyDTO> families = _model.FindByName(familyName);
-            if (families.Count() > 0)
-                return true;
-            return false;
+            return families.Count();
         }
 
         protected override void _disposeComponents()

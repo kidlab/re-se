@@ -143,7 +143,7 @@ namespace FTree.Model
             DeathReasonDTO dto = new DeathReasonDTO();
             dto.ID = mapper.IDBuryReason;
             dto.Name = mapper.Name;
-
+            dto.State = DataState.Copied;
             return dto;
         }
 

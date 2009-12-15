@@ -187,7 +187,7 @@ namespace FTree.Model
             FamilyDTO dto = new FamilyDTO();
             dto.ID = mapper.IDFamily;
             dto.Name = mapper.Name;
-
+            dto.State = DataState.Copied;
             return dto;
         }
 

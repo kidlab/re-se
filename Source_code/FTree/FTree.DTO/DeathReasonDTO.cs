@@ -11,6 +11,7 @@ namespace FTree.DTO
         public string Description { get; set; }
 
         public DeathReasonDTO()
+            : base()
         {
             Name = String.Empty;
             Description = String.Empty;
