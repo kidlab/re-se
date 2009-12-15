@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using FTree.Common;
@@ -32,9 +33,22 @@ namespace FTree.Model
 
         #region CONSTRUCTOR
 
+        /// <summary>
+        /// Creates a new instance of BaseModel with a new FTreeDataContext.
+        /// </summary>
         public BaseModel()
         {
             _refreshDataContext();
+            _autoSubmitChanges = true;
+        }
+
+        /// <summary>
+        /// Creates a new instance of BaseModel with a FTreeDataContext shared across model classes.
+        /// </summary>
+        /// <param name="sharedDataContext">The shared FTreeDataContext.</param>
+        public BaseModel(FTreeDataContext sharedDataContext)
+        {
+            _db = sharedDataContext;
             _autoSubmitChanges = true;
         }
 
@@ -80,6 +94,16 @@ namespace FTree.Model
                 Tracer.Log(typeof(BaseModel), exc);
                 throw new FTreeDbAccessException(exc);
             }
+        }
+
+        /// <summary>
+        /// Use this method to share one DataContext across model classes 
+        /// to avoid conflict when submiting data to DB.
+        /// </summary>
+        /// <param name="dataContext">An instance of FTreeDataContext.</param>
+        public virtual void ShareDataContext(FTreeDataContext dataContext)
+        {
+            _db = dataContext;
         }
 
         #endregion

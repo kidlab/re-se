@@ -54,7 +54,8 @@ namespace FTree.View.Win32
             try
             {
                 ThreadHelper.DoWork(_presenter.SaveAllChanges);
-                this.DialogResult = DialogResult.OK;
+                _loadRelationTypes();
+                //this.DialogResult = DialogResult.OK;
             }
             catch (FTreePresenterException exc)
             {
@@ -112,7 +113,6 @@ namespace FTree.View.Win32
                     return;
                 _currentRelationType = new RelationTypeDTO { Name = frmAdd.Data };
                 _presenter.AddRelationType();
-                _loadRelationTypes();
             }
             catch (Exception exc)
             {

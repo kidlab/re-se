@@ -17,6 +17,12 @@ namespace FTree.Model
 
         }
 
+        public HomeTownModel(FTreeDataContext sharedDataContext)
+            : base(sharedDataContext)
+        {
+
+        }
+
         #endregion
 
         #region ILinqModel<HomeTownDTO> Members

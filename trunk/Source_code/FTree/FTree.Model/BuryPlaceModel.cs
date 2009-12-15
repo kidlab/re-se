@@ -17,6 +17,12 @@ namespace FTree.Model
 
         }
 
+        public BuryPlaceModel(FTreeDataContext sharedDataContext)
+            : base(sharedDataContext)
+        {
+
+        }
+
         #endregion
 
         #region ILinqModel<BuryPlaceDTO> Members

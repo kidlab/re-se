@@ -26,7 +26,7 @@ namespace FTree.View.Win32
         /// The delegate of a method which has no parameter and return an object.
         /// </summary>
         /// <returns>An instance of an object.</returns>
-        public delegate Object ObjectReturnDelegate();
+        public delegate object ObjectReturnDelegate();
 
         /// <summary>
         /// The delegate of a method that has an object as its argument.
@@ -166,6 +166,25 @@ namespace FTree.View.Win32
                     throw threadException;
 
                 return objResult;
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(ThreadHelper).ToString(), exc);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Run the method represented by the ObjectParamMethodDelegate.
+        /// </summary>
+        /// <param name="methodDelegate">The delegate of a method that has an object as its argument.</param>
+        /// <param name="arg"></param>
+        public static void DoWork(ObjectParamDelegate methodDelegate, Object arg)
+        {
+            try
+            {
+                ProgressForm waitForm = new ProgressForm();
+                DoWork(methodDelegate, waitForm, arg);
             }
             catch (Exception exc)
             {
