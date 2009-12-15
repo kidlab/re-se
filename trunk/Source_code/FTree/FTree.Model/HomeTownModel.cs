@@ -98,7 +98,8 @@ namespace FTree.Model
         {
             try
             {
-                _db.BIRTHPLACEs.DeleteOnSubmit(ConvertToMapper(obj));
+                BIRTHPLACE mapper = _search(obj).SingleOrDefault();
+                _db.BIRTHPLACEs.DeleteOnSubmit(mapper);
                 this._save();
             }
             catch (Exception exc)
@@ -112,12 +113,8 @@ namespace FTree.Model
         {
             try
             {
-                IEnumerable<BIRTHPLACE> matches =
-                    from place in _db.BIRTHPLACEs
-                    where place.IDBirthPlace == obj.ID
-                    select place;
-                BIRTHPLACE placeMapper = matches.SingleOrDefault();
-                _updateModel(ref placeMapper, obj);
+                BIRTHPLACE mapper = _search(obj).SingleOrDefault();
+                _updateModel(ref mapper, obj);
                 this._save();
             }
             catch (Exception exc)
@@ -152,6 +149,16 @@ namespace FTree.Model
         {
             mapper.IDBirthPlace = dto.ID;
             mapper.Name = dto.Name;
+        }
+
+        private IEnumerable<BIRTHPLACE> _search(HomeTownDTO obj)
+        {
+            IEnumerable<BIRTHPLACE> matches =
+                from entry in _db.BIRTHPLACEs
+                where entry.IDBirthPlace == obj.ID
+                select entry;
+
+            return matches;
         }
 
         #endregion

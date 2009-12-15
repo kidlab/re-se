@@ -168,6 +168,9 @@
   <data name="ERR_UPDATE_RELATION_TYPE_FAILED" xml:space="preserve">
     <value>Cannot update the relation type</value>
   </data>
+  <data name="MSG_CONFIRM_DEL_ENTRY" xml:space="preserve">
+    <value>Are you sure that you want to delete this entry ?</value>
+  </data>
   <data name="MSG_CONFIRM_DEL_FAMILY" xml:space="preserve">
     <value>Are you sure that you want to delete the family of {0} ?
 CAUTION: This will delete all information of family members in database.</value>

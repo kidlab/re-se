@@ -67,7 +67,7 @@ namespace FTree.View.Win32
             if (_checkDataGrid())
             {
 
-                int familyID = (int)dgFamilies.SelectedRows[0].Cells["ID"].Value;
+                int familyID = (int)dgFamilies.SelectedRows[0].Cells[FTreeConst.ID_FIELD].Value;
                 _currentFamily =
                     _families.SingleOrDefault(family => family.ID == familyID);
             }
@@ -180,7 +180,7 @@ namespace FTree.View.Win32
                 
                 foreach (DataGridViewColumn col in dgFamilies.Columns)
                 {
-                    if (col.Name != "Name")
+                    if (col.Name != FTreeConst.NAME_FIELD)
                         col.Visible = false;
                 }
             }

@@ -16,7 +16,7 @@ namespace FTree.Presenter
         public SettingsManagerPresenter(ISettingsManagerView view)
         {
             _model = new SettingsManagerModel();
-
+            
             // Turn off the auto-submit changes feature.
             _model.SetAutoSubmitChanges(false);
 
@@ -52,12 +52,11 @@ namespace FTree.Presenter
             try
             {
                 RelationTypeDTO dto = _view.RelationType;
-
                 if (IsRelationTypeExistent(dto))
                     throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_RELATION_TYPE_ALREADY_EXIST), dto.Name));
 
                 _model.RelationTypeModel.Add(dto);
-                _model.RelationTypeModel.Save();
+                _model.Save();                
             }
             catch (FTreeDbAccessException exc)
             {

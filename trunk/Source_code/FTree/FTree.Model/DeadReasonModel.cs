@@ -98,7 +98,9 @@ namespace FTree.Model
         {
             try
             {
-                _db.BURYREASONs.DeleteOnSubmit(ConvertToMapper(obj));
+                BURYREASON mapper = _search(obj).SingleOrDefault();
+
+                _db.BURYREASONs.DeleteOnSubmit(mapper);
                 this._save();
             }
             catch (Exception exc)
@@ -112,11 +114,7 @@ namespace FTree.Model
         {
             try
             {
-                IEnumerable<BURYREASON> matches =
-                    from reason in _db.BURYREASONs
-                    where reason.IDBuryReason == obj.ID
-                    select reason;
-                BURYREASON reasonMapper = matches.SingleOrDefault();
+                BURYREASON reasonMapper = _search(obj).SingleOrDefault();
                 _updateModel(ref reasonMapper, obj);
                 this._save();
             }
@@ -153,6 +151,16 @@ namespace FTree.Model
         {
             mapper.IDBuryReason = dto.ID;
             mapper.Name = dto.Name;
+        }
+
+        private IEnumerable<BURYREASON> _search(DeathReasonDTO obj)
+        {
+            IEnumerable<BURYREASON> matches =
+                from entry in _db.BURYREASONs
+                where entry.IDBuryReason == obj.ID
+                select entry;
+
+            return matches;
         }
 
         #endregion

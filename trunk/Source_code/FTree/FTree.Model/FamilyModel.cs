@@ -115,12 +115,7 @@ namespace FTree.Model
         {
             try
             {
-                IEnumerable<FAMILY> matches =
-                    from family in _db.FAMILies
-                    where family.IDFamily == obj.ID
-                    select family;
-
-                FAMILY familyMapper = matches.SingleOrDefault();
+                FAMILY familyMapper = _search(obj).SingleOrDefault();
                 _updateModel(ref familyMapper, obj);
                 this._save();
             }
@@ -139,12 +134,7 @@ namespace FTree.Model
         {
             try
             {
-                IEnumerable<FAMILY> matches =
-                    from family in _db.FAMILies
-                    where family.IDFamily == obj.ID
-                    select family;
-
-                FAMILY familyMapper = matches.SingleOrDefault();
+                FAMILY familyMapper = _search(obj).SingleOrDefault();
 
                 _db.FAMILies.DeleteOnSubmit(familyMapper);
                 this._save();
@@ -244,6 +234,16 @@ namespace FTree.Model
         {
             mapper.IDFamily = dto.ID;
             mapper.Name = dto.Name;
+        }
+
+        private IEnumerable<FAMILY> _search(FamilyDTO obj)
+        {
+            IEnumerable<FAMILY> matches =
+                from entry in _db.FAMILies
+                where entry.IDFamily == obj.ID
+                select entry;
+
+            return matches;
         }
 
         #endregion

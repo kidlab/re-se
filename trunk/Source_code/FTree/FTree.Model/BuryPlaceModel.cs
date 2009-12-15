@@ -99,7 +99,9 @@ namespace FTree.Model
         {
             try
             {
-                _db.BURYPLACEs.DeleteOnSubmit(ConvertToMapper(obj));
+                BURYPLACE mapper = _search(obj).SingleOrDefault();
+
+                _db.BURYPLACEs.DeleteOnSubmit(mapper);
                 this._save();
             }
             catch (Exception exc)
@@ -113,12 +115,7 @@ namespace FTree.Model
         {
             try
             {
-                IEnumerable<BURYPLACE> matches =
-                        from place in _db.BURYPLACEs
-                        where place.IDBuryPlace == obj.ID
-                        select place;
-
-                BURYPLACE placeMapper = matches.SingleOrDefault();
+                BURYPLACE placeMapper = _search(obj).SingleOrDefault();
                 _updateModel(ref placeMapper, obj);
                 this._save();
             }
@@ -154,6 +151,15 @@ namespace FTree.Model
         {
             mapper.IDBuryPlace = dto.ID;
             mapper.Name = dto.Name;
+        }
+        private IEnumerable<BURYPLACE> _search(BuryPlaceDTO obj)
+        {
+            IEnumerable<BURYPLACE> matches =
+                from entry in _db.BURYPLACEs
+                where entry.IDBuryPlace == obj.ID
+                select entry;
+
+            return matches;
         }
 
         #endregion

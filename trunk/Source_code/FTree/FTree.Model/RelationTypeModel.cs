@@ -100,7 +100,12 @@ namespace FTree.Model
         {
             try
             {
-                _db.RELATIONSHIP_TYPEs.DeleteOnSubmit(ConvertToMapper(obj));
+                RELATIONSHIP_TYPE mapper = _search(obj).SingleOrDefault();
+                
+                if (mapper == null)
+                    return;
+
+                _db.RELATIONSHIP_TYPEs.DeleteOnSubmit(mapper);
                 this._save();
             }
             catch (Exception exc)
@@ -114,13 +119,12 @@ namespace FTree.Model
         {
             try
             {
-                IEnumerable<RELATIONSHIP_TYPE> matches =
-                    from type in _db.RELATIONSHIP_TYPEs
-                    where type.IDRelationship == obj.ID
-                    select type;
+                RELATIONSHIP_TYPE mapper = _search(obj).SingleOrDefault();
                 
-                RELATIONSHIP_TYPE relationType = matches.SingleOrDefault();
-                _updateModel(ref relationType, obj);
+                if (mapper == null)
+                    return;
+
+                _updateModel(ref mapper, obj);
                 this._save();
             }
             catch (Exception exc)
@@ -177,6 +181,16 @@ namespace FTree.Model
         {
             mapper.IDRelationship = dto.ID;
             mapper.Name = dto.Name;
+        }
+
+        private IEnumerable<RELATIONSHIP_TYPE> _search(RelationTypeDTO obj)
+        {
+            IEnumerable<RELATIONSHIP_TYPE> matches =
+                from entry in _db.RELATIONSHIP_TYPEs
+                where entry.IDRelationship == obj.ID
+                select entry;
+
+            return matches;
         }
 
         #endregion        

@@ -25,6 +25,16 @@ namespace FTree.Common
         public const string LOG_FILE = "FTree.log";
 
         /// <summary>
+        /// ID field.
+        /// </summary>
+        public const string ID_FIELD = "ID";
+
+        /// <summary>
+        /// Name field.
+        /// </summary>
+        public const string NAME_FIELD = "Name";
+
+        /// <summary>
         /// Men.
         /// </summary>
         public const int MALE = 0;

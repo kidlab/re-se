@@ -143,7 +143,6 @@ namespace FTree.View.Win32
 
         #endregion
 
-
         #region IFamilyView Members
 
         public FamilyDTO Family
