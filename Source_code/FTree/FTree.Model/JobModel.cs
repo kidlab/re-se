@@ -104,6 +104,10 @@ namespace FTree.Model
             try
             {
                 JOB mapper = _search(obj).SingleOrDefault();
+                
+                if (mapper == null)
+                    return;
+
                 _db.JOBs.DeleteOnSubmit(mapper);
                 this._save();
             }
@@ -119,6 +123,10 @@ namespace FTree.Model
             try
             {
                 JOB mapper = _search(obj).SingleOrDefault();
+
+                if (mapper == null)
+                    return;
+
                 _updateModel(ref mapper, obj);
                 this._save();
             }

@@ -391,6 +391,176 @@ namespace FTree.Presenter
 
         #endregion
 
+        #region DEATH REASON
+
+        public void LoadAllDeathReasons()
+        {
+            try
+            {
+                _view.DeathReasons = _model.DeadReasonModel.GetAll();
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        public void AddDeathReason()
+        {
+            try
+            {
+                DeathReasonDTO dto = _view.DeathReason;
+                if (CountDeathReasonWithName(dto.Name) > 0)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.DeadReasonModel.Add(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+        }
+
+        public void UpdateDeathReason()
+        {
+            try
+            {
+                DeathReasonDTO dto = _view.DeathReason;
+
+                if (CountDeathReasonWithName(dto.Name) > 1)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.DeadReasonModel.Update(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+        }
+
+        public void DeleteDeathReason()
+        {
+            try
+            {
+                _model.DeadReasonModel.Delete(_view.DeathReason);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        #endregion
+
+        #region BURY PLACE
+
+        public void LoadAllBuryPlaces()
+        {
+            try
+            {
+                _view.BuryPlaces = _model.BuryPlaceModel.GetAll();
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        public void AddBuryPlace()
+        {
+            try
+            {
+                BuryPlaceDTO dto = _view.BuryPlace;
+                if (CountBuryPlaceWithName(dto.Name) > 0)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.BuryPlaceModel.Add(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+        }
+
+        public void UpdateBuryPlace()
+        {
+            try
+            {
+                BuryPlaceDTO dto = _view.BuryPlace;
+
+                if (CountBuryPlaceWithName(dto.Name) > 1)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.BuryPlaceModel.Update(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+        }
+
+        public void DeleteBuryPlace()
+        {
+            try
+            {
+                _model.BuryPlaceModel.Delete(_view.BuryPlace);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Save all changes to DB.
         /// </summary>
@@ -491,6 +661,52 @@ namespace FTree.Presenter
                         }
 
                     #endregion
+
+                    #region DEATH REASON
+
+                    if (_view.DeathReasons != null)
+                        foreach (DeathReasonDTO dto in _view.DeathReasons)
+                        {
+                            switch (dto.State)
+                            {
+                                case DataState.New:
+                                    _model.DeadReasonModel.Add(dto);
+                                    break;
+                                case DataState.Modified:
+                                    _model.DeadReasonModel.Update(dto);
+                                    break;
+                                case DataState.Deleted:
+                                    _model.DeadReasonModel.Delete(dto);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                    #endregion
+
+                    #region BURY PLACE
+
+                    if (_view.BuryPlaces != null)
+                        foreach (BuryPlaceDTO dto in _view.BuryPlaces)
+                        {
+                            switch (dto.State)
+                            {
+                                case DataState.New:
+                                    _model.BuryPlaceModel.Add(dto);
+                                    break;
+                                case DataState.Modified:
+                                    _model.BuryPlaceModel.Update(dto);
+                                    break;
+                                case DataState.Deleted:
+                                    _model.BuryPlaceModel.Delete(dto);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                    #endregion
                 }
 
                 _model.Save();
@@ -532,6 +748,18 @@ namespace FTree.Presenter
         public int CountAchieveWithName(string name)
         {
             IEnumerable<AchievementType> matches = _model.AchievementTypeModel.FindByName(name);
+            return matches.Count();
+        }
+
+        public int CountDeathReasonWithName(string name)
+        {
+            IEnumerable<DeathReasonDTO> matches = _model.DeadReasonModel.FindByName(name);
+            return matches.Count();
+        }
+
+        public int CountBuryPlaceWithName(string name)
+        {
+            IEnumerable<BuryPlaceDTO> matches = _model.BuryPlaceModel.FindByName(name);
             return matches.Count();
         }
 

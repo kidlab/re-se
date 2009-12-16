@@ -99,6 +99,10 @@ namespace FTree.Model
             try
             {
                 BIRTHPLACE mapper = _search(obj).SingleOrDefault();
+                
+                if (mapper == null)
+                    return;
+
                 _db.BIRTHPLACEs.DeleteOnSubmit(mapper);
                 this._save();
             }
@@ -114,6 +118,10 @@ namespace FTree.Model
             try
             {
                 BIRTHPLACE mapper = _search(obj).SingleOrDefault();
+                
+                if (mapper == null)
+                    return;
+
                 _updateModel(ref mapper, obj);
                 this._save();
             }
