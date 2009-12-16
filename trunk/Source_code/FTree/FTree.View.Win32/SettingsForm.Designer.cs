@@ -46,9 +46,13 @@
             this.gbxCarrers = new System.Windows.Forms.GroupBox();
             this.dgCareers = new System.Windows.Forms.DataGridView();
             this.tabAchievements = new System.Windows.Forms.TabPage();
+            this.btnAddAchievement = new System.Windows.Forms.Button();
+            this.btnDeleteAchievement = new System.Windows.Forms.Button();
             this.gbxAchievement = new System.Windows.Forms.GroupBox();
             this.dgAchievements = new System.Windows.Forms.DataGridView();
             this.tabDeathReason = new System.Windows.Forms.TabPage();
+            this.btnAddDeathReason = new System.Windows.Forms.Button();
+            this.btnDeleteDeathReason = new System.Windows.Forms.Button();
             this.gbxDeathReasons = new System.Windows.Forms.GroupBox();
             this.dgDeathReasons = new System.Windows.Forms.DataGridView();
             this.tabBuryPlace = new System.Windows.Forms.TabPage();
@@ -56,8 +60,8 @@
             this.dgBuryPlaces = new System.Windows.Forms.DataGridView();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
-            this.btnAddAchievement = new System.Windows.Forms.Button();
-            this.btnDeleteAchievement = new System.Windows.Forms.Button();
+            this.btnAddBuryPlace = new System.Windows.Forms.Button();
+            this.btnDeleteBuryPlace = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.tabRelation_Type.SuspendLayout();
             this.gbxRelationTypes.SuspendLayout();
@@ -328,6 +332,32 @@
             this.tabAchievements.Text = "Achievements";
             this.tabAchievements.UseVisualStyleBackColor = true;
             // 
+            // btnAddAchievement
+            // 
+            this.btnAddAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddAchievement.Image = global::FTree.View.Win32.Properties.Resources.add;
+            this.btnAddAchievement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddAchievement.Location = new System.Drawing.Point(304, 19);
+            this.btnAddAchievement.Name = "btnAddAchievement";
+            this.btnAddAchievement.Size = new System.Drawing.Size(89, 32);
+            this.btnAddAchievement.TabIndex = 18;
+            this.btnAddAchievement.Text = "Add";
+            this.btnAddAchievement.UseVisualStyleBackColor = true;
+            this.btnAddAchievement.Click += new System.EventHandler(this.btnAddAchievement_Click);
+            // 
+            // btnDeleteAchievement
+            // 
+            this.btnDeleteAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteAchievement.Image = global::FTree.View.Win32.Properties.Resources.delete;
+            this.btnDeleteAchievement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteAchievement.Location = new System.Drawing.Point(304, 57);
+            this.btnDeleteAchievement.Name = "btnDeleteAchievement";
+            this.btnDeleteAchievement.Size = new System.Drawing.Size(89, 32);
+            this.btnDeleteAchievement.TabIndex = 17;
+            this.btnDeleteAchievement.Text = "Delete";
+            this.btnDeleteAchievement.UseVisualStyleBackColor = true;
+            this.btnDeleteAchievement.Click += new System.EventHandler(this.btnDeleteAchievement_Click);
+            // 
             // gbxAchievement
             // 
             this.gbxAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -364,6 +394,8 @@
             // 
             // tabDeathReason
             // 
+            this.tabDeathReason.Controls.Add(this.btnAddDeathReason);
+            this.tabDeathReason.Controls.Add(this.btnDeleteDeathReason);
             this.tabDeathReason.Controls.Add(this.gbxDeathReasons);
             this.tabDeathReason.Location = new System.Drawing.Point(4, 22);
             this.tabDeathReason.Name = "tabDeathReason";
@@ -371,6 +403,32 @@
             this.tabDeathReason.TabIndex = 4;
             this.tabDeathReason.Text = "Death Reasons";
             this.tabDeathReason.UseVisualStyleBackColor = true;
+            // 
+            // btnAddDeathReason
+            // 
+            this.btnAddDeathReason.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddDeathReason.Image = global::FTree.View.Win32.Properties.Resources.add;
+            this.btnAddDeathReason.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddDeathReason.Location = new System.Drawing.Point(304, 19);
+            this.btnAddDeathReason.Name = "btnAddDeathReason";
+            this.btnAddDeathReason.Size = new System.Drawing.Size(89, 32);
+            this.btnAddDeathReason.TabIndex = 20;
+            this.btnAddDeathReason.Text = "Add";
+            this.btnAddDeathReason.UseVisualStyleBackColor = true;
+            this.btnAddDeathReason.Click += new System.EventHandler(this.btnAddDeathReason_Click);
+            // 
+            // btnDeleteDeathReason
+            // 
+            this.btnDeleteDeathReason.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteDeathReason.Image = global::FTree.View.Win32.Properties.Resources.delete;
+            this.btnDeleteDeathReason.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteDeathReason.Location = new System.Drawing.Point(304, 57);
+            this.btnDeleteDeathReason.Name = "btnDeleteDeathReason";
+            this.btnDeleteDeathReason.Size = new System.Drawing.Size(89, 32);
+            this.btnDeleteDeathReason.TabIndex = 19;
+            this.btnDeleteDeathReason.Text = "Delete";
+            this.btnDeleteDeathReason.UseVisualStyleBackColor = true;
+            this.btnDeleteDeathReason.Click += new System.EventHandler(this.btnDeleteDeathReason_Click);
             // 
             // gbxDeathReasons
             // 
@@ -387,6 +445,10 @@
             // 
             // dgDeathReasons
             // 
+            this.dgDeathReasons.AllowUserToAddRows = false;
+            this.dgDeathReasons.AllowUserToDeleteRows = false;
+            this.dgDeathReasons.AllowUserToResizeColumns = false;
+            this.dgDeathReasons.AllowUserToResizeRows = false;
             this.dgDeathReasons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgDeathReasons.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgDeathReasons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -394,14 +456,18 @@
             this.dgDeathReasons.Location = new System.Drawing.Point(3, 16);
             this.dgDeathReasons.MultiSelect = false;
             this.dgDeathReasons.Name = "dgDeathReasons";
-            this.dgDeathReasons.ReadOnly = true;
             this.dgDeathReasons.RowHeadersVisible = false;
             this.dgDeathReasons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgDeathReasons.Size = new System.Drawing.Size(289, 312);
             this.dgDeathReasons.TabIndex = 5;
+            this.dgDeathReasons.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgDeathReasons_CellBeginEdit);
+            this.dgDeathReasons.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgDeathReasons_CellEndEdit);
+            this.dgDeathReasons.SelectionChanged += new System.EventHandler(this.dgDeathReasons_SelectionChanged);
             // 
             // tabBuryPlace
             // 
+            this.tabBuryPlace.Controls.Add(this.btnAddBuryPlace);
+            this.tabBuryPlace.Controls.Add(this.btnDeleteBuryPlace);
             this.tabBuryPlace.Controls.Add(this.gbxBuryPlaces);
             this.tabBuryPlace.Location = new System.Drawing.Point(4, 22);
             this.tabBuryPlace.Name = "tabBuryPlace";
@@ -425,6 +491,10 @@
             // 
             // dgBuryPlaces
             // 
+            this.dgBuryPlaces.AllowUserToAddRows = false;
+            this.dgBuryPlaces.AllowUserToDeleteRows = false;
+            this.dgBuryPlaces.AllowUserToResizeColumns = false;
+            this.dgBuryPlaces.AllowUserToResizeRows = false;
             this.dgBuryPlaces.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgBuryPlaces.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgBuryPlaces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -432,11 +502,13 @@
             this.dgBuryPlaces.Location = new System.Drawing.Point(3, 16);
             this.dgBuryPlaces.MultiSelect = false;
             this.dgBuryPlaces.Name = "dgBuryPlaces";
-            this.dgBuryPlaces.ReadOnly = true;
             this.dgBuryPlaces.RowHeadersVisible = false;
             this.dgBuryPlaces.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgBuryPlaces.Size = new System.Drawing.Size(289, 312);
             this.dgBuryPlaces.TabIndex = 5;
+            this.dgBuryPlaces.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgBuryPlaces_CellBeginEdit);
+            this.dgBuryPlaces.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgBuryPlaces_CellEndEdit);
+            this.dgBuryPlaces.SelectionChanged += new System.EventHandler(this.dgBuryPlaces_SelectionChanged);
             // 
             // btnCancel
             // 
@@ -466,31 +538,31 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // btnAddAchievement
+            // btnAddBuryPlace
             // 
-            this.btnAddAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddAchievement.Image = global::FTree.View.Win32.Properties.Resources.add;
-            this.btnAddAchievement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddAchievement.Location = new System.Drawing.Point(304, 19);
-            this.btnAddAchievement.Name = "btnAddAchievement";
-            this.btnAddAchievement.Size = new System.Drawing.Size(89, 32);
-            this.btnAddAchievement.TabIndex = 18;
-            this.btnAddAchievement.Text = "Add";
-            this.btnAddAchievement.UseVisualStyleBackColor = true;
-            this.btnAddAchievement.Click += new System.EventHandler(this.btnAddAchievement_Click);
+            this.btnAddBuryPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddBuryPlace.Image = global::FTree.View.Win32.Properties.Resources.add;
+            this.btnAddBuryPlace.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddBuryPlace.Location = new System.Drawing.Point(304, 19);
+            this.btnAddBuryPlace.Name = "btnAddBuryPlace";
+            this.btnAddBuryPlace.Size = new System.Drawing.Size(89, 32);
+            this.btnAddBuryPlace.TabIndex = 22;
+            this.btnAddBuryPlace.Text = "Add";
+            this.btnAddBuryPlace.UseVisualStyleBackColor = true;
+            this.btnAddBuryPlace.Click += new System.EventHandler(this.btnAddBuryPlace_Click);
             // 
-            // btnDeleteAchievement
+            // btnDeleteBuryPlace
             // 
-            this.btnDeleteAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteAchievement.Image = global::FTree.View.Win32.Properties.Resources.delete;
-            this.btnDeleteAchievement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteAchievement.Location = new System.Drawing.Point(304, 57);
-            this.btnDeleteAchievement.Name = "btnDeleteAchievement";
-            this.btnDeleteAchievement.Size = new System.Drawing.Size(89, 32);
-            this.btnDeleteAchievement.TabIndex = 17;
-            this.btnDeleteAchievement.Text = "Delete";
-            this.btnDeleteAchievement.UseVisualStyleBackColor = true;
-            this.btnDeleteAchievement.Click += new System.EventHandler(this.btnDeleteAchievement_Click);
+            this.btnDeleteBuryPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteBuryPlace.Image = global::FTree.View.Win32.Properties.Resources.delete;
+            this.btnDeleteBuryPlace.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteBuryPlace.Location = new System.Drawing.Point(304, 57);
+            this.btnDeleteBuryPlace.Name = "btnDeleteBuryPlace";
+            this.btnDeleteBuryPlace.Size = new System.Drawing.Size(89, 32);
+            this.btnDeleteBuryPlace.TabIndex = 21;
+            this.btnDeleteBuryPlace.Text = "Delete";
+            this.btnDeleteBuryPlace.UseVisualStyleBackColor = true;
+            this.btnDeleteBuryPlace.Click += new System.EventHandler(this.btnDeleteBuryPlace_Click);
             // 
             // SettingsForm
             // 
@@ -561,5 +633,9 @@
         private System.Windows.Forms.Button btnDeleteJob;
         private System.Windows.Forms.Button btnAddAchievement;
         private System.Windows.Forms.Button btnDeleteAchievement;
+        private System.Windows.Forms.Button btnAddDeathReason;
+        private System.Windows.Forms.Button btnDeleteDeathReason;
+        private System.Windows.Forms.Button btnAddBuryPlace;
+        private System.Windows.Forms.Button btnDeleteBuryPlace;
     }
 }

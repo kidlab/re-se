@@ -32,6 +32,12 @@ namespace FTree.View.Win32
         private AchievementType _currentAchieve = null;
         private IList<AchievementType> _achieves = null;
 
+        private DeathReasonDTO _currentDeathReason = null;
+        private IList<DeathReasonDTO> _deathReasons = null;
+
+        private BuryPlaceDTO _currentBuryPlace = null;
+        private IList<BuryPlaceDTO> _buryPlaces = null;
+
         /// <summary>
         /// To store previous value of a cell in DataGridView when the editing begins.
         /// </summary>
@@ -60,6 +66,8 @@ namespace FTree.View.Win32
             _homeTowns = new List<HomeTownDTO>();
             _careers = new List<JobDTO>();
             _achieves = new List<AchievementType>();
+            _deathReasons = new List<DeathReasonDTO>();
+            _buryPlaces = new List<BuryPlaceDTO>();
         }
 
         #endregion
@@ -444,6 +452,179 @@ namespace FTree.View.Win32
 
         #endregion
 
+        #region TAB DEATH REASON
+
+        private void btnAddDeathReason_Click(object sender, EventArgs e)
+        {
+            _addDeathReason();
+        }
+
+        private void btnDeleteDeathReason_Click(object sender, EventArgs e)
+        {
+            _deleteDeathReason();
+        }
+
+
+        private void dgDeathReasons_SelectionChanged(object sender, EventArgs e)
+        {
+            if (_checkDeathReasonsDataGrid())
+            {
+
+                string name = (string)dgDeathReasons.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                _currentDeathReason =
+                    _deathReasons.SingleOrDefault(entity => entity.Name == name);
+            }
+        }
+
+        private void dgDeathReasons_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (dgDeathReasons.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                return;
+
+            _strOldData = dgDeathReasons[e.ColumnIndex, e.RowIndex].Value.ToString();
+        }
+
+        private void dgDeathReasons_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dgDeathReasons.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                    return;
+
+                if (dgDeathReasons[e.ColumnIndex, e.RowIndex].Value == null)
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgDeathReasons[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                string strData = dgDeathReasons[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+
+                if (String.IsNullOrEmpty(strData))
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgDeathReasons[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                for (int currentRow = 0; currentRow < dgDeathReasons.Rows.Count; currentRow++)
+                {
+                    if (dgDeathReasons[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
+                    {
+                        if (currentRow == e.RowIndex)
+                        {
+                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
+                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
+                            if (_currentDeathReason.State == DataState.Copied)
+                                _currentDeathReason.State = DataState.Modified;
+                            return;
+                        }
+                        else
+                            break;
+                    }
+                }
+
+                if (_countDeathReason(strData) > 1)
+                {
+                    UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    return;
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Warning(exc.ToString());
+            }
+        }
+
+        #endregion
+
+        #region TAB BURY PLACE
+
+        private void btnAddBuryPlace_Click(object sender, EventArgs e)
+        {
+            _addBuryPlace();
+        }
+
+        private void btnDeleteBuryPlace_Click(object sender, EventArgs e)
+        {
+            _deleteBuryPlace();
+        }
+
+        private void dgBuryPlaces_SelectionChanged(object sender, EventArgs e)
+        {
+            if (_checkBuryPlacesDataGrid())
+            {
+
+                string name = (string)dgBuryPlaces.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                _currentBuryPlace =
+                    _buryPlaces.SingleOrDefault(entity => entity.Name == name);
+            }
+        }
+
+        private void dgBuryPlaces_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (dgBuryPlaces.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                return;
+
+            _strOldData = dgBuryPlaces[e.ColumnIndex, e.RowIndex].Value.ToString();
+        }
+
+        private void dgBuryPlaces_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dgBuryPlaces.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                    return;
+
+                if (dgBuryPlaces[e.ColumnIndex, e.RowIndex].Value == null)
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgBuryPlaces[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                string strData = dgBuryPlaces[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+
+                if (String.IsNullOrEmpty(strData))
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgBuryPlaces[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                for (int currentRow = 0; currentRow < dgBuryPlaces.Rows.Count; currentRow++)
+                {
+                    if (dgBuryPlaces[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
+                    {
+                        if (currentRow == e.RowIndex)
+                        {
+                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
+                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
+                            if (_currentBuryPlace.State == DataState.Copied)
+                                _currentBuryPlace.State = DataState.Modified;
+                            return;
+                        }
+                        else
+                            break;
+                    }
+                }
+
+                if (_countBuryPlace(strData) > 1)
+                {
+                    UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    return;
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Warning(exc.ToString());
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region CORE METHODS
@@ -499,7 +680,28 @@ namespace FTree.View.Win32
                 _setAchieveDataBindings();
                 _checkAchievesDataGrid();
             }
+            else if (selectedTab == tabDeathReason)
+            {
+                if (!_alreadyLoaded[selectedIndex])
+                {
+                    _loadDeathReasons();
+                    _alreadyLoaded[selectedIndex] = true;
+                }
 
+                _setDeathReasonDataBindings();
+                _checkDeathReasonsDataGrid();
+            }
+            else if (selectedTab == tabBuryPlace)
+            {
+                if (!_alreadyLoaded[selectedIndex])
+                {
+                    _loadBuryPlaces();
+                    _alreadyLoaded[selectedIndex] = true;
+                }
+
+                _setBuryPlaceDataBindings();
+                _checkBuryPlacesDataGrid();
+            }
             // Add all other tab pages here...
         }
 
@@ -754,6 +956,132 @@ namespace FTree.View.Win32
 
         #endregion
 
+        #region DEATH REASON
+
+        private void _loadDeathReasons()
+        {
+            try
+            {
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.LoadAllDeathReasons);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        private void _addDeathReason()
+        {
+            try
+            {
+                SimpleEntryForm frmAdd = new SimpleEntryForm(_countAchieve);
+                if (frmAdd.ShowDialog(false) != DialogResult.OK)
+                    return;
+                _currentDeathReason = new DeathReasonDTO { Name = frmAdd.Data };
+                _deathReasons.Add(_currentDeathReason);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (FTreePresenterException exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(exc.Message);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+        }
+
+        private void _deleteDeathReason()
+        {
+            try
+            {
+                // Ask for confirm.
+                DialogResult result = UIUtils.ConfirmOKCancel(Util.GetStringResource(StringResName.MSG_CONFIRM_DEL_ENTRY));
+
+                if (result != DialogResult.OK)
+                    return;
+
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.DeleteDeathReason);
+                _deathReasons.Remove(_currentDeathReason);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        #endregion
+
+        #region BURY PLACE
+
+        private void _loadBuryPlaces()
+        {
+            try
+            {
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.LoadAllBuryPlaces);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        private void _addBuryPlace()
+        {
+            try
+            {
+                SimpleEntryForm frmAdd = new SimpleEntryForm(_countBuryPlace);
+                if (frmAdd.ShowDialog(false) != DialogResult.OK)
+                    return;
+                _currentBuryPlace = new BuryPlaceDTO { Name = frmAdd.Data };
+                _buryPlaces.Add(_currentBuryPlace);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (FTreePresenterException exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(exc.Message);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+        }
+
+        private void _deleteBuryPlace()
+        {
+            try
+            {
+                // Ask for confirm.
+                DialogResult result = UIUtils.ConfirmOKCancel(Util.GetStringResource(StringResName.MSG_CONFIRM_DEL_ENTRY));
+
+                if (result != DialogResult.OK)
+                    return;
+
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.DeleteBuryPlace);
+                _buryPlaces.Remove(_currentBuryPlace);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region UTILITTY METHODS
@@ -951,6 +1279,100 @@ namespace FTree.View.Win32
 
         #endregion
 
+        #region DEATH REASON
+
+        private void _setDeathReasonDataBindings()
+        {
+            _bindingSource.DataSource = _deathReasons;
+            this.dgDeathReasons.DataSource = _bindingSource;
+
+            foreach (DataGridViewColumn col in dgDeathReasons.Columns)
+            {
+                if (col.Name != FTreeConst.NAME_FIELD)
+                    col.Visible = false;
+            }
+        }
+
+        private bool _checkDeathReasonsDataGrid()
+        {
+            bool enabled = true;
+            if (dgDeathReasons.DataSource == null
+                    || dgDeathReasons.Columns.Count <= 0
+                    || dgDeathReasons.Rows.Count <= 0
+                    || dgDeathReasons.SelectedRows.Count <= 0)
+                enabled = false;
+
+            this.btnDeleteDeathReason.Enabled = enabled;
+
+            return enabled;
+        }
+
+        private int _countDeathReason(string name)
+        {
+            // Check in the list.
+            var matches =
+                from entity in _deathReasons
+                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                select entity;
+            int count = matches.Count();
+            if (count > 0)
+            {
+                return count;
+            }
+
+            // Check in DB.
+            return _presenter.CountDeathReasonWithName(name);
+        }
+
+        #endregion
+
+        #region BURY PLACE
+
+        private void _setBuryPlaceDataBindings()
+        {
+            _bindingSource.DataSource = _buryPlaces;
+            this.dgBuryPlaces.DataSource = _bindingSource;
+
+            foreach (DataGridViewColumn col in dgBuryPlaces.Columns)
+            {
+                if (col.Name != FTreeConst.NAME_FIELD)
+                    col.Visible = false;
+            }
+        }
+
+        private bool _checkBuryPlacesDataGrid()
+        {
+            bool enabled = true;
+            if (dgBuryPlaces.DataSource == null
+                    || dgBuryPlaces.Columns.Count <= 0
+                    || dgBuryPlaces.Rows.Count <= 0
+                    || dgBuryPlaces.SelectedRows.Count <= 0)
+                enabled = false;
+
+            this.btnDeleteBuryPlace.Enabled = enabled;
+
+            return enabled;
+        }
+
+        private int _countBuryPlace(string name)
+        {
+            // Check in the list.
+            var matches =
+                from entity in _buryPlaces
+                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                select entity;
+            int count = matches.Count();
+            if (count > 0)
+            {
+                return count;
+            }
+
+            // Check in DB.
+            return _presenter.CountBuryPlaceWithName(name);
+        }
+
+        #endregion
+
         #endregion
 
         #region ISettingsManagerView Members
@@ -1049,34 +1471,46 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return _deathReasons;
             }
             set
             {
-                throw new NotImplementedException();
+                if (value == _deathReasons)
+                    return;
+
+                _deathReasons = value;
+
+                if (mainTabControl.SelectedTab == tabDeathReason)
+                    _setDeathReasonDataBindings();
             }
         }
 
         public FTree.DTO.DeathReasonDTO DeathReason
         {
-            get { throw new NotImplementedException(); }
+            get { return _currentDeathReason; }
         }
 
         public IList<FTree.DTO.BuryPlaceDTO> BuryPlaces
         {
             get
             {
-                throw new NotImplementedException();
+                return _buryPlaces;
             }
             set
             {
-                throw new NotImplementedException();
+                if (value == _buryPlaces)
+                    return;
+
+                _buryPlaces = value;
+
+                if (mainTabControl.SelectedTab == tabBuryPlace)
+                    _setBuryPlaceDataBindings();
             }
         }
 
         public FTree.DTO.BuryPlaceDTO BuryPlace
         {
-            get { throw new NotImplementedException(); }
+            get { return _currentBuryPlace; }
         }
 
         #endregion

@@ -9,5 +9,6 @@ namespace FTree.Model
 {
     public interface IBuryPlaceModel : ILinqModel<BuryPlaceDTO>
     {
+        IEnumerable<BuryPlaceDTO> FindByName(String name);
     }
 }

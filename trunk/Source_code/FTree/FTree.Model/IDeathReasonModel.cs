@@ -9,5 +9,6 @@ namespace FTree.Model
 {
     public interface IDeathReasonModel : ILinqModel<DeathReasonDTO>
     {
+        IEnumerable<DeathReasonDTO> FindByName(String name);
     }
 }

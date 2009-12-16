@@ -101,6 +101,9 @@ namespace FTree.Model
             {
                 BURYPLACE mapper = _search(obj).SingleOrDefault();
 
+                if (mapper == null)
+                    return;
+
                 _db.BURYPLACEs.DeleteOnSubmit(mapper);
                 this._save();
             }
@@ -115,8 +118,12 @@ namespace FTree.Model
         {
             try
             {
-                BURYPLACE placeMapper = _search(obj).SingleOrDefault();
-                _updateModel(ref placeMapper, obj);
+                BURYPLACE mapper = _search(obj).SingleOrDefault();
+
+                if (mapper == null)
+                    return;
+
+                _updateModel(ref mapper, obj);
                 this._save();
             }
             catch (Exception exc)
@@ -161,6 +168,28 @@ namespace FTree.Model
                 select entry;
 
             return matches;
+        }
+
+        #endregion
+
+        #region IBuryPlaceModel Members
+
+        public IEnumerable<BuryPlaceDTO> FindByName(string name)
+        {
+            try
+            {
+                IEnumerable<BuryPlaceDTO> matches =
+                    from entity in _db.BURYPLACEs
+                    where entity.Name.ToUpper() == name.ToUpper()
+                    select ConvertToDTO(entity);
+
+                return matches;
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(BuryPlaceModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
         }
 
         #endregion
