@@ -41,6 +41,8 @@
             this.gbxHomeTowns = new System.Windows.Forms.GroupBox();
             this.dgHomeTowns = new System.Windows.Forms.DataGridView();
             this.tabOccupation = new System.Windows.Forms.TabPage();
+            this.btnAddJob = new System.Windows.Forms.Button();
+            this.btnDeleteJob = new System.Windows.Forms.Button();
             this.gbxCarrers = new System.Windows.Forms.GroupBox();
             this.dgCareers = new System.Windows.Forms.DataGridView();
             this.tabAchievements = new System.Windows.Forms.TabPage();
@@ -54,6 +56,8 @@
             this.dgBuryPlaces = new System.Windows.Forms.DataGridView();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.btnAddAchievement = new System.Windows.Forms.Button();
+            this.btnDeleteAchievement = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.tabRelation_Type.SuspendLayout();
             this.gbxRelationTypes.SuspendLayout();
@@ -242,6 +246,8 @@
             // 
             // tabOccupation
             // 
+            this.tabOccupation.Controls.Add(this.btnAddJob);
+            this.tabOccupation.Controls.Add(this.btnDeleteJob);
             this.tabOccupation.Controls.Add(this.gbxCarrers);
             this.tabOccupation.Location = new System.Drawing.Point(4, 22);
             this.tabOccupation.Name = "tabOccupation";
@@ -249,6 +255,32 @@
             this.tabOccupation.TabIndex = 2;
             this.tabOccupation.Text = "Occupations";
             this.tabOccupation.UseVisualStyleBackColor = true;
+            // 
+            // btnAddJob
+            // 
+            this.btnAddJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddJob.Image = global::FTree.View.Win32.Properties.Resources.add;
+            this.btnAddJob.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddJob.Location = new System.Drawing.Point(304, 19);
+            this.btnAddJob.Name = "btnAddJob";
+            this.btnAddJob.Size = new System.Drawing.Size(89, 32);
+            this.btnAddJob.TabIndex = 16;
+            this.btnAddJob.Text = "Add";
+            this.btnAddJob.UseVisualStyleBackColor = true;
+            this.btnAddJob.Click += new System.EventHandler(this.btnAddJob_Click);
+            // 
+            // btnDeleteJob
+            // 
+            this.btnDeleteJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteJob.Image = global::FTree.View.Win32.Properties.Resources.delete;
+            this.btnDeleteJob.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteJob.Location = new System.Drawing.Point(304, 57);
+            this.btnDeleteJob.Name = "btnDeleteJob";
+            this.btnDeleteJob.Size = new System.Drawing.Size(89, 32);
+            this.btnDeleteJob.TabIndex = 15;
+            this.btnDeleteJob.Text = "Delete";
+            this.btnDeleteJob.UseVisualStyleBackColor = true;
+            this.btnDeleteJob.Click += new System.EventHandler(this.btnDeleteJob_Click);
             // 
             // gbxCarrers
             // 
@@ -265,6 +297,10 @@
             // 
             // dgCareers
             // 
+            this.dgCareers.AllowUserToAddRows = false;
+            this.dgCareers.AllowUserToDeleteRows = false;
+            this.dgCareers.AllowUserToOrderColumns = true;
+            this.dgCareers.AllowUserToResizeColumns = false;
             this.dgCareers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgCareers.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgCareers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -272,14 +308,18 @@
             this.dgCareers.Location = new System.Drawing.Point(3, 16);
             this.dgCareers.MultiSelect = false;
             this.dgCareers.Name = "dgCareers";
-            this.dgCareers.ReadOnly = true;
             this.dgCareers.RowHeadersVisible = false;
             this.dgCareers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgCareers.Size = new System.Drawing.Size(289, 312);
             this.dgCareers.TabIndex = 3;
+            this.dgCareers.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgCareers_CellBeginEdit);
+            this.dgCareers.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgCareers_CellEndEdit);
+            this.dgCareers.SelectionChanged += new System.EventHandler(this.dgCareers_SelectionChanged);
             // 
             // tabAchievements
             // 
+            this.tabAchievements.Controls.Add(this.btnAddAchievement);
+            this.tabAchievements.Controls.Add(this.btnDeleteAchievement);
             this.tabAchievements.Controls.Add(this.gbxAchievement);
             this.tabAchievements.Location = new System.Drawing.Point(4, 22);
             this.tabAchievements.Name = "tabAchievements";
@@ -303,6 +343,10 @@
             // 
             // dgAchievements
             // 
+            this.dgAchievements.AllowUserToAddRows = false;
+            this.dgAchievements.AllowUserToDeleteRows = false;
+            this.dgAchievements.AllowUserToResizeColumns = false;
+            this.dgAchievements.AllowUserToResizeRows = false;
             this.dgAchievements.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgAchievements.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgAchievements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -310,11 +354,13 @@
             this.dgAchievements.Location = new System.Drawing.Point(3, 16);
             this.dgAchievements.MultiSelect = false;
             this.dgAchievements.Name = "dgAchievements";
-            this.dgAchievements.ReadOnly = true;
             this.dgAchievements.RowHeadersVisible = false;
             this.dgAchievements.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgAchievements.Size = new System.Drawing.Size(289, 312);
             this.dgAchievements.TabIndex = 4;
+            this.dgAchievements.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgAchievements_CellBeginEdit);
+            this.dgAchievements.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgAchievements_CellEndEdit);
+            this.dgAchievements.SelectionChanged += new System.EventHandler(this.dgAchievements_SelectionChanged);
             // 
             // tabDeathReason
             // 
@@ -420,6 +466,32 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // btnAddAchievement
+            // 
+            this.btnAddAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddAchievement.Image = global::FTree.View.Win32.Properties.Resources.add;
+            this.btnAddAchievement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddAchievement.Location = new System.Drawing.Point(304, 19);
+            this.btnAddAchievement.Name = "btnAddAchievement";
+            this.btnAddAchievement.Size = new System.Drawing.Size(89, 32);
+            this.btnAddAchievement.TabIndex = 18;
+            this.btnAddAchievement.Text = "Add";
+            this.btnAddAchievement.UseVisualStyleBackColor = true;
+            this.btnAddAchievement.Click += new System.EventHandler(this.btnAddAchievement_Click);
+            // 
+            // btnDeleteAchievement
+            // 
+            this.btnDeleteAchievement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteAchievement.Image = global::FTree.View.Win32.Properties.Resources.delete;
+            this.btnDeleteAchievement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteAchievement.Location = new System.Drawing.Point(304, 57);
+            this.btnDeleteAchievement.Name = "btnDeleteAchievement";
+            this.btnDeleteAchievement.Size = new System.Drawing.Size(89, 32);
+            this.btnDeleteAchievement.TabIndex = 17;
+            this.btnDeleteAchievement.Text = "Delete";
+            this.btnDeleteAchievement.UseVisualStyleBackColor = true;
+            this.btnDeleteAchievement.Click += new System.EventHandler(this.btnDeleteAchievement_Click);
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOK;
@@ -485,5 +557,9 @@
         private System.Windows.Forms.Button btnAddRelationType;
         private System.Windows.Forms.Button btnAddHomeTown;
         private System.Windows.Forms.Button btnDeleteHomeTown;
+        private System.Windows.Forms.Button btnAddJob;
+        private System.Windows.Forms.Button btnDeleteJob;
+        private System.Windows.Forms.Button btnAddAchievement;
+        private System.Windows.Forms.Button btnDeleteAchievement;
     }
 }

@@ -170,5 +170,27 @@ namespace FTree.Model
         }
 
         #endregion
+
+        #region IJobModel Members
+
+        public IEnumerable<JobDTO> FindByName(string name)
+        {
+            try
+            {
+                IEnumerable<JobDTO> matches =
+                    from entity in _db.JOBs
+                    where entity.Name.ToUpper() == name.ToUpper()
+                    select ConvertToDTO(entity);
+
+                return matches;
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(JobModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        #endregion
     }
 }

@@ -9,5 +9,6 @@ namespace FTree.Model
 {
     public interface IJobModel : ILinqModel<JobDTO>
     {
+        IEnumerable<JobDTO> FindByName(String name);
     }
 }
