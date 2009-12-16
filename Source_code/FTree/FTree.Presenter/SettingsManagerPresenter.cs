@@ -221,6 +221,176 @@ namespace FTree.Presenter
 
         #endregion
 
+        #region OCCUPATION
+
+        public void LoadAllJobs()
+        {
+            try
+            {
+                _view.Jobs = _model.JobModel.GetAll();
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        public void AddJob()
+        {
+            try
+            {
+                JobDTO dto = _view.Job;
+                if (CountCareerWithName(dto.Name) > 0)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.JobModel.Add(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+        }
+
+        public void UpdateJob()
+        {
+            try
+            {
+                JobDTO dto = _view.Job;
+
+                if (CountCareerWithName(dto.Name) > 1)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.JobModel.Update(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+        }
+
+        public void DeleteJob()
+        {
+            try
+            {
+                _model.JobModel.Delete(_view.Job);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        #endregion
+
+        #region ACHIEVEMENT
+
+        public void LoadAllAchievements()
+        {
+            try
+            {
+                _view.AchievementTypes = _model.AchievementTypeModel.GetAll();
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        public void AddAchievement()
+        {
+            try
+            {
+                AchievementType dto = _view.AchievementType;
+                if (CountAchieveWithName(dto.Name) > 0)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.AchievementTypeModel.Add(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+        }
+
+        public void UpdateAchievement()
+        {
+            try
+            {
+                AchievementType dto = _view.AchievementType;
+
+                if (CountAchieveWithName(dto.Name) > 1)
+                    throw new FTreePresenterException(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), dto.Name));
+
+                _model.AchievementTypeModel.Update(dto);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+        }
+
+        public void DeleteAchievement()
+        {
+            try
+            {
+                _model.AchievementTypeModel.Delete(_view.AchievementType);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Save all changes to DB.
         /// </summary>
@@ -275,6 +445,52 @@ namespace FTree.Presenter
                         }
 
                     #endregion
+
+                    #region OCCUPATION
+
+                    if (_view.Jobs != null)
+                        foreach (JobDTO dto in _view.Jobs)
+                        {
+                            switch (dto.State)
+                            {
+                                case DataState.New:
+                                    _model.JobModel.Add(dto);
+                                    break;
+                                case DataState.Modified:
+                                    _model.JobModel.Update(dto);
+                                    break;
+                                case DataState.Deleted:
+                                    _model.JobModel.Delete(dto);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                    #endregion
+
+                    #region ACHIEVEMENT
+
+                    if (_view.AchievementTypes != null)
+                        foreach (AchievementType dto in _view.AchievementTypes)
+                        {
+                            switch (dto.State)
+                            {
+                                case DataState.New:
+                                    _model.AchievementTypeModel.Add(dto);
+                                    break;
+                                case DataState.Modified:
+                                    _model.AchievementTypeModel.Update(dto);
+                                    break;
+                                case DataState.Deleted:
+                                    _model.AchievementTypeModel.Delete(dto);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                    #endregion
                 }
 
                 _model.Save();
@@ -307,11 +523,24 @@ namespace FTree.Presenter
             return matches.Count();
         }
 
-        #endregion
+        public int CountCareerWithName(string name)
+        {
+            IEnumerable<JobDTO> matches = _model.JobModel.FindByName(name);
+            return matches.Count();
+        }
+
+        public int CountAchieveWithName(string name)
+        {
+            IEnumerable<AchievementType> matches = _model.AchievementTypeModel.FindByName(name);
+            return matches.Count();
+        }
 
         protected override void _disposeComponents()
         {
             _model.DisposeAllModels();
         }
+
+        #endregion
+
     }
 }

@@ -9,5 +9,6 @@ namespace FTree.Model
 {
     public interface IAchievementTypeModel : ILinqModel<AchievementType>
     {
+        IEnumerable<AchievementType> FindByName(String name);
     }
 }

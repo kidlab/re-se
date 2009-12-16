@@ -26,6 +26,12 @@ namespace FTree.View.Win32
         private HomeTownDTO _currentHomeTown = null;
         private IList<HomeTownDTO> _homeTowns = null;
 
+        private JobDTO _currentCareer = null;
+        private IList<JobDTO> _careers = null;
+
+        private AchievementType _currentAchieve = null;
+        private IList<AchievementType> _achieves = null;
+
         /// <summary>
         /// To store previous value of a cell in DataGridView when the editing begins.
         /// </summary>
@@ -52,6 +58,8 @@ namespace FTree.View.Win32
 
             _relationTypes = new List<RelationTypeDTO>();
             _homeTowns = new List<HomeTownDTO>();
+            _careers = new List<JobDTO>();
+            _achieves = new List<AchievementType>();
         }
 
         #endregion
@@ -264,6 +272,178 @@ namespace FTree.View.Win32
 
         #endregion
 
+        #region TAB OCCUPATION
+
+        private void btnAddJob_Click(object sender, EventArgs e)
+        {
+            _addCareer();
+        }
+
+        private void btnDeleteJob_Click(object sender, EventArgs e)
+        {
+            _deleteCareer();
+        }
+
+        private void dgCareers_SelectionChanged(object sender, EventArgs e)
+        {
+            if (_checkCareersDataGrid())
+            {
+
+                string name = (string)dgCareers.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                _currentCareer =
+                    _careers.SingleOrDefault(entity => entity.Name == name);
+            }
+        }
+
+        private void dgCareers_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (dgCareers.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                return;
+
+            _strOldData = dgCareers[e.ColumnIndex, e.RowIndex].Value.ToString();
+        }
+
+        private void dgCareers_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dgCareers.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                    return;
+
+                if (dgCareers[e.ColumnIndex, e.RowIndex].Value == null)
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgCareers[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                string strData = dgCareers[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+
+                if (String.IsNullOrEmpty(strData))
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgCareers[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                for (int currentRow = 0; currentRow < dgCareers.Rows.Count; currentRow++)
+                {
+                    if (dgCareers[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
+                    {
+                        if (currentRow == e.RowIndex)
+                        {
+                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
+                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
+                            if (_currentCareer.State == DataState.Copied)
+                                _currentCareer.State = DataState.Modified;
+                            return;
+                        }
+                        else
+                            break;
+                    }
+                }
+
+                if (_countCareer(strData) > 1)
+                {
+                    UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    return;
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Warning(exc.ToString());
+            }
+        }
+
+        #endregion
+
+        #region TAB ACHIEVEMENT
+
+        private void btnAddAchievement_Click(object sender, EventArgs e)
+        {
+            _addAchieve();
+        }
+
+        private void btnDeleteAchievement_Click(object sender, EventArgs e)
+        {
+            _deleteAchieve();
+        }
+
+        private void dgAchievements_SelectionChanged(object sender, EventArgs e)
+        {
+            if (_checkAchievesDataGrid())
+            {
+
+                string name = (string)dgAchievements.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                _currentAchieve =
+                    _achieves.SingleOrDefault(entity => entity.Name == name);
+            }
+        }
+
+        private void dgAchievements_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (dgAchievements.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                return;
+
+            _strOldData = dgAchievements[e.ColumnIndex, e.RowIndex].Value.ToString();
+        }
+
+        private void dgAchievements_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dgAchievements.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                    return;
+
+                if (dgAchievements[e.ColumnIndex, e.RowIndex].Value == null)
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgAchievements[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                string strData = dgAchievements[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+
+                if (String.IsNullOrEmpty(strData))
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgAchievements[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                for (int currentRow = 0; currentRow < dgAchievements.Rows.Count; currentRow++)
+                {
+                    if (dgAchievements[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
+                    {
+                        if (currentRow == e.RowIndex)
+                        {
+                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
+                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
+                            if (_currentAchieve.State == DataState.Copied)
+                                _currentAchieve.State = DataState.Modified;
+                            return;
+                        }
+                        else
+                            break;
+                    }
+                }
+
+                if (_countAchieve(strData) > 1)
+                {
+                    UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    return;
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Warning(exc.ToString());
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region CORE METHODS
@@ -297,6 +477,29 @@ namespace FTree.View.Win32
                 _setHomeTownDataBindings();
                 _checkHomeTownsDataGrid();
             }
+            else if (selectedTab == tabOccupation)
+            {
+                if (!_alreadyLoaded[selectedIndex])
+                {
+                    _loadCareers();
+                    _alreadyLoaded[selectedIndex] = true;
+                }
+
+                _setCareerDataBindings();
+                _checkCareersDataGrid();
+            }
+            else if (selectedTab == tabAchievements)
+            {
+                if (!_alreadyLoaded[selectedIndex])
+                {
+                    _loadAchieves();
+                    _alreadyLoaded[selectedIndex] = true;
+                }
+
+                _setAchieveDataBindings();
+                _checkAchievesDataGrid();
+            }
+
             // Add all other tab pages here...
         }
 
@@ -423,6 +626,134 @@ namespace FTree.View.Win32
 
         #endregion
 
+        #region OCCUPATION
+
+        private void _loadCareers()
+        {
+            try
+            {
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.LoadAllJobs);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        private void _addCareer()
+        {
+            try
+            {
+                SimpleEntryForm frmAdd = new SimpleEntryForm(_countCareer);
+                if (frmAdd.ShowDialog(false) != DialogResult.OK)
+                    return;
+                _currentCareer = new JobDTO { Name = frmAdd.Data };
+                //ThreadHelper.DoWork(_presenter.AddRelationType);
+                _careers.Add(_currentCareer);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (FTreePresenterException exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(exc.Message);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+        }
+
+        private void _deleteCareer()
+        {
+            try
+            {
+                // Ask for confirm.
+                DialogResult result = UIUtils.ConfirmOKCancel(Util.GetStringResource(StringResName.MSG_CONFIRM_DEL_ENTRY));
+
+                if (result != DialogResult.OK)
+                    return;
+
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.DeleteJob);
+                _careers.Remove(_currentCareer);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        #endregion
+
+        #region ACHIEVEMENT
+
+        private void _loadAchieves()
+        {
+            try
+            {
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.LoadAllAchievements);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        private void _addAchieve()
+        {
+            try
+            {
+                SimpleEntryForm frmAdd = new SimpleEntryForm(_countAchieve);
+                if (frmAdd.ShowDialog(false) != DialogResult.OK)
+                    return;
+                _currentAchieve = new AchievementType { Name = frmAdd.Data };
+                //ThreadHelper.DoWork(_presenter.AddRelationType);
+                _achieves.Add(_currentAchieve);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (FTreePresenterException exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(exc.Message);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_INSERT_NEW_ENTRY_FAILED));
+            }
+        }
+
+        private void _deleteAchieve()
+        {
+            try
+            {
+                // Ask for confirm.
+                DialogResult result = UIUtils.ConfirmOKCancel(Util.GetStringResource(StringResName.MSG_CONFIRM_DEL_ENTRY));
+
+                if (result != DialogResult.OK)
+                    return;
+
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.DeleteAchievement);
+                _achieves.Remove(_currentAchieve);
+                _bindingSource.ResetBindings(false);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region UTILITTY METHODS
@@ -526,6 +857,100 @@ namespace FTree.View.Win32
 
         #endregion
 
+        #region OCCUPATION
+
+        private void _setCareerDataBindings()
+        {
+            _bindingSource.DataSource = _careers;
+            this.dgCareers.DataSource = _bindingSource;
+
+            foreach (DataGridViewColumn col in dgCareers.Columns)
+            {
+                if (col.Name != FTreeConst.NAME_FIELD)
+                    col.Visible = false;
+            }
+        }
+
+        private bool _checkCareersDataGrid()
+        {
+            bool enabled = true;
+            if (dgCareers.DataSource == null
+                    || dgCareers.Columns.Count <= 0
+                    || dgCareers.Rows.Count <= 0
+                    || dgCareers.SelectedRows.Count <= 0)
+                enabled = false;
+
+            this.btnDeleteJob.Enabled = enabled;
+
+            return enabled;
+        }
+
+        private int _countCareer(string name)
+        {
+            // Check in the list.
+            var matches =
+                from entity in _careers
+                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                select entity;
+            int count = matches.Count();
+            if (count > 0)
+            {
+                return count;
+            }
+
+            // Check in DB.
+            return _presenter.CountCareerWithName(name);
+        }
+
+        #endregion
+
+        #region ACHIEVEMENT
+
+        private void _setAchieveDataBindings()
+        {
+            _bindingSource.DataSource = _achieves;
+            this.dgAchievements.DataSource = _bindingSource;
+
+            foreach (DataGridViewColumn col in dgAchievements.Columns)
+            {
+                if (col.Name != FTreeConst.NAME_FIELD)
+                    col.Visible = false;
+            }
+        }
+
+        private bool _checkAchievesDataGrid()
+        {
+            bool enabled = true;
+            if (dgAchievements.DataSource == null
+                    || dgAchievements.Columns.Count <= 0
+                    || dgAchievements.Rows.Count <= 0
+                    || dgAchievements.SelectedRows.Count <= 0)
+                enabled = false;
+
+            this.btnDeleteAchievement.Enabled = enabled;
+
+            return enabled;
+        }
+
+        private int _countAchieve(string name)
+        {
+            // Check in the list.
+            var matches =
+                from entity in _achieves
+                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                select entity;
+            int count = matches.Count();
+            if (count > 0)
+            {
+                return count;
+            }
+
+            // Check in DB.
+            return _presenter.CountAchieveWithName(name);
+        }
+
+        #endregion
+
         #endregion
 
         #region ISettingsManagerView Members
@@ -579,34 +1004,45 @@ namespace FTree.View.Win32
         {
             get
             {
-                throw new NotImplementedException();
+                return _careers;
             }
             set
             {
-                throw new NotImplementedException();
+                if (value == _careers)
+                    return;
+
+                _careers = value;
+                if (mainTabControl.SelectedTab == tabOccupation)
+                    _setCareerDataBindings();
             }
         }
 
         public FTree.DTO.JobDTO Job
         {
-            get { throw new NotImplementedException(); }
+            get { return _currentCareer; }
         }
 
         public IList<FTree.DTO.AchievementType> AchievementTypes
         {
             get
             {
-                throw new NotImplementedException();
+                return _achieves;
             }
             set
             {
-                throw new NotImplementedException();
+                if (value == _achieves)
+                    return;
+
+                _achieves = value;
+
+                if (mainTabControl.SelectedTab == tabAchievements)
+                    _setAchieveDataBindings();
             }
         }
 
         public FTree.DTO.AchievementType AchievementType
         {
-            get { throw new NotImplementedException(); }
+            get { return _currentAchieve; }
         }
 
         public IList<FTree.DTO.DeathReasonDTO> DeathReasons
