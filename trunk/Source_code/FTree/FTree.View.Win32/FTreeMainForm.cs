@@ -8,18 +8,30 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections.ObjectModel;
 using FTree.Common;
+using FTree.Presenter;
 using FTree.Presenter.ViewModel;
 using FTree.DTO;
 
 namespace FTree.View.Win32
 {
-    public partial class FTreeMainForm : Form
+    public partial class FTreeMainForm : Form, IFamilyMangerView
     {
+        #region VARIABLES
+        private FamilyManagerPresenter _presenter;
+
+        private FamilyDTO _currentFamily;
+        private IList<FamilyDTO> _families;
+        private ObservableCollection<FamilyViewModel> _familyViewModels;
+
+        #endregion
+
         #region CONSTRUCTOR
 
         public FTreeMainForm()
         {
             InitializeComponent();
+
+            _families = new List<FamilyDTO>();
 
             this.familyTreeView.InternalTreeView.SelectedItemChanged += new System.Windows.RoutedPropertyChangedEventHandler<object>(InternalTreeView_SelectedItemChanged);
         }
@@ -28,18 +40,26 @@ namespace FTree.View.Win32
 
         #region UI EVENTS
 
-        // Generate dummy data for testing.
-        ObservableCollection<FamilyViewModel> fs = new ObservableCollection<FamilyViewModel>();
+        // Generate dummy data for testing.        
 
         private void FTreeMainForm_Load(object sender, EventArgs e)
         {
             try
             {
-                _generateDummyData();
+                ThreadHelper.DoWork(_initPresenter);
+                ThreadHelper.DoWork(_loadData);
+
+                _generateViewModels();
+            }
+            catch (FTreePresenterException exc)
+            {
+                Tracer.Log(typeof(FTreeMainForm), exc);
+                UIUtils.Error(exc.Message);
             }
             catch (Exception exc)
             {
                 Tracer.Log(typeof(FTreeMainForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
             }
         }
 
@@ -53,9 +73,10 @@ namespace FTree.View.Win32
                 FamilyDTO f = new FamilyDTO();
                 f.Name = "Family " + i.ToString();
                 f.RootPerson = _dummyPerson();
-                fs.Add(new FamilyViewModel(f));
+                _familyViewModels.Add(new FamilyViewModel(f));
             }
-            this.familyTreeView.SetDataBinding(fs);
+            
+            this.familyTreeView.SetDataBinding(_familyViewModels);
         }
 
         private FamilyMemberDTO _dummyPerson()
@@ -96,6 +117,8 @@ namespace FTree.View.Win32
                 tmpFamily.IsExpanded = true;                
                 this.visualFamilyTreeView.SetDataBinding(tmpFamily);
                 //tmpFamily.IsExpanded = false;
+
+                _currentFamily = tmpFamily.Family;
             }
         }
 
@@ -150,7 +173,16 @@ namespace FTree.View.Win32
         }
 
         #endregion
-        
+
+        #region CORE METHODS
+
+        private void _loadData()
+        {
+            _presenter.LoadAllFamilies();
+        }
+
+        #endregion
+
         #region UTILITY METHODS
 
         private void _showFamilyForm()
@@ -163,8 +195,11 @@ namespace FTree.View.Win32
 
         private void _showFamilyManager()
         {
-            FamilyManagerForm frmFamilyManger = new FamilyManagerForm();
+            FamilyManagerForm frmFamilyManger = new FamilyManagerForm(_families);
             frmFamilyManger.ShowDialog(false);
+
+            _families = frmFamilyManger.Families;
+            _generateViewModels();
         }
 
         private void _showAddMemberForm()
@@ -201,6 +236,56 @@ namespace FTree.View.Win32
         {
             SettingsForm frmSetting = new SettingsForm();
             frmSetting.ShowDialog(false);
+        }
+
+        private void _generateViewModels()
+        {
+            _familyViewModels = new ObservableCollection<FamilyViewModel>();
+            
+            foreach (FamilyDTO dto in _families)
+            {
+                _familyViewModels.Add(new FamilyViewModel(dto));
+            }
+
+            this.familyTreeView.SetDataBinding(_familyViewModels);
+        }
+
+        private void _initPresenter()
+        {
+            _presenter = new FamilyManagerPresenter(this);
+            _presenter.AutoSubmitChanges = true;
+        }
+
+        #endregion
+
+        #region IFamilyMangerView Members
+
+        public IList<FamilyDTO> Families
+        {
+            get
+            {
+                return _families;
+            }
+            set
+            {
+                if (value == _families)
+                    return;
+                _families = value;
+            }
+        }
+
+        public FamilyDTO CurrentFamily
+        {
+            get { return _currentFamily; }
+        }
+
+        #endregion
+
+        #region IView Members
+
+        public string ViewName
+        {
+            get { return this.ToString(); }
         }
 
         #endregion

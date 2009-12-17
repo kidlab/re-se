@@ -12,5 +12,7 @@ namespace FTree.Model
         void AddRelative(FamilyMemberDTO person, FamilyMemberDTO relative, RelationTypeDTO relationType);
         void AssignAchievement(FamilyMemberDTO person, AchievementInfo achievement);
         void ReportDeath(FamilyMemberDTO person, DeathInfo deathInfo);
+        IList<FamilyMemberDTO> GetAll(int familyID);
+        IList<FamilyMemberDTO> GetAll(string familyName);
     }
 }

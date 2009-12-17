@@ -98,6 +98,9 @@ namespace FTree.Presenter.ViewModel
 
         protected override void LoadChildren()
         {
+            if (_person.Descendants == null)
+                return;
+
             foreach (FamilyMemberDTO person in _person.Descendants)
                 base.Children.Add(new PersonViewModel(person, this));
         }

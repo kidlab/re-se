@@ -51,11 +51,6 @@ namespace FTree.Model
             throw new NotImplementedException();
         }
 
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
                 
         #region VARIABLE

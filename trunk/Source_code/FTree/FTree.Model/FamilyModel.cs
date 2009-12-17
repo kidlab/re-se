@@ -52,9 +52,22 @@ namespace FTree.Model
             try
             {
                 _refreshDataContext();
+                FamilyMemberModel memModel = new FamilyMemberModel();
+
                 IEnumerable<FamilyDTO> matches =
                     _db.FAMILies.Select(family => ConvertToDTO(family));
-                return matches.ToList();
+
+                IList<FamilyDTO> families = new List<FamilyDTO>();
+
+                foreach (FamilyDTO family in matches)
+                {
+                    int rootID = _getRootPersonID(family.ID);
+                    if (rootID > 0)
+                        family.RootPerson = memModel.GetOneWithoutDescendants(rootID);
+                    families.Add(family);
+                }
+
+                return families;
             }
             catch (Exception exc)
             {
@@ -64,7 +77,7 @@ namespace FTree.Model
         }
 
         /// <summary>
-        /// Get the information of a family including the first generation along with his (her) descendants.
+        /// Get the information of a family including the first generation along with all his (her) descendants.
         /// </summary>
         /// <param name="id">The ID of the family.</param>
         /// <returns>An instance of FamilyDTO.</returns>

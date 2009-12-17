@@ -33,8 +33,8 @@
             this.txtFamilyName = new FTree.View.Win32.Components.BaseTextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnCreateFirstPerson = new System.Windows.Forms.Button();
             this.lblImage = new System.Windows.Forms.Label();
+            this.chkCreateFirstPerson = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblFamilyName
@@ -61,7 +61,7 @@
             this.btnOK.AutoSize = true;
             this.btnOK.Image = global::FTree.View.Win32.Properties.Resources.ok;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(122, 175);
+            this.btnOK.Location = new System.Drawing.Point(122, 131);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(100, 32);
             this.btnOK.TabIndex = 3;
@@ -76,26 +76,12 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::FTree.View.Win32.Properties.Resources.cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(228, 175);
+            this.btnCancel.Location = new System.Drawing.Point(228, 131);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 32);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // btnCreateFirstPerson
-            // 
-            this.btnCreateFirstPerson.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCreateFirstPerson.AutoSize = true;
-            this.btnCreateFirstPerson.Image = global::FTree.View.Win32.Properties.Resources.next;
-            this.btnCreateFirstPerson.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCreateFirstPerson.Location = new System.Drawing.Point(159, 60);
-            this.btnCreateFirstPerson.Name = "btnCreateFirstPerson";
-            this.btnCreateFirstPerson.Size = new System.Drawing.Size(169, 32);
-            this.btnCreateFirstPerson.TabIndex = 5;
-            this.btnCreateFirstPerson.Text = "Create First Person...";
-            this.btnCreateFirstPerson.UseVisualStyleBackColor = true;
-            this.btnCreateFirstPerson.Click += new System.EventHandler(this.btnCreateFirstPerson_Click);
             // 
             // lblImage
             // 
@@ -105,14 +91,25 @@
             this.lblImage.Size = new System.Drawing.Size(79, 81);
             this.lblImage.TabIndex = 2;
             // 
+            // chkCreateFirstPerson
+            // 
+            this.chkCreateFirstPerson.AutoSize = true;
+            this.chkCreateFirstPerson.Location = new System.Drawing.Point(100, 60);
+            this.chkCreateFirstPerson.Name = "chkCreateFirstPerson";
+            this.chkCreateFirstPerson.Size = new System.Drawing.Size(213, 17);
+            this.chkCreateFirstPerson.TabIndex = 5;
+            this.chkCreateFirstPerson.Text = "Create first person after close this dialog";
+            this.chkCreateFirstPerson.UseVisualStyleBackColor = true;
+            this.chkCreateFirstPerson.CheckedChanged += new System.EventHandler(this.chkCreateFirstPerson_CheckedChanged);
+            // 
             // FamilyForm
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(340, 219);
-            this.Controls.Add(this.btnCreateFirstPerson);
+            this.ClientSize = new System.Drawing.Size(340, 175);
+            this.Controls.Add(this.chkCreateFirstPerson);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.lblImage);
@@ -136,6 +133,6 @@
         private System.Windows.Forms.Label lblImage;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button btnCreateFirstPerson;
+        private System.Windows.Forms.CheckBox chkCreateFirstPerson;
     }
 }

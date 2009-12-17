@@ -11,17 +11,7 @@ namespace FTree.Presenter
 {
     public class FamilyMemberPresenter : BasePresenter<IFamilyMemberModel, IFamilyMemberView>
     {
-        #region VARIABLES
-
-        private FamilyMemberDTO _member;
-
-        /// <summary>
-        /// Gets the current family member was processed.
-        /// </summary>
-        public FamilyMemberDTO FamilyMember
-        {
-            get { return _member; }
-        }
+        #region VARIABLES       
 
         #endregion
 
@@ -41,12 +31,53 @@ namespace FTree.Presenter
 
         #region CORE METHODS
 
+        public void LoadRelativeMembers()
+        {
+            try
+            {
+                _view.FamilyMembers = _model.GetAll(_view.Family.Name);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
+        public void LoadAllParameters()
+        {
+            try
+            {
+                IRelationTypeModel relationType = new RelationTypeModel();
+                IHomeTownModel homeTown = new HomeTownModel();
+                IJobModel job = new JobModel();
+                
+                _view.RelationTypesList = relationType.GetAll();
+                _view.HomeTownsList = homeTown.GetAll();
+                _view.CareersList = job.GetAll();
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_DATA_FAILED));
+            }
+        }
+
         public void Add()
         {
             try
             {
-                _member = _generateDTO();
-                _model.Add(_member);
+                _model.Add(_view.FamilyMember);
             }
             catch (FTreeDbAccessException exc)
             {
@@ -64,8 +95,7 @@ namespace FTree.Presenter
         {
             try
             {
-                _member = _generateDTO();
-                _model.Update(_member);
+                _model.Update(_view.FamilyMember);
             }
             catch (FTreeDbAccessException exc)
             {
