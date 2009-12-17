@@ -130,7 +130,7 @@
     <value>Cannot delete the relation type</value>
   </data>
   <data name="ERR_ENTRY_ALREADY_EXIST" xml:space="preserve">
-    <value>The entry with name '{0}/ already ezist</value>
+    <value>The entry with name '{0}' already ezist</value>
   </data>
   <data name="ERR_FAMILY_ALREADY_EXIST" xml:space="preserve">
     <value>The name of family '{0}' already exist</value>

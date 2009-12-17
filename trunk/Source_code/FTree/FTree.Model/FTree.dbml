@@ -42,7 +42,7 @@
   </Table>
   <Table Name="dbo.EVENT" Member="EVENTs">
     <Type Name="EVENT">
-      <Column Name="IDEvent" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDEvent" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="EVENT_MEMBER_EVENT" Member="MEMBER_EVENTs" ThisKey="IDEvent" OtherKey="IDEvent" Type="MEMBER_EVENT" />
     </Type>
@@ -86,7 +86,7 @@
   </Table>
   <Table Name="dbo.MEMBER_EVENT" Member="MEMBER_EVENTs">
     <Type Name="MEMBER_EVENT">
-      <Column Name="IDEventMem" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDEventMem" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="IDMember" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IDEvent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="EventDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />

@@ -16,8 +16,9 @@ namespace FTree.Presenter
         private bool _autoSubmit;
 
         /// <summary>
-        /// Gets or sets the value determining that the model will automatically submit all changes to DB or not. The default value is True.
+        /// Gets or sets the value determining that the model will automatically submit all changes to DB or not. The default value is False.
         /// </summary>
+        /// <remarks>If False, you need to call SaveAllChanges after finishing all works.</remarks>
         public bool AutoSubmitChanges
         {
             get

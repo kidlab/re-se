@@ -56,13 +56,11 @@
     <Compile Include="AchievementReportPresenter.cs" />
     <Compile Include="DeathInfoPresenter.cs" />
     <Compile Include="FamilyManagerPresenter.cs" />
-    <Compile Include="FamilyPresenter.cs" />
     <Compile Include="FamilyReportPresenter.cs" />
     <Compile Include="FTreePresenterException.cs" />
     <Compile Include="IAchievementReportView.cs" />
     <Compile Include="IDeathInfoView.cs" />
     <Compile Include="IFamilyMangerView.cs" />
-    <Compile Include="IFamilyView.cs" />
     <Compile Include="IFamilyReportView.cs" />
     <Compile Include="ISettingsManagerView.cs" />
     <Compile Include="IAchievementView.cs" />
