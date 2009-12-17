@@ -17,8 +17,13 @@ namespace FTree.View.Win32
         #region VARIABLES
 
         private FamilyMemberPresenter _presenter;
-        private HomeTownDTO _homeTown = new HomeTownDTO();
-        private JobDTO _career = new JobDTO();
+
+        private IList<HomeTownDTO> _homeTowns;
+        private IList<JobDTO> _careersList;
+        private FamilyMemberDTO _currentMember;
+        private IList<FamilyMemberDTO> _familyMembers;
+        private IList<RelationTypeDTO> _relationTypesList;
+        private RelationTypeDTO _currentRelationType;
         private FamilyMemberDTO _relativePerson;
         private bool _isRootPerson = false;
         private FamilyDTO _family;
@@ -35,7 +40,7 @@ namespace FTree.View.Win32
         public FamilyMemberForm(bool isCreatingRootPerson)
         {
             InitializeComponent();
-            _isRootPerson = true;
+            _isRootPerson = isCreatingRootPerson;
         }
 
         #endregion
@@ -44,12 +49,22 @@ namespace FTree.View.Win32
 
         private void FamilyMemberForm_Load(object sender, EventArgs e)
         {
-            if (_family != null)
-                lblFamilyName.Text = _family.Name;
-            if (_isRootPerson)
+            try
             {
-                this.lblRootPersonWarning.Visible = true;
-                this.gbxRelationship.Enabled = false;
+                ThreadHelper.DoWork(_initPresenter);
+
+                if (_family != null)
+                    lblFamilyName.Text = _family.Name;
+                if (_isRootPerson)
+                {
+                    this.lblRootPersonWarning.Visible = true;
+                    this.gbxRelationship.Enabled = false;
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberForm), exc);
+                UIUtils.Error(exc.Message);
             }
         }
 
@@ -62,6 +77,9 @@ namespace FTree.View.Win32
 
                 // Insert new person.
                 _addNewPerson();
+
+                if (_isRootPerson)
+                    _family.RootPerson = _currentMember;
 
                 UIUtils.Info("Person Added Successfully!");
                 this.DialogResult = DialogResult.OK;
@@ -77,14 +95,17 @@ namespace FTree.View.Win32
             }
         }
 
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
 
         #region CORE METHODS
 
         private void _addNewPerson()
-        {
-            if (_presenter == null)
-                _presenter = new FamilyMemberPresenter(this);
+        {            
             _presenter.Add();
         }
 
@@ -98,178 +119,18 @@ namespace FTree.View.Win32
             this.errorToolTip.Show(message, control, 3000);
         }
 
+        private void _initPresenter()
+        {
+            _presenter = new FamilyMemberPresenter(this);
+        }
+
+        private void _bindData()
+        {
+            if (_currentMember == null)
+                return;
+        }
+
         #endregion        
-
-        #region IFamilyMemberView Members
-
-        public string FirstName
-        {
-            get
-            {
-                return this.txtFirstname.Text;
-            }
-            set
-            {
-                this.txtFirstname.Text = value;
-            }
-        }
-
-        public string LastName
-        {
-            get
-            {
-                return this.txtLastname.Text;
-            }
-            set
-            {
-                this.txtLastname.Text = value;
-            }
-        }
-
-        public bool IsFemale
-        {
-            get
-            {
-                return this.rbFemale.Checked;
-            }
-            set
-            {
-                this.rbFemale.Checked = value;
-            }
-        }
-
-        public IList<HomeTownDTO> HomeTownsList
-        {
-            set
-            {
-                this.cbHomeTown.DataSource = value;
-            }
-        }
-
-        public HomeTownDTO HomeTown
-        {
-            get
-            {
-                return _homeTown;
-            }
-            set
-            {
-                _homeTown = value;
-            }
-        }
-
-        public IList<JobDTO> CareersList
-        {
-            set
-            {
-                this.cbOccupation.DataSource = value;
-            }
-        }
-
-        public JobDTO Career
-        {
-            get
-            {
-                return _career;
-            }
-            set
-            {
-                _career = value;
-            }
-        }
-
-        public string Address
-        {
-            get
-            {
-                return this.txtAddress.Text;
-            }
-            set
-            {
-                this.txtAddress.Text = value;
-            }
-        }
-
-        public DateTime DateJoinFamily
-        {
-            get
-            {
-                return this.dateJointPicker.Value;
-            }
-            set
-            {
-                this.dateJointPicker.Value = value;
-            }
-        }
-
-        public DateTime BirthDay
-        {
-            get
-            {
-                // Combines values of Birthday and Birthtime.
-                DateTime birthday = new DateTime(
-                    birthdayPicker.Value.Year,
-                    birthdayPicker.Value.Month,
-                    birthdayPicker.Value.Day,
-                    birthtimePicker.Value.Hour,
-                    birthtimePicker.Value.Minute,
-                    birthtimePicker.Value.Second);
-                return birthday;
-            }
-            set
-            {
-                this.birthdayPicker.Value = value;
-                this.birthtimePicker.Value = value;
-            }
-        }
-
-        public FamilyMemberDTO RelativePerson
-        {
-            get
-            {
-                return _relativePerson;
-            }
-            set
-            {
-                this.cbRelativePerson.DataSource = value;
-            }
-        }
-
-        public IList<RelationTypeDTO> RelationTypesList
-        {
-            set
-            {
-                this.cbRelativePerson.DataSource = value;
-            }
-        }
-
-        public RelationTypeDTO RelationType
-        {
-            get
-            {
-                return this.cbRelativePerson.SelectedItem as RelationTypeDTO;
-            }
-            set
-            {
-                this.cbRelativePerson.SelectedItem = value;
-            }
-        }
-
-
-        public FamilyDTO Family
-        {
-            get
-            {
-                return _family;
-            }
-            set
-            {
-                _family = value;
-            }
-        }
-
-
-        #endregion
 
         #region IView Members
 
@@ -338,6 +199,73 @@ namespace FTree.View.Win32
             }
 
             return true;
+        }
+
+        #endregion
+
+        #region IFamilyMemberView Members
+
+        public FamilyMemberDTO FamilyMember
+        {
+            get
+            {
+                return _currentMember;
+            }
+            set
+            {
+                _currentMember = value;
+            }
+        }
+
+        public IList<HomeTownDTO> HomeTownsList
+        {
+            set { _homeTowns = value; }
+        }
+
+        public IList<JobDTO> CareersList
+        {
+            set { _careersList = value; }
+        }
+
+        public FamilyMemberDTO RelativePerson
+        {
+            get
+            {
+                return _relativePerson;
+            }
+            set
+            {
+                _relativePerson = value;
+            }
+        }
+
+        public IList<FamilyMemberDTO> FamilyMembers
+        {
+            get
+            {
+                return _familyMembers;
+            }
+            set
+            {
+                _familyMembers = value;
+            }
+        }
+
+        public IList<RelationTypeDTO> RelationTypesList
+        {
+            set { _relationTypesList = value; }
+        }
+
+        public RelationTypeDTO RelationType
+        {
+            get
+            {
+                return _currentRelationType;
+            }
+            set
+            {
+                _currentRelationType = value;
+            }
         }
 
         #endregion

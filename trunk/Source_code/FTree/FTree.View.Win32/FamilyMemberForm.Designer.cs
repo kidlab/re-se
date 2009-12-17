@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FamilyMemberForm));
             this.personInfoTabControl = new System.Windows.Forms.TabControl();
             this.personInfoTabPage = new System.Windows.Forms.TabPage();
+            this.lblRootPersonWarning = new System.Windows.Forms.Label();
             this.lblFamilyName = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.dateJointPicker = new System.Windows.Forms.DateTimePicker();
@@ -55,7 +56,6 @@
             this.rbFemale = new System.Windows.Forms.RadioButton();
             this.rbMale = new System.Windows.Forms.RadioButton();
             this.gbxRelationship = new System.Windows.Forms.GroupBox();
-            this.lblRootPersonWarning = new System.Windows.Forms.Label();
             this.cbRelationshipType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbRelativePerson = new System.Windows.Forms.ComboBox();
@@ -63,6 +63,8 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.errorToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.baseTextBox1 = new FTree.View.Win32.Components.BaseTextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.personInfoTabControl.SuspendLayout();
             this.personInfoTabPage.SuspendLayout();
             this.gbxProfile.SuspendLayout();
@@ -78,7 +80,7 @@
             this.personInfoTabControl.Location = new System.Drawing.Point(12, 12);
             this.personInfoTabControl.Name = "personInfoTabControl";
             this.personInfoTabControl.SelectedIndex = 0;
-            this.personInfoTabControl.Size = new System.Drawing.Size(565, 472);
+            this.personInfoTabControl.Size = new System.Drawing.Size(565, 504);
             this.personInfoTabControl.TabIndex = 0;
             // 
             // personInfoTabPage
@@ -93,10 +95,22 @@
             this.personInfoTabPage.Location = new System.Drawing.Point(4, 22);
             this.personInfoTabPage.Name = "personInfoTabPage";
             this.personInfoTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.personInfoTabPage.Size = new System.Drawing.Size(557, 446);
+            this.personInfoTabPage.Size = new System.Drawing.Size(557, 478);
             this.personInfoTabPage.TabIndex = 0;
             this.personInfoTabPage.Text = "Person Info";
             this.personInfoTabPage.UseVisualStyleBackColor = true;
+            // 
+            // lblRootPersonWarning
+            // 
+            this.lblRootPersonWarning.AutoSize = true;
+            this.lblRootPersonWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRootPersonWarning.ForeColor = System.Drawing.Color.Red;
+            this.lblRootPersonWarning.Location = new System.Drawing.Point(13, 34);
+            this.lblRootPersonWarning.Name = "lblRootPersonWarning";
+            this.lblRootPersonWarning.Size = new System.Drawing.Size(249, 13);
+            this.lblRootPersonWarning.TabIndex = 4;
+            this.lblRootPersonWarning.Text = "This person is the root person of the family";
+            this.lblRootPersonWarning.Visible = false;
             // 
             // lblFamilyName
             // 
@@ -121,7 +135,7 @@
             // dateJointPicker
             // 
             this.dateJointPicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateJointPicker.Location = new System.Drawing.Point(129, 417);
+            this.dateJointPicker.Location = new System.Drawing.Point(129, 449);
             this.dateJointPicker.Name = "dateJointPicker";
             this.dateJointPicker.Size = new System.Drawing.Size(200, 20);
             this.dateJointPicker.TabIndex = 18;
@@ -130,7 +144,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 421);
+            this.label2.Location = new System.Drawing.Point(13, 453);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 17;
@@ -157,7 +171,7 @@
             this.gbxProfile.Controls.Add(this.lblGender);
             this.gbxProfile.Controls.Add(this.rbFemale);
             this.gbxProfile.Controls.Add(this.rbMale);
-            this.gbxProfile.Location = new System.Drawing.Point(6, 139);
+            this.gbxProfile.Location = new System.Drawing.Point(6, 177);
             this.gbxProfile.Name = "gbxProfile";
             this.gbxProfile.Size = new System.Drawing.Size(545, 247);
             this.gbxProfile.TabIndex = 1;
@@ -317,34 +331,24 @@
             // 
             this.gbxRelationship.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbxRelationship.Controls.Add(this.btnSearch);
+            this.gbxRelationship.Controls.Add(this.baseTextBox1);
             this.gbxRelationship.Controls.Add(this.cbRelationshipType);
             this.gbxRelationship.Controls.Add(this.label1);
             this.gbxRelationship.Controls.Add(this.cbRelativePerson);
             this.gbxRelationship.Controls.Add(this.lblRelativePerson);
             this.gbxRelationship.Location = new System.Drawing.Point(6, 55);
             this.gbxRelationship.Name = "gbxRelationship";
-            this.gbxRelationship.Size = new System.Drawing.Size(545, 78);
+            this.gbxRelationship.Size = new System.Drawing.Size(545, 104);
             this.gbxRelationship.TabIndex = 0;
             this.gbxRelationship.TabStop = false;
             this.gbxRelationship.Text = "Relationship";
-            // 
-            // lblRootPersonWarning
-            // 
-            this.lblRootPersonWarning.AutoSize = true;
-            this.lblRootPersonWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRootPersonWarning.ForeColor = System.Drawing.Color.Red;
-            this.lblRootPersonWarning.Location = new System.Drawing.Point(13, 34);
-            this.lblRootPersonWarning.Name = "lblRootPersonWarning";
-            this.lblRootPersonWarning.Size = new System.Drawing.Size(249, 13);
-            this.lblRootPersonWarning.TabIndex = 4;
-            this.lblRootPersonWarning.Text = "This person is the root person of the family";
-            this.lblRootPersonWarning.Visible = false;
             // 
             // cbRelationshipType
             // 
             this.cbRelationshipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRelationshipType.FormattingEnabled = true;
-            this.cbRelationshipType.Location = new System.Drawing.Point(270, 39);
+            this.cbRelationshipType.Location = new System.Drawing.Point(270, 73);
             this.cbRelationshipType.Name = "cbRelationshipType";
             this.cbRelationshipType.Size = new System.Drawing.Size(147, 21);
             this.cbRelationshipType.TabIndex = 3;
@@ -352,7 +356,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(267, 23);
+            this.label1.Location = new System.Drawing.Point(267, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 2;
@@ -362,15 +366,15 @@
             // 
             this.cbRelativePerson.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRelativePerson.FormattingEnabled = true;
-            this.cbRelativePerson.Location = new System.Drawing.Point(13, 39);
+            this.cbRelativePerson.Location = new System.Drawing.Point(13, 73);
             this.cbRelativePerson.Name = "cbRelativePerson";
-            this.cbRelativePerson.Size = new System.Drawing.Size(147, 21);
+            this.cbRelativePerson.Size = new System.Drawing.Size(226, 21);
             this.cbRelativePerson.TabIndex = 1;
             // 
             // lblRelativePerson
             // 
             this.lblRelativePerson.AutoSize = true;
-            this.lblRelativePerson.Location = new System.Drawing.Point(10, 23);
+            this.lblRelativePerson.Location = new System.Drawing.Point(10, 57);
             this.lblRelativePerson.Name = "lblRelativePerson";
             this.lblRelativePerson.Size = new System.Drawing.Size(82, 13);
             this.lblRelativePerson.TabIndex = 0;
@@ -382,7 +386,7 @@
             this.btnOK.AutoSize = true;
             this.btnOK.Image = global::FTree.View.Win32.Properties.Resources.ok;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(367, 490);
+            this.btnOK.Location = new System.Drawing.Point(367, 522);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(100, 32);
             this.btnOK.TabIndex = 1;
@@ -397,7 +401,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::FTree.View.Win32.Properties.Resources.cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(473, 490);
+            this.btnCancel.Location = new System.Drawing.Point(473, 522);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 32);
             this.btnCancel.TabIndex = 2;
@@ -414,13 +418,30 @@
             this.errorToolTip.ReshowDelay = 2;
             this.errorToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
             // 
+            // baseTextBox1
+            // 
+            this.baseTextBox1.Location = new System.Drawing.Point(13, 23);
+            this.baseTextBox1.Name = "baseTextBox1";
+            this.baseTextBox1.Size = new System.Drawing.Size(226, 20);
+            this.baseTextBox1.TabIndex = 5;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(248, 21);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 6;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // FamilyMemberForm
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(589, 534);
+            this.ClientSize = new System.Drawing.Size(589, 566);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.personInfoTabControl);
@@ -478,5 +499,7 @@
         private System.Windows.Forms.Label lblFamilyName;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label lblRootPersonWarning;
+        private FTree.View.Win32.Components.BaseTextBox baseTextBox1;
+        private System.Windows.Forms.Button btnSearch;
     }
 }

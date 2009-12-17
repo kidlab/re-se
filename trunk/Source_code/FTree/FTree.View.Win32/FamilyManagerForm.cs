@@ -224,7 +224,7 @@ namespace FTree.View.Win32
         private void _showAddMemberForm(bool isAddingRootPerson)
         {
             FamilyMemberForm frmMember = new FamilyMemberForm(isAddingRootPerson);
-            frmMember.Family = _currentFamily;
+            //frmMember. = _currentFamily;
             frmMember.ShowDialog(false);
         }
 
