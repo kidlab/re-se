@@ -56,6 +56,8 @@
             this.rbFemale = new System.Windows.Forms.RadioButton();
             this.rbMale = new System.Windows.Forms.RadioButton();
             this.gbxRelationship = new System.Windows.Forms.GroupBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtSearch = new FTree.View.Win32.Components.BaseTextBox();
             this.cbRelationshipType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbRelativePerson = new System.Windows.Forms.ComboBox();
@@ -63,8 +65,6 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.errorToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.baseTextBox1 = new FTree.View.Win32.Components.BaseTextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.personInfoTabControl.SuspendLayout();
             this.personInfoTabPage.SuspendLayout();
             this.gbxProfile.SuspendLayout();
@@ -332,7 +332,7 @@
             this.gbxRelationship.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gbxRelationship.Controls.Add(this.btnSearch);
-            this.gbxRelationship.Controls.Add(this.baseTextBox1);
+            this.gbxRelationship.Controls.Add(this.txtSearch);
             this.gbxRelationship.Controls.Add(this.cbRelationshipType);
             this.gbxRelationship.Controls.Add(this.label1);
             this.gbxRelationship.Controls.Add(this.cbRelativePerson);
@@ -344,6 +344,23 @@
             this.gbxRelationship.TabStop = false;
             this.gbxRelationship.Text = "Relationship";
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(248, 21);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 6;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(13, 23);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(226, 20);
+            this.txtSearch.TabIndex = 5;
+            // 
             // cbRelationshipType
             // 
             this.cbRelationshipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -352,6 +369,7 @@
             this.cbRelationshipType.Name = "cbRelationshipType";
             this.cbRelationshipType.Size = new System.Drawing.Size(147, 21);
             this.cbRelationshipType.TabIndex = 3;
+            this.cbRelationshipType.SelectedIndexChanged += new System.EventHandler(this.cbRelationshipType_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -370,6 +388,7 @@
             this.cbRelativePerson.Name = "cbRelativePerson";
             this.cbRelativePerson.Size = new System.Drawing.Size(226, 21);
             this.cbRelativePerson.TabIndex = 1;
+            this.cbRelativePerson.SelectedIndexChanged += new System.EventHandler(this.cbRelativePerson_SelectedIndexChanged);
             // 
             // lblRelativePerson
             // 
@@ -417,23 +436,6 @@
             this.errorToolTip.IsBalloon = true;
             this.errorToolTip.ReshowDelay = 2;
             this.errorToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
-            // 
-            // baseTextBox1
-            // 
-            this.baseTextBox1.Location = new System.Drawing.Point(13, 23);
-            this.baseTextBox1.Name = "baseTextBox1";
-            this.baseTextBox1.Size = new System.Drawing.Size(226, 20);
-            this.baseTextBox1.TabIndex = 5;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(248, 21);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
-            this.btnSearch.TabIndex = 6;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // FamilyMemberForm
             // 
@@ -499,7 +501,7 @@
         private System.Windows.Forms.Label lblFamilyName;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label lblRootPersonWarning;
-        private FTree.View.Win32.Components.BaseTextBox baseTextBox1;
+        private FTree.View.Win32.Components.BaseTextBox txtSearch;
         private System.Windows.Forms.Button btnSearch;
     }
 }

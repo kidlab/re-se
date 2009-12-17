@@ -65,5 +65,10 @@ namespace FTree.DTO
             Spouses = new List<FamilyMemberDTO>();
             Descendants = new List<FamilyMemberDTO>();
         }
+
+        public override string ToString()
+        {
+            return LastName + " " + FirstName;
+        }
     }
 }

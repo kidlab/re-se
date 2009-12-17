@@ -177,7 +177,9 @@ namespace FTree.Presenter.ViewModel
         {
             IEnumerable<PersonViewModel> matches = null;
 
-            if (_currentFamily != null)
+            if (_currentFamily != null
+                    && _currentFamily.Children != null
+                    && _currentFamily.Children.Count > 0)
             {
                 matches = _findPeopleMatches(_searchText, _currentFamily.Children.First() as PersonViewModel);
             }
@@ -242,6 +244,9 @@ namespace FTree.Presenter.ViewModel
             foreach (FamilyViewModel family in _families)
             {
                 family.IsExpanded = true;
+                
+                if (family.Children == null || family.Children.Count <= 0)
+                    continue;
 
                 PersonViewModel person = family.Children.First() as PersonViewModel;
                 while (true)

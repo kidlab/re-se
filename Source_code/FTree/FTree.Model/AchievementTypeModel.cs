@@ -132,19 +132,6 @@ namespace FTree.Model
             }
         }
 
-        public void Save()
-        {
-            try
-            {
-                _db.SubmitChanges();
-            }
-            catch (Exception exc)
-            {
-                Tracer.Log(typeof(AchievementTypeModel), exc);
-                throw new FTreeDbAccessException(exc);
-            }
-        }
-
         #endregion
 
         #region UTILITY METHODS

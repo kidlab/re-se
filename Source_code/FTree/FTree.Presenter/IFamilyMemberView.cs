@@ -10,7 +10,9 @@ namespace FTree.Presenter
     public interface IFamilyMemberView : IView
     {
         FamilyMemberDTO FamilyMember { get; set; }
-        
+        FamilyMemberDTO RelativePerson { get; set; }
+        FamilyDTO Family { get; set; }
+
         /// <summary>
         /// Sets the list of all available home towns.
         /// </summary>
@@ -22,11 +24,6 @@ namespace FTree.Presenter
         IList<JobDTO> CareersList { set; }
 
         /// <summary>
-        /// A family member that has relationship to this person, e.g, father, mother, wife,...
-        /// </summary>
-        FamilyMemberDTO RelativePerson { get; set; }
-
-        /// <summary>
         /// All other members in the family associate with this person.
         /// </summary>
         IList<FamilyMemberDTO> FamilyMembers { get; set; }
@@ -34,11 +31,11 @@ namespace FTree.Presenter
         /// <summary>
         /// Sets the list of all available relation types.
         /// </summary>
-        IList<RelationTypeDTO> RelationTypesList {set; }
+        IList<RelationTypeDTO> RelationTypesList { set; }
 
         /// <summary>
         /// The selected relation type.
         /// </summary>
-        RelationTypeDTO RelationType { get; set; }        
+        RelationTypeDTO RelationType { get; set; }
     }
 }

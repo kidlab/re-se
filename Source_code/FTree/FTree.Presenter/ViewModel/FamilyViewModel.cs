@@ -16,6 +16,14 @@ namespace FTree.Presenter.ViewModel
 
         #region PROPERTIES
 
+        /// <summary>
+        /// Gets the FamilyDTO object associating with this object.
+        /// </summary>
+        public FamilyDTO Family
+        {
+            get { return _family; }
+        }
+
         public string FamilyName
         {
             get { return _family.Name; }
@@ -65,6 +73,9 @@ namespace FTree.Presenter.ViewModel
 
         protected override void LoadChildren()
         {
+            if (_family.RootPerson == null)
+                return;
+
             base.Children.Add(new PersonViewModel(_family.RootPerson, this));  
         }
 

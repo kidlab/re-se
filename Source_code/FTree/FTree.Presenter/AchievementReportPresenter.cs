@@ -6,8 +6,7 @@ using System.Windows.Forms;
 using MVPCore;
 using FTree.Model;
 using FTree.DTO;
-
-
+using FTree.Common;
 
 namespace FTree.Presenter
 {
@@ -49,11 +48,13 @@ namespace FTree.Presenter
             }
             catch (FTreeDbAccessException exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(AchievementReportPresenter), exc);
+                throw new FTreePresenterException(exc);
             }
             catch (Exception exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(AchievementReportPresenter), exc);
+                throw new FTreePresenterException(exc);
             }
         }
         #endregion
@@ -68,11 +69,13 @@ namespace FTree.Presenter
             }
             catch (FTreeDbAccessException exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(AchievementReportPresenter), exc);
+                throw new FTreePresenterException(exc);
             }
             catch (Exception exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(AchievementReportPresenter), exc);
+                throw new FTreePresenterException(exc);
             }
         }
         public Array AddWithArray()
@@ -84,11 +87,13 @@ namespace FTree.Presenter
             }
             catch (FTreeDbAccessException exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(AchievementReportPresenter), exc);
+                throw new FTreePresenterException(exc);
             }
             catch (Exception exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(AchievementReportPresenter), exc);
+                throw new FTreePresenterException(exc);
             }
         }
         //public List<MEMBER_EVENT> Add()
@@ -103,15 +108,16 @@ namespace FTree.Presenter
             }
             catch (FTreeDbAccessException exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(AchievementReportPresenter), exc);
+                throw new FTreePresenterException(exc);
             }
             catch (Exception exc)
             {
+                Tracer.Log(typeof(AchievementReportPresenter), exc);
                 throw new FTreePresenterException(exc);
             }
         }
-        #endregion
-               
+        #endregion               
 
         #region VARIABLE
         //public System.Windows.Forms.DataGridView dgview;

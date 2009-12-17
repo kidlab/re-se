@@ -66,11 +66,13 @@ namespace FTree.View.Win32
         {
             if (_family != null)
             {
-                this.btnCreateFirstPerson.Enabled = false;
-                this.btnCreateFirstPerson.Visible = false;
+                this.chkCreateFirstPerson.Enabled = false;
+                this.chkCreateFirstPerson.Visible = false;
 
                 txtFamilyName.Text = _family.Name;
             }
+            
+            this.chkCreateFirstPerson.Checked = true;
 
             ThreadHelper.DoWork(_initPresenter);
         }
@@ -103,22 +105,9 @@ namespace FTree.View.Win32
             }
         }
 
-        private void btnCreateFirstPerson_Click(object sender, EventArgs e)
+        private void chkCreateFirstPerson_CheckedChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if (!ValidateInputData())
-                    return;
-                _initFamilyDTO();
-                _presenter.Add();
-                this._needAddFirstPerson = true;
-
-                this.DialogResult = DialogResult.OK;
-            }
-            catch (FTreePresenterException exc)
-            {
-                UIUtils.Warning(exc.Message);
-            }
+            _needAddFirstPerson = chkCreateFirstPerson.Checked;
         }
 
         #endregion

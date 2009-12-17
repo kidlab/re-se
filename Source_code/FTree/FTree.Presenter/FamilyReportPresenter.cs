@@ -5,18 +5,18 @@ using System.Text;
 using MVPCore;
 using FTree.Model;
 using FTree.DTO;
-
+using FTree.Common;
 
 namespace FTree.Presenter
 {
-    public class FamilyReportPresenter : BasePresenter<IFamilyReportModel,IFamilyReportView>
+    public class FamilyReportPresenter : BasePresenter<IFamilyReportModel, IFamilyReportView>
     {
         protected override void _disposeComponents()
         {
             throw new NotImplementedException();
         }
 
-         #region CONSTRUCTOR
+        #region CONSTRUCTOR
         public FamilyReportPresenter(IFamilyReportModel model, IFamilyReportView view)
         {
             this._model = model;
@@ -28,8 +28,6 @@ namespace FTree.Presenter
         { }
 
         #endregion
-
-
 
         #region VARIABLE
         //public System.Windows.Forms.DataGridView dgview;
@@ -50,11 +48,13 @@ namespace FTree.Presenter
             }
             catch (FTreeDbAccessException exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(FamilyReportPresenter), exc);
+                throw new FTreePresenterException(exc);
             }
             catch (Exception exc)
             {
-                throw new FTreePresenterException();
+                Tracer.Log(typeof(FamilyReportPresenter), exc);
+                throw new FTreePresenterException(exc);
             }
         }
     }

@@ -33,6 +33,13 @@ namespace FTree.View.Win32
             _bindingSource = new BindingSource();
         }
 
+        public FamilyManagerForm(IList<FamilyDTO> families)
+        {
+            InitializeComponent();
+            _families = families;
+            _bindingSource = new BindingSource();
+        }
+
         #endregion
 
         #region UI EVENT
@@ -41,7 +48,9 @@ namespace FTree.View.Win32
         {
             ThreadHelper.DoWork(_initPresenter);
 
-            _loadAllFamilies();
+            if (_families == null || _families.Count <= 0)
+                _loadAllFamilies();
+
             _setFamiliesDataBindings();
             _checkDataGrid();
         }
@@ -77,8 +86,7 @@ namespace FTree.View.Win32
         private void dgFamilies_SelectionChanged(object sender, EventArgs e)
         {
             if (_checkDataGrid())
-            {
-
+            {                
                 int familyID = (int)dgFamilies.SelectedRows[0].Cells[FTreeConst.ID_FIELD].Value;
                 _currentFamily =
                     _families.SingleOrDefault(family => family.ID == familyID);
@@ -217,14 +225,16 @@ namespace FTree.View.Win32
             _families.Add(_currentFamily);
             _bindingSource.ResetBindings(false);
 
+            // Selects the family has just been added.
+            dgFamilies.Rows[dgFamilies.Rows.Count - 1].Selected = true;
+
             if (frmFamily.AcquireAddFirstPerson)
                 _showAddMemberForm(true);
         }
 
         private void _showAddMemberForm(bool isAddingRootPerson)
         {
-            FamilyMemberForm frmMember = new FamilyMemberForm(isAddingRootPerson);
-            //frmMember. = _currentFamily;
+            FamilyMemberForm frmMember = new FamilyMemberForm(isAddingRootPerson, _currentFamily);
             frmMember.ShowDialog(false);
         }
 

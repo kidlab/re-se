@@ -96,9 +96,37 @@ namespace FTree.Model
         }
 
         /// <summary>
-        /// Gets a person info and all his relative person by his ID.
+        /// Get all persons of a specific family.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="familyName">Name of the family.</param>
+        /// <returns>List of family's members.</returns>
+        public IList<FamilyMemberDTO> GetAll(string familyName)
+        {
+            try
+            {
+                _refreshDataContext();
+
+                IEnumerable<FamilyMemberDTO> matches =
+                    from member in _db.MEMBERs
+                    join family in _db.FAMILies
+                    on member.IDFamily equals family.IDFamily
+                    where family.Name == familyName
+                    select ConvertToDTO(member);
+
+                return matches.ToList();
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        /// <summary>
+        /// Gets a person info and all his relative person by his ID.
+        /// Note that this method will get the full family tree associating with this person.
+        /// </summary>
+        /// <param name="id">ID of the member.</param>
         /// <returns>An instance of FamilyMemberDTO.</returns>
         public FamilyMemberDTO GetOne(int id)
         {
@@ -115,6 +143,28 @@ namespace FTree.Model
             }
         }
 
+        public FamilyMemberDTO GetOneWithoutDescendants(int id)
+        {
+            try
+            {
+                _refreshDataContext();
+                IEnumerable<MEMBER> matches =
+                    from member in _db.MEMBERs
+                    where member.IDMember == id
+                    select member;
+
+                MEMBER mapper = matches.Single();
+
+                FamilyMemberDTO personDto = ConvertToDTO(mapper);
+                return personDto;
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
         private FamilyMemberDTO _getFamilyTree(int id, bool needFindFather, bool needFindMother)
         {
             try
@@ -123,6 +173,7 @@ namespace FTree.Model
                     from member in _db.MEMBERs
                     where member.IDMember == id
                     select member;
+
                 MEMBER personMapper = matches.Single();
 
                 FamilyMemberDTO personDto = ConvertToDTO(personMapper);
@@ -131,6 +182,7 @@ namespace FTree.Model
                 personDto.Spouses = _getSpouses(personMapper);
 
                 // Get children of this person (recursively).
+                personDto.Descendants = new List<FamilyMemberDTO>();
                 List<int> childrenIDs = _getChildrenIDs(personMapper);
                 foreach (int childID in childrenIDs)
                 {
@@ -145,6 +197,7 @@ namespace FTree.Model
                         child = _getFamilyTree(childID, false, true);
                         child.Father = personDto;
                     }
+                    personDto.Descendants.Add(child);
                 }
 
                 if (needFindFather)
@@ -291,10 +344,18 @@ namespace FTree.Model
             dto.FirstName = mapper.FirstName;
             dto.LastName = mapper.LastName;
             dto.IsFemale = IsFemale(mapper);
-            dto.Job = JobModel.ConvertToDTO(mapper.JOB);
-            dto.HomeTown = HomeTownModel.ConvertToDTO(mapper.BIRTHPLACE);
+
+            if (mapper.JOB != null)
+                dto.Job = JobModel.ConvertToDTO(mapper.JOB);
+
+            if (mapper.BIRTHPLACE != null)
+                dto.HomeTown = HomeTownModel.ConvertToDTO(mapper.BIRTHPLACE);
+
             dto.GenerationNumber = (int)mapper.GenLevel;
-            dto.Family = FamilyModel.ConvertToDTO(mapper.FAMILY);
+
+            if (mapper.FAMILY != null)
+                dto.Family = FamilyModel.ConvertToDTO(mapper.FAMILY);
+
             dto.Address = mapper.Address;
             dto.Birthday = mapper.Birthday.GetValueOrDefault();
             dto.DateJointFamily = mapper.DayJointFamily.GetValueOrDefault();
@@ -491,6 +552,9 @@ namespace FTree.Model
                 mapper.DEATH_INFO.IDBuryReason = dto.DeathInfo.Reason.ID;
                 mapper.DEATH_INFO.IDBuryPlace = dto.DeathInfo.BuryPlace.ID;
             }
+
+            if (dto.GenerationNumber > 0)
+                mapper.GenLevel = dto.GenerationNumber;
         }
 
         private IEnumerable<MEMBER> _search(FamilyMemberDTO obj)
