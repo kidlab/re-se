@@ -43,6 +43,8 @@ namespace FTree.View.Win32
             }
         }
 
+        #region DUMMY DATA FOR TESTING
+
         Random _dummyRand = new Random();
         private void _generateDummyData()
         {
@@ -84,6 +86,7 @@ namespace FTree.View.Win32
             return firstnames[i];
         }
 
+        #endregion
 
         private void InternalTreeView_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
         {
@@ -98,7 +101,7 @@ namespace FTree.View.Win32
 
         private void addFamilyToolStripButton_Click(object sender, EventArgs e)
         {
-            _showFamilyForm(DataFormMode.CreateNew);
+            _showFamilyForm();
         }
 
         private void addPersonToolStripButton_Click(object sender, EventArgs e)
@@ -150,11 +153,10 @@ namespace FTree.View.Win32
         
         #region UTILITY METHODS
 
-        private void _showFamilyForm(DataFormMode mode)
+        private void _showFamilyForm()
         {
-            FamilyForm frmFamily = new FamilyForm(mode);
-            frmFamily.ShowDialog(false);
-            if (frmFamily.DialogResult == DialogResult.OK
+            FamilyForm frmFamily = new FamilyForm();
+            if (frmFamily.ShowDialog(false) == DialogResult.OK
                     && frmFamily.AcquireAddFirstPerson)
                 _showAddMemberForm();
         }
