@@ -97,7 +97,7 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The entry with name &apos;{0}/ already ezist.
+        ///   Looks up a localized string similar to The entry with name &apos;{0}&apos; already ezist.
         /// </summary>
         internal static string ERR_ENTRY_ALREADY_EXIST {
             get {

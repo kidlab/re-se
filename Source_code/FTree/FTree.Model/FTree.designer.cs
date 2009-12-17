@@ -925,7 +925,7 @@ namespace FTree.Model
 			OnCreated();
 		}
 		
-		[Column(Storage="_IDEvent", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[Column(Storage="_IDEvent", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int IDEvent
 		{
 			get
@@ -1847,7 +1847,7 @@ namespace FTree.Model
 			OnCreated();
 		}
 		
-		[Column(Storage="_IDEventMem", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[Column(Storage="_IDEventMem", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int IDEventMem
 		{
 			get

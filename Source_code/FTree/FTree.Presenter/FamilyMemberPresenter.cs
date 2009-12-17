@@ -11,6 +11,20 @@ namespace FTree.Presenter
 {
     public class FamilyMemberPresenter : BasePresenter<IFamilyMemberModel, IFamilyMemberView>
     {
+        #region VARIABLES
+
+        private FamilyMemberDTO _member;
+
+        /// <summary>
+        /// Gets the current family member was processed.
+        /// </summary>
+        public FamilyMemberDTO FamilyMember
+        {
+            get { return _member; }
+        }
+
+        #endregion
+
         #region CONSTRUCTOR
 
         public FamilyMemberPresenter(IFamilyMemberModel model, IFamilyMemberView view)
@@ -22,6 +36,7 @@ namespace FTree.Presenter
         public FamilyMemberPresenter(IFamilyMemberView view) : this(new FamilyMemberModel(), view)
         {
         }
+
         #endregion
 
         #region CORE METHODS
@@ -30,7 +45,8 @@ namespace FTree.Presenter
         {
             try
             {
-                _model.Add(_generateDTO());
+                _member = _generateDTO();
+                _model.Add(_member);
             }
             catch (FTreeDbAccessException exc)
             {
@@ -48,7 +64,8 @@ namespace FTree.Presenter
         {
             try
             {
-                _model.Update(_generateDTO());
+                _member = _generateDTO();
+                _model.Update(_member);
             }
             catch (FTreeDbAccessException exc)
             {

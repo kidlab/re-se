@@ -115,8 +115,12 @@ namespace FTree.Model
         {
             try
             {
-                FAMILY familyMapper = _search(obj).SingleOrDefault();
-                _updateModel(ref familyMapper, obj);
+                FAMILY mapper = _search(obj).SingleOrDefault();
+
+                if (mapper == null)
+                    return;
+
+                _updateModel(ref mapper, obj);
                 this._save();
             }
             catch (Exception exc)
@@ -134,9 +138,12 @@ namespace FTree.Model
         {
             try
             {
-                FAMILY familyMapper = _search(obj).SingleOrDefault();
+                FAMILY mapper = _search(obj).SingleOrDefault();
 
-                _db.FAMILies.DeleteOnSubmit(familyMapper);
+                if (mapper == null)
+                    return;
+
+                _db.FAMILies.DeleteOnSubmit(mapper);
                 this._save();
             }
             catch (Exception exc)
@@ -159,7 +166,6 @@ namespace FTree.Model
                     where family.Name.ToUpper() == familyName.ToUpper()
                     select ConvertToDTO(family);
                     //_db.FAMILies.Select(family => ConvertToDTO(family));
-
                 return matches;
             }
             catch (Exception exc)
