@@ -110,15 +110,15 @@ namespace FTree.Presenter
         private FamilyMemberDTO _generateDTO()
         {
             FamilyMemberDTO member = new FamilyMemberDTO();
-            member.Family = _view.Family;
-            member.FirstName = _view.FirstName;
-            member.LastName = _view.LastName;
-            member.IsFemale = _view.IsFemale;
-            member.Address = _view.Address;
-            member.HomeTown = _view.HomeTown;
-            member.Birthday = _view.BirthDay;
-            member.DateJointFamily = _view.DateJoinFamily;
-            member.Job = _view.Career; 
+            //member.Family = _view.Family;
+            //member.FirstName = _view.FirstName;
+            //member.LastName = _view.LastName;
+            //member.IsFemale = _view.IsFemale;
+            //member.Address = _view.Address;
+            //member.HomeTown = _view.HomeTown;
+            //member.Birthday = _view.BirthDay;
+            //member.DateJointFamily = _view.DateJoinFamily;
+            //member.Job = _view.Career; 
 
             return member;
         }
