@@ -33,8 +33,6 @@
             this.dgFamilies = new System.Windows.Forms.DataGridView();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnDeleteFamily = new System.Windows.Forms.Button();
-            this.btnLoadFamily = new System.Windows.Forms.Button();
-            this.btnChangeName = new System.Windows.Forms.Button();
             this.btnCreateFamily = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgFamilies)).BeginInit();
@@ -55,6 +53,10 @@
             // 
             // dgFamilies
             // 
+            this.dgFamilies.AllowUserToAddRows = false;
+            this.dgFamilies.AllowUserToDeleteRows = false;
+            this.dgFamilies.AllowUserToResizeColumns = false;
+            this.dgFamilies.AllowUserToResizeRows = false;
             this.dgFamilies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgFamilies.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgFamilies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -66,6 +68,8 @@
             this.dgFamilies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgFamilies.Size = new System.Drawing.Size(282, 339);
             this.dgFamilies.TabIndex = 0;
+            this.dgFamilies.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgFamilies_CellBeginEdit);
+            this.dgFamilies.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgFamilies_CellEndEdit);
             this.dgFamilies.SelectionChanged += new System.EventHandler(this.dgFamilies_SelectionChanged);
             // 
             // btnClose
@@ -81,42 +85,19 @@
             this.btnClose.TabIndex = 6;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnDeleteFamily
             // 
             this.btnDeleteFamily.Image = global::FTree.View.Win32.Properties.Resources.delete;
             this.btnDeleteFamily.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteFamily.Location = new System.Drawing.Point(328, 167);
+            this.btnDeleteFamily.Location = new System.Drawing.Point(328, 66);
             this.btnDeleteFamily.Name = "btnDeleteFamily";
             this.btnDeleteFamily.Size = new System.Drawing.Size(155, 32);
             this.btnDeleteFamily.TabIndex = 10;
             this.btnDeleteFamily.Text = "Delete Family";
             this.btnDeleteFamily.UseVisualStyleBackColor = true;
             this.btnDeleteFamily.Click += new System.EventHandler(this.btnDeleteFamily_Click);
-            // 
-            // btnLoadFamily
-            // 
-            this.btnLoadFamily.Image = global::FTree.View.Win32.Properties.Resources.load;
-            this.btnLoadFamily.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLoadFamily.Location = new System.Drawing.Point(328, 104);
-            this.btnLoadFamily.Name = "btnLoadFamily";
-            this.btnLoadFamily.Size = new System.Drawing.Size(155, 32);
-            this.btnLoadFamily.TabIndex = 9;
-            this.btnLoadFamily.Text = "Load Family";
-            this.btnLoadFamily.UseVisualStyleBackColor = true;
-            this.btnLoadFamily.Click += new System.EventHandler(this.btnLoadFamily_Click);
-            // 
-            // btnChangeName
-            // 
-            this.btnChangeName.Image = global::FTree.View.Win32.Properties.Resources.edit;
-            this.btnChangeName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnChangeName.Location = new System.Drawing.Point(328, 66);
-            this.btnChangeName.Name = "btnChangeName";
-            this.btnChangeName.Size = new System.Drawing.Size(155, 32);
-            this.btnChangeName.TabIndex = 8;
-            this.btnChangeName.Text = "Change Family Name";
-            this.btnChangeName.UseVisualStyleBackColor = true;
-            this.btnChangeName.Click += new System.EventHandler(this.btnChangeName_Click);
             // 
             // btnCreateFamily
             // 
@@ -137,8 +118,6 @@
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(495, 382);
             this.Controls.Add(this.btnDeleteFamily);
-            this.Controls.Add(this.btnLoadFamily);
-            this.Controls.Add(this.btnChangeName);
             this.Controls.Add(this.btnCreateFamily);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.groupBox1);
@@ -161,8 +140,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.DataGridView dgFamilies;
         private System.Windows.Forms.Button btnCreateFamily;
-        private System.Windows.Forms.Button btnChangeName;
-        private System.Windows.Forms.Button btnLoadFamily;
         private System.Windows.Forms.Button btnDeleteFamily;
     }
 }
