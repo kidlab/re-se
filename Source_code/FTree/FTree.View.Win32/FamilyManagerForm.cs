@@ -20,6 +20,8 @@ namespace FTree.View.Win32
         private FamilyDTO _currentFamily = null;
         private IList<FamilyDTO> _families = null;
         private FamilyManagerPresenter _presenter;
+        private string _strOldData;
+        private BindingSource _bindingSource;
 
         #endregion
 
@@ -28,6 +30,7 @@ namespace FTree.View.Win32
         public FamilyManagerForm()
         {
             InitializeComponent();
+            _bindingSource = new BindingSource();
         }
 
         #endregion
@@ -39,22 +42,31 @@ namespace FTree.View.Win32
             ThreadHelper.DoWork(_initPresenter);
 
             _loadAllFamilies();
+            _setFamiliesDataBindings();
             _checkDataGrid();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!_presenter.AutoSubmitChanges)
+                {
+                    ThreadHelper.DoWork(_presenter.SaveAllChanges);
+                }
+
+                this.DialogResult = DialogResult.OK;
+            }
+            catch (FTreePresenterException exc)
+            {
+                Tracer.Log(typeof(FamilyManagerForm), exc);
+                UIUtils.Warning(exc.Message);
+            }
         }
 
         private void btnCreateFamily_Click(object sender, EventArgs e)
         {
-            _showFamilyForm(DataFormMode.CreateNew);
-        }
-
-        private void btnChangeName_Click(object sender, EventArgs e)
-        {
-            _showFamilyForm(DataFormMode.Edit);
-        }
-
-        private void btnLoadFamily_Click(object sender, EventArgs e)
-        {
-
+            _showFamilyForm();
         }
 
         private void btnDeleteFamily_Click(object sender, EventArgs e)
@@ -73,6 +85,67 @@ namespace FTree.View.Win32
             }
         }
 
+        private void dgFamilies_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (dgFamilies.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                return;
+
+            _strOldData = dgFamilies[e.ColumnIndex, e.RowIndex].Value.ToString();
+        }
+
+        private void dgFamilies_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dgFamilies.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
+                    return;
+
+                if (dgFamilies[e.ColumnIndex, e.RowIndex].Value == null)
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgFamilies[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                string strData = dgFamilies[e.ColumnIndex, e.RowIndex].Value.ToString();
+
+                // No Change, so return.
+                if (strData == _strOldData)
+                    return;
+
+                if (String.IsNullOrEmpty(strData.Trim()))
+                {
+                    UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
+                    dgFamilies[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+
+                int count = _countFamily(strData);
+
+                if (count > 1)
+                {
+                    UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    dgFamilies[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+                else
+                {
+                    // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
+                    // (so we don't need to update its name here, because it was automatically updated by DataGridView).
+                    if (_currentFamily.State == DataState.Copied)
+                        _currentFamily.State = DataState.Modified;
+
+                    if (_presenter.AutoSubmitChanges)
+                        _presenter.Update();
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyManagerForm), exc);
+                UIUtils.Warning(exc.ToString());
+            }
+        }
+
         #endregion
 
         #region UTILITY METHODS
@@ -80,6 +153,7 @@ namespace FTree.View.Win32
         private void _initPresenter()
         {
             _presenter = new FamilyManagerPresenter(this);
+            _presenter.AutoSubmitChanges = true;
         }
 
         private void _loadAllFamilies()
@@ -118,23 +192,33 @@ namespace FTree.View.Win32
             }
         }
 
-        private void _showFamilyForm(DataFormMode mode)
+        private void _updateFamily()
         {
-            FamilyForm frmFamily = new FamilyForm(mode);
+            try
+            {
+                // Run the operation in different thread to avoid freezing the GUI.
+                ThreadHelper.DoWork(_presenter.Update);}
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyManagerForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_UPDATE_FAMILY_FAILED));
+            }
+        }
 
-            if (mode == DataFormMode.Edit)
-                frmFamily.Family = _currentFamily;
+        private void _showFamilyForm()
+        {
+            FamilyForm frmFamily = new FamilyForm();
 
             DialogResult result = frmFamily.ShowDialog(false);
-            if (result == DialogResult.OK)
-                _loadAllFamilies();
+            if (result != DialogResult.OK)
+                return;            
 
-            if (mode == DataFormMode.CreateNew
-                    && frmFamily.AcquireAddFirstPerson)
-            {
-                _currentFamily = frmFamily.Family;
+            _currentFamily = frmFamily.CurrentFamily;
+            _families.Add(_currentFamily);
+            _bindingSource.ResetBindings(false);
+
+            if (frmFamily.AcquireAddFirstPerson)
                 _showAddMemberForm(true);
-            }
         }
 
         private void _showAddMemberForm(bool isAddingRootPerson)
@@ -142,6 +226,18 @@ namespace FTree.View.Win32
             FamilyMemberForm frmMember = new FamilyMemberForm(isAddingRootPerson);
             frmMember.Family = _currentFamily;
             frmMember.ShowDialog(false);
+        }
+
+        private void _setFamiliesDataBindings()
+        {
+            _bindingSource.DataSource = _families;
+            this.dgFamilies.DataSource = _bindingSource;
+
+            foreach (DataGridViewColumn col in dgFamilies.Columns)
+            {
+                if (col.Name != FTreeConst.NAME_FIELD)
+                    col.Visible = false;
+            }
         }
 
         private bool _checkDataGrid()
@@ -153,11 +249,26 @@ namespace FTree.View.Win32
                     || dgFamilies.SelectedRows.Count <= 0)
                 enabled = false;
          
-            this.btnChangeName.Enabled = enabled;
             this.btnDeleteFamily.Enabled = enabled;
-            this.btnLoadFamily.Enabled = enabled;
-
+            
             return enabled;
+        }
+
+        private int _countFamily(string name)
+        {
+            // Check in the list.
+            var matches =
+                from entity in _families
+                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                select entity;
+            int count = matches.Count();
+            if (count > 0)
+            {
+                return count;
+            }
+
+            // Check in DB.
+            return _presenter.CountFamilyWithName(name);
         }
 
         #endregion
@@ -176,13 +287,8 @@ namespace FTree.View.Win32
                     return;
 
                 _families = value;
-                this.dgFamilies.DataSource = _families;
-                
-                foreach (DataGridViewColumn col in dgFamilies.Columns)
-                {
-                    if (col.Name != FTreeConst.NAME_FIELD)
-                        col.Visible = false;
-                }
+                dgFamilies.DataSource = _families;
+                _setFamiliesDataBindings();                
             }
         }
 
@@ -204,5 +310,6 @@ namespace FTree.View.Win32
         }
 
         #endregion        
+
     }
 }

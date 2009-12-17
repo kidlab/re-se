@@ -76,11 +76,19 @@ namespace FTree.View.Win32
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            ThreadHelper.DoWork(_initPresenter);
+            try
+            {
+                ThreadHelper.DoWork(_initPresenter);
 
-            // Force the first tab be selected.
-            this.mainTabControl.SelectedTab = this.mainTabControl.TabPages[0];
-            _loadData();
+                // Force the first tab be selected.
+                this.mainTabControl.SelectedTab = this.mainTabControl.TabPages[0];
+                _loadData();
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(exc.Message);
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -153,35 +161,33 @@ namespace FTree.View.Win32
                     return;
                 }
 
-                string strData = dgRelationTypes[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+                string strData = dgRelationTypes[e.ColumnIndex, e.RowIndex].Value.ToString();
 
-                if (String.IsNullOrEmpty(strData))
+                // No Change, so return.
+                if (strData == _strOldData)
+                    return;
+
+                if (String.IsNullOrEmpty(strData.Trim()))
                 {
                     UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
                     dgRelationTypes[e.ColumnIndex, e.RowIndex].Value = _strOldData;
                     return;
                 }
 
-                for (int currentRow = 0; currentRow < dgRelationTypes.Rows.Count; currentRow++)
-                {
-                    if (dgRelationTypes[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
-                    {
-                        if (currentRow == e.RowIndex)
-                        {
-                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
-                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
-                            if (_currentRelationType.State == DataState.Copied)
-                                _currentRelationType.State = DataState.Modified;
-                            return;
-                        }
-                        else
-                            break;
-                    }
-                }
+                int count = _countRelationType(strData);
 
-                if (_countRelationType(strData) > 1)
+                if (count > 1)
                 {
                     UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_RELATION_TYPE_ALREADY_EXIST), strData));
+                    dgRelationTypes[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+                else
+                {
+                    // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
+                    // (so we don't need to update its name here, because it was automatically updated by DataGridView).
+                    if (_currentRelationType.State == DataState.Copied)
+                        _currentRelationType.State = DataState.Modified;
                     return;
                 }
             }
@@ -239,35 +245,31 @@ namespace FTree.View.Win32
                     return;
                 }
 
-                string strData = dgHomeTowns[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+                string strData = dgHomeTowns[e.ColumnIndex, e.RowIndex].Value.ToString();
 
-                if (String.IsNullOrEmpty(strData))
+                // No Change, so return.
+                if (strData == _strOldData)
+                    return;
+
+                if (String.IsNullOrEmpty(strData.Trim()))
                 {
                     UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
                     dgHomeTowns[e.ColumnIndex, e.RowIndex].Value = _strOldData;
                     return;
                 }
 
-                for (int currentRow = 0; currentRow < dgHomeTowns.Rows.Count; currentRow++)
-                {
-                    if (dgHomeTowns[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
-                    {
-                        if (currentRow == e.RowIndex)
-                        {
-                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
-                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
-                            if (_currentHomeTown.State == DataState.Copied)
-                                _currentHomeTown.State = DataState.Modified;
-                            return;
-                        }
-                        else
-                            break;
-                    }
-                }
+                int count = _countHomeTown(strData);
 
-                if (_countHomeTown(strData) > 1)
+                if (count > 1)
                 {
                     UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    dgHomeTowns[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+                else
+                {
+                    if (_currentHomeTown.State == DataState.Copied)
+                        _currentHomeTown.State = DataState.Modified;
                     return;
                 }
             }
@@ -325,35 +327,31 @@ namespace FTree.View.Win32
                     return;
                 }
 
-                string strData = dgCareers[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+                string strData = dgCareers[e.ColumnIndex, e.RowIndex].Value.ToString();
 
-                if (String.IsNullOrEmpty(strData))
+                // No Change, so return.
+                if (strData == _strOldData)
+                    return;
+
+                if (String.IsNullOrEmpty(strData.Trim()))
                 {
                     UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
                     dgCareers[e.ColumnIndex, e.RowIndex].Value = _strOldData;
                     return;
                 }
 
-                for (int currentRow = 0; currentRow < dgCareers.Rows.Count; currentRow++)
-                {
-                    if (dgCareers[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
-                    {
-                        if (currentRow == e.RowIndex)
-                        {
-                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
-                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
-                            if (_currentCareer.State == DataState.Copied)
-                                _currentCareer.State = DataState.Modified;
-                            return;
-                        }
-                        else
-                            break;
-                    }
-                }
+                int count = _countCareer(strData);
 
-                if (_countCareer(strData) > 1)
+                if (count > 1)
                 {
                     UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    dgCareers[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+                else
+                {
+                    if (_currentCareer.State == DataState.Copied)
+                        _currentCareer.State = DataState.Modified;
                     return;
                 }
             }
@@ -411,35 +409,31 @@ namespace FTree.View.Win32
                     return;
                 }
 
-                string strData = dgAchievements[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+                string strData = dgAchievements[e.ColumnIndex, e.RowIndex].Value.ToString();
 
-                if (String.IsNullOrEmpty(strData))
+                // No Change, so return.
+                if (strData == _strOldData)
+                    return;
+
+                if (String.IsNullOrEmpty(strData.Trim()))
                 {
                     UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
                     dgAchievements[e.ColumnIndex, e.RowIndex].Value = _strOldData;
                     return;
                 }
 
-                for (int currentRow = 0; currentRow < dgAchievements.Rows.Count; currentRow++)
-                {
-                    if (dgAchievements[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
-                    {
-                        if (currentRow == e.RowIndex)
-                        {
-                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
-                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
-                            if (_currentAchieve.State == DataState.Copied)
-                                _currentAchieve.State = DataState.Modified;
-                            return;
-                        }
-                        else
-                            break;
-                    }
-                }
+                int count = _countAchieve(strData);
 
-                if (_countAchieve(strData) > 1)
+                if (count > 1)
                 {
                     UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    dgAchievements[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+                else
+                {
+                    if (_currentAchieve.State == DataState.Copied)
+                        _currentAchieve.State = DataState.Modified;
                     return;
                 }
             }
@@ -463,7 +457,6 @@ namespace FTree.View.Win32
         {
             _deleteDeathReason();
         }
-
 
         private void dgDeathReasons_SelectionChanged(object sender, EventArgs e)
         {
@@ -498,35 +491,31 @@ namespace FTree.View.Win32
                     return;
                 }
 
-                string strData = dgDeathReasons[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+                string strData = dgDeathReasons[e.ColumnIndex, e.RowIndex].Value.ToString();
 
-                if (String.IsNullOrEmpty(strData))
+                // No Change, so return.
+                if (strData == _strOldData)
+                    return;
+
+                if (String.IsNullOrEmpty(strData.Trim()))
                 {
                     UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
                     dgDeathReasons[e.ColumnIndex, e.RowIndex].Value = _strOldData;
                     return;
                 }
 
-                for (int currentRow = 0; currentRow < dgDeathReasons.Rows.Count; currentRow++)
-                {
-                    if (dgDeathReasons[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
-                    {
-                        if (currentRow == e.RowIndex)
-                        {
-                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
-                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
-                            if (_currentDeathReason.State == DataState.Copied)
-                                _currentDeathReason.State = DataState.Modified;
-                            return;
-                        }
-                        else
-                            break;
-                    }
-                }
+                int count = _countDeathReason(strData);
 
-                if (_countDeathReason(strData) > 1)
+                if (count > 1)
                 {
                     UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    dgDeathReasons[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+                else
+                {
+                    if (_currentDeathReason.State == DataState.Copied)
+                        _currentDeathReason.State = DataState.Modified;
                     return;
                 }
             }
@@ -584,35 +573,31 @@ namespace FTree.View.Win32
                     return;
                 }
 
-                string strData = dgBuryPlaces[e.ColumnIndex, e.RowIndex].Value.ToString().Trim();
+                string strData = dgBuryPlaces[e.ColumnIndex, e.RowIndex].Value.ToString();
 
-                if (String.IsNullOrEmpty(strData))
+                // No Change, so return.
+                if (strData == _strOldData)
+                    return;
+
+                if (String.IsNullOrEmpty(strData.Trim()))
                 {
                     UIUtils.Warning(Util.GetStringResource(StringResName.MSG_ENTER_DATA));
                     dgBuryPlaces[e.ColumnIndex, e.RowIndex].Value = _strOldData;
                     return;
                 }
 
-                for (int currentRow = 0; currentRow < dgBuryPlaces.Rows.Count; currentRow++)
-                {
-                    if (dgBuryPlaces[e.ColumnIndex, currentRow].Value.ToString().Trim() == strData)
-                    {
-                        if (currentRow == e.RowIndex)
-                        {
-                            // Ensure that the dgRelationTypes_SelectionChanged catched the right object 
-                            // (so we don't need to update its name here, because it was automatically updated by DataGridView).
-                            if (_currentBuryPlace.State == DataState.Copied)
-                                _currentBuryPlace.State = DataState.Modified;
-                            return;
-                        }
-                        else
-                            break;
-                    }
-                }
+                int count = _countBuryPlace(strData);
 
-                if (_countBuryPlace(strData) > 1)
+                if (count > 1)
                 {
                     UIUtils.Warning(String.Format(Util.GetStringResource(StringResName.ERR_ENTRY_ALREADY_EXIST), strData));
+                    dgBuryPlaces[e.ColumnIndex, e.RowIndex].Value = _strOldData;
+                    return;
+                }
+                else
+                {
+                    if (_currentBuryPlace.State == DataState.Copied)
+                        _currentBuryPlace.State = DataState.Modified;
                     return;
                 }
             }
@@ -852,7 +837,6 @@ namespace FTree.View.Win32
                 if (frmAdd.ShowDialog(false) != DialogResult.OK)
                     return;
                 _currentCareer = new JobDTO { Name = frmAdd.Data };
-                //ThreadHelper.DoWork(_presenter.AddRelationType);
                 _careers.Add(_currentCareer);
                 _bindingSource.ResetBindings(false);
             }
@@ -976,7 +960,7 @@ namespace FTree.View.Win32
         {
             try
             {
-                SimpleEntryForm frmAdd = new SimpleEntryForm(_countAchieve);
+                SimpleEntryForm frmAdd = new SimpleEntryForm(_countDeathReason);
                 if (frmAdd.ShowDialog(false) != DialogResult.OK)
                     return;
                 _currentDeathReason = new DeathReasonDTO { Name = frmAdd.Data };
@@ -1124,7 +1108,7 @@ namespace FTree.View.Win32
             // Check in the list.
             var matches =
                 from type in _relationTypes
-                where type.Name.ToUpper() == name.Trim().ToUpper()
+                where type.Name.Trim().ToUpper() == name.Trim().ToUpper()
                 select type;
             int count = matches.Count();
             if (count > 0)
@@ -1171,7 +1155,7 @@ namespace FTree.View.Win32
             // Check in the list.
             var matches =
                 from entity in _homeTowns
-                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                where entity.Name.Trim().ToUpper() == name.Trim().ToUpper()
                 select entity;
             int count = matches.Count();
             if (count > 0)
@@ -1218,7 +1202,7 @@ namespace FTree.View.Win32
             // Check in the list.
             var matches =
                 from entity in _careers
-                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                where entity.Name.Trim().ToUpper() == name.Trim().ToUpper()
                 select entity;
             int count = matches.Count();
             if (count > 0)
@@ -1265,7 +1249,7 @@ namespace FTree.View.Win32
             // Check in the list.
             var matches =
                 from entity in _achieves
-                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                where entity.Name.Trim().ToUpper() == name.Trim().ToUpper()
                 select entity;
             int count = matches.Count();
             if (count > 0)
@@ -1312,7 +1296,7 @@ namespace FTree.View.Win32
             // Check in the list.
             var matches =
                 from entity in _deathReasons
-                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                where entity.Name.Trim().ToUpper() == name.Trim().ToUpper()
                 select entity;
             int count = matches.Count();
             if (count > 0)
@@ -1359,7 +1343,7 @@ namespace FTree.View.Win32
             // Check in the list.
             var matches =
                 from entity in _buryPlaces
-                where entity.Name.ToUpper() == name.Trim().ToUpper()
+                where entity.Name.Trim().ToUpper() == name.Trim().ToUpper()
                 select entity;
             int count = matches.Count();
             if (count > 0)

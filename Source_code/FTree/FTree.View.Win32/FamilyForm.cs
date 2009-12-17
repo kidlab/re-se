@@ -12,15 +12,15 @@ using FTree.Common;
 
 namespace FTree.View.Win32
 {
-    public partial class FamilyForm : BaseDialogForm, IFamilyView, IValidator
+    public partial class FamilyForm : BaseDialogForm, IFamilyMangerView, IValidator
     {
         #region VARIABLES
 
-        private FamilyPresenter _presenter;
-        private DataFormMode _mode = DataFormMode.CreateNew;
+        private FamilyManagerPresenter _presenter;
         private bool _needAddFirstPerson = false;
         private FamilyDTO _family;
-        
+        private DataFormMode _mode;
+
         /// <summary>
         /// Specify that the user want to create the first generation for the new family.
         /// </summary>
@@ -32,23 +32,30 @@ namespace FTree.View.Win32
             }
         }
 
-        public DataFormMode Mode
-        {
-            get { return _mode; }
-        }
-
         #endregion
 
         #region CONSTRUCTOR
 
-        public FamilyForm(DataFormMode mode)
+        /// <summary>
+        /// Create an instance of FamilyForm.
+        /// </summary>
+        public FamilyForm()
         {
             InitializeComponent();
-            _mode = mode;
-            _family = new FamilyDTO();
-            bool isEdit = _mode == DataFormMode.CreateNew;
-            this.btnCreateFirstPerson.Enabled = isEdit;
-            this.btnCreateFirstPerson.Visible = isEdit;
+            _mode = DataFormMode.CreateNew;
+        }
+
+        /// <summary>
+        /// Create an instance of FamilyForm with a specific FamilyDTO.
+        /// It means that the form is in edit-mode 
+        /// (show to allow modify the FamilyDTO object).
+        /// </summary>
+        /// <param name="family">An instance of FamilyDTO.</param>
+        public FamilyForm(FamilyDTO family)
+        {
+            InitializeComponent();
+            _family = family;
+            _mode = DataFormMode.Edit;
         }
 
         #endregion
@@ -57,16 +64,15 @@ namespace FTree.View.Win32
 
         private void FamilyForm_Load(object sender, EventArgs e)
         {
-            switch (_mode)
+            if (_family != null)
             {
-                case DataFormMode.Edit:
-                    if (this.Family != null)
-                        this.txtFamilyName.Text = Family.Name;
-                    this.Text = "Edit Family Name";
-                    break;
-                default:
-                    break;
+                this.btnCreateFirstPerson.Enabled = false;
+                this.btnCreateFirstPerson.Visible = false;
+
+                txtFamilyName.Text = _family.Name;
             }
+
+            ThreadHelper.DoWork(_initPresenter);
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -75,22 +81,19 @@ namespace FTree.View.Win32
             {
                 if (!ValidateInputData())
                     return;
-
-                // Insert new Family.
-                if (_presenter == null)
-                    _presenter = new FamilyPresenter(this);
-
                 switch (_mode)
                 {
                     case DataFormMode.CreateNew:
+                        _initFamilyDTO();
                         _presenter.Add();
                         break;
                     case DataFormMode.Edit:
+                        _family.Name = this.txtFamilyName.Text.Trim();
                         _presenter.Update();
                         break;
                     default:
                         return;
-                }                
+                }
 
                 this.DialogResult = DialogResult.OK;
             }
@@ -106,11 +109,7 @@ namespace FTree.View.Win32
             {
                 if (!ValidateInputData())
                     return;
-
-                // Insert new Family.
-                if (_presenter == null)
-                    _presenter = new FamilyPresenter(this);
-
+                _initFamilyDTO();
                 _presenter.Add();
                 this._needAddFirstPerson = true;
 
@@ -126,6 +125,16 @@ namespace FTree.View.Win32
 
         #region CORE METHODS
 
+        private void _initPresenter()
+        {
+            _presenter = new FamilyManagerPresenter(this);
+            _presenter.AutoSubmitChanges = true;
+        }
+
+        private void _initFamilyDTO()
+        {
+            _family = new FamilyDTO { Name = txtFamilyName.Text.Trim() };
+        }
 
         #endregion
 
@@ -143,26 +152,6 @@ namespace FTree.View.Win32
 
         #endregion
 
-        #region IFamilyView Members
-
-        public FamilyDTO Family
-        {
-            get
-            {
-                _family.Name = this.txtFamilyName.Text.Trim();
-                return _family;
-            }
-            set
-            {
-                _family = value;
-
-                if(_family != null)
-                    this.txtFamilyName.Text = _family.Name;
-            }
-        }
-
-        #endregion
-
         #region IView Members
 
         public string ViewName
@@ -172,5 +161,29 @@ namespace FTree.View.Win32
 
         #endregion
 
+        #region IFamilyMangerView Members
+
+        /// <summary>
+        /// (Not supported) Gets or sets a list of famiies.
+        /// If ypu try to access this property, a NotSupportedException will be thrown.
+        /// </summary>
+        public IList<FamilyDTO> Families
+        {
+            get
+            {
+                throw new NotSupportedException();
+            }
+            set
+            {
+                throw new NotSupportedException();
+            }
+        }
+
+        public FamilyDTO CurrentFamily
+        {
+            get { return _family; }
+        }
+
+        #endregion
     }
 }
