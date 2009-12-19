@@ -19,6 +19,14 @@ namespace FTree.Presenter.ViewModel
 
         #region PROPERTIES
 
+        /// <summary>
+        /// Gets the FamilyMemberDTO object associating with this object.
+        /// </summary>
+        public FamilyMemberDTO Person
+        {
+            get { return _person; }
+        }
+
         public string FullName
         {
             get { return _person.LastName + " " + _person.FirstName ; }

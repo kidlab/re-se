@@ -14,7 +14,16 @@
                     <ResourceDictionary 
             Source="OrgChartTreeViewItemStyle.xaml" />
                 </ResourceDictionary.MergedDictionaries>
-
+                
+                <!--<Style TargetType="{x:Type TreeViewItem}">
+                    <EventSetter
+        Event="TreeViewItem.MouseRightButtonUp"
+        Handler="TreeViewItem_MouseRightButtonUp"/>
+                    <EventSetter
+        Event="TreeViewItem.MouseRightButtonDown"
+        Handler="TreeViewItem_MouseRightButtonDown"/>
+                </Style>-->
+                
                 <!-- This template explains how to render 
              a Node object and its child nodes. -->
                 <HierarchicalDataTemplate 

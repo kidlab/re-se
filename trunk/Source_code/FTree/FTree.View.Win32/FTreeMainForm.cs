@@ -19,7 +19,12 @@ namespace FTree.View.Win32
         #region VARIABLES
         private FamilyManagerPresenter _presenter;
 
+        // Current selected Family on the treeview.
         private FamilyDTO _currentFamily;
+
+        // Current selecetd FamilyMember on the treeview.
+        private FamilyMemberDTO _currentPerson;
+
         private IList<FamilyDTO> _families;
         private ObservableCollection<FamilyViewModel> _familyViewModels;
 
@@ -34,7 +39,9 @@ namespace FTree.View.Win32
             _families = new List<FamilyDTO>();
 
             this.familyTreeView.InternalTreeView.SelectedItemChanged += new System.Windows.RoutedPropertyChangedEventHandler<object>(InternalTreeView_SelectedItemChanged);
-        }
+
+            this.familyTreeView.ItemMouseRightButtonUp += new System.Windows.Input.MouseButtonEventHandler(familyTreeView_ItemMouseRightButtonUp);
+        } 
 
         #endregion
 
@@ -50,6 +57,7 @@ namespace FTree.View.Win32
                 ThreadHelper.DoWork(_loadData);
 
                 _generateViewModels();
+                _enablePersonControls();
             }
             catch (FTreePresenterException exc)
             {
@@ -111,7 +119,10 @@ namespace FTree.View.Win32
 
         private void InternalTreeView_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
         {
-            if (e.NewValue != null && e.NewValue is FamilyViewModel)
+            if (e.NewValue == null)
+                return;
+
+            if (e.NewValue is FamilyViewModel)
             {
                 FamilyViewModel tmpFamily = e.NewValue as FamilyViewModel;
                 tmpFamily.IsExpanded = true;                
@@ -119,7 +130,57 @@ namespace FTree.View.Win32
                 //tmpFamily.IsExpanded = false;
 
                 _currentFamily = tmpFamily.Family;
+                _currentPerson = null;
             }
+            else if (e.NewValue is PersonViewModel)
+            {
+                PersonViewModel tmpPerson = e.NewValue as PersonViewModel;
+                _currentPerson = tmpPerson.Person;
+            }
+
+            _enablePersonControls();
+        }
+
+        private void familyTreeView_ItemMouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            System.Windows.Controls.TreeViewItem item = sender 
+                as System.Windows.Controls.TreeViewItem;
+            
+            if (familyTreeView.InternalTreeView.Items.Count <= 0
+                    || item == null
+                    || item.Header == null)
+                return;
+
+            if (item.Header is FamilyViewModel)
+            {
+                FamilyViewModel familyVM = item.Header as FamilyViewModel;
+                
+                bool enable = 
+                    (familyVM.Family == null) 
+                    || (familyVM.Family.RootPerson == null);
+
+                addRootPersonToolStripMenuItem.Enabled = enable;
+                addRootPersonToolStripMenuItem.Visible = enable;
+
+                propertiesToolStripMenuItem.Enabled = false;
+                propertiesToolStripMenuItem.Visible = false;
+                propertyBottomSeparator.Visible = false;
+            }
+            else if (item.Header is PersonViewModel)
+            {
+                // Not need to add root person.
+                addRootPersonToolStripMenuItem.Enabled = false;
+                addRootPersonToolStripMenuItem.Visible = false;
+
+                propertiesToolStripMenuItem.Enabled = true;
+                propertiesToolStripMenuItem.Visible = true;
+                propertyBottomSeparator.Visible = true;
+            }
+            
+            // Show the suitable context menu.
+            System.Windows.Point point = e.GetPosition(familyTreeView);
+            contextMenuStrip.Tag = item.Header;
+            contextMenuStrip.Show(wpfTreeViewHost, (int)point.X, (int)point.Y);
         }
 
         private void addFamilyToolStripButton_Click(object sender, EventArgs e)
@@ -129,7 +190,7 @@ namespace FTree.View.Win32
 
         private void addPersonToolStripButton_Click(object sender, EventArgs e)
         {
-            _showAddMemberForm();
+            _showAddMemberForm(false);
         }
 
         private void exitToolStripButton_Click(object sender, EventArgs e)
@@ -172,6 +233,40 @@ namespace FTree.View.Win32
             _showFamilyManager();
         }
 
+        #region CONTEXT MENU STRIP
+
+        private void addRootPersonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addPersonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addRootPersonMainMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addPersonMainMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
         #endregion
 
         #region CORE METHODS
@@ -190,7 +285,7 @@ namespace FTree.View.Win32
             FamilyForm frmFamily = new FamilyForm();
             if (frmFamily.ShowDialog(false) == DialogResult.OK
                     && frmFamily.AcquireAddFirstPerson)
-                _showAddMemberForm();
+                _showAddMemberForm(true);
         }
 
         private void _showFamilyManager()
@@ -202,9 +297,9 @@ namespace FTree.View.Win32
             _generateViewModels();
         }
 
-        private void _showAddMemberForm()
+        private void _showAddMemberForm(bool isAddingRootPerson)
         {
-            FamilyMemberForm frmMember = new FamilyMemberForm();
+            FamilyMemberForm frmMember = new FamilyMemberForm(isAddingRootPerson, _currentFamily);
             frmMember.ShowDialog(false);
         }
 
@@ -256,6 +351,42 @@ namespace FTree.View.Win32
             _presenter.AutoSubmitChanges = true;
         }
 
+        private void _enablePersonControls()
+        {
+            if (familyTreeView.InternalTreeView.SelectedItem == null)
+            {
+                addPersonToolStripButton.Enabled = false;
+                achieveToolStripButton.Enabled = false;
+                reportDeathToolStripButton.Enabled = false;
+            }
+            else if (_currentFamily != null && _currentPerson == null)
+            {
+                addPersonToolStripButton.Enabled = true;
+                achieveToolStripButton.Enabled = false;
+                reportDeathToolStripButton.Enabled = false;
+
+                if (_currentFamily.RootPerson == null)
+                {
+                    addRootPersonMainMenuItem.Visible = true;
+                    addRootPersonMainMenuItem.Enabled = true;
+                }
+                else
+                {
+                    addRootPersonMainMenuItem.Visible = false;
+                    addRootPersonMainMenuItem.Enabled = false;
+                }
+            }
+            else if (_currentPerson != null)
+            {
+                addPersonToolStripButton.Enabled = true;
+                achieveToolStripButton.Enabled = true;
+                reportDeathToolStripButton.Enabled = true;
+
+                addRootPersonMainMenuItem.Visible = false;
+                addRootPersonMainMenuItem.Enabled = false;
+            }
+        }
+
         #endregion
 
         #region IFamilyMangerView Members
@@ -289,5 +420,6 @@ namespace FTree.View.Win32
         }
 
         #endregion
+
     }
 }

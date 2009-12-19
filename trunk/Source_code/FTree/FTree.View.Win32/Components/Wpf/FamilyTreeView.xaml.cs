@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
@@ -13,6 +14,18 @@ namespace FTree.View.Win32.Components.Wpf
     public partial class FamilyTreeView : UserControl
     {
         private FamilyTreeViewModel _familyTree;
+
+        /// <summary>
+        /// Occurs when the right mouse button is released
+        /// while the mouse pointer is over each element on the tree view.
+        /// </summary>
+        public event MouseButtonEventHandler ItemMouseRightButtonUp;
+
+        /// <summary>
+        /// Occurs when the right mouse button is pressed 
+        /// while the mouse pointer is over each element on the tree view.
+        /// </summary>
+        public event MouseButtonEventHandler ItemMouseRightButtonDown;
 
         /// <summary>
         /// Gets the internal TreeView that actually renders the tree structure.
@@ -85,6 +98,37 @@ namespace FTree.View.Win32.Components.Wpf
             {
                 Tracer.Log(typeof(FamilyTreeView), exc);
             }
+        }
+
+        protected virtual void OnItemMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (ItemMouseRightButtonDown != null)
+            {
+                ItemMouseRightButtonDown(sender, e);
+            }
+        }
+
+        protected virtual void OnItemMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {           
+            if (ItemMouseRightButtonUp != null)
+            {
+                ItemMouseRightButtonUp(sender, e);
+            }
+        }
+        private void TreeViewItem_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Very IMPORTANT: if we don't set the e.Handled = true, the event will transmit again and again throughout TreeViewItems!
+            e.Handled = true;
+
+            OnItemMouseRightButtonDown(sender, e);
+        }
+
+        private void TreeViewItem_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // Very IMPORTANT: if we don't set the e.Handled = true, the event will transmit again and again throughout TreeViewItems!
+            e.Handled = true;
+
+            OnItemMouseRightButtonUp(sender, e);
         }
     }
 }
