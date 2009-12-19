@@ -65,17 +65,19 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.contentSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addRootPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertyTopSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertyBottomSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wpfTreeViewHost = new System.Windows.Forms.Integration.ElementHost();
             this.familyTreeView = new FTree.View.Win32.Components.Wpf.FamilyTreeView();
             this.wpfVisualFTreeHost = new System.Windows.Forms.Integration.ElementHost();
             this.visualFamilyTreeView = new FTree.View.Win32.Components.Wpf.VisualFamilyTreeView();
-            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addRootPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRootPersonMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPersonMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.mainLayoutPanel.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -306,6 +308,9 @@
             // 
             // addPersonToolStripButton
             // 
+            this.addPersonToolStripButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addRootPersonMainMenuItem,
+            this.addPersonMainMenuItem});
             this.addPersonToolStripButton.Image = global::FTree.View.Win32.Properties.Resources.person_add;
             this.addPersonToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addPersonToolStripButton.Name = "addPersonToolStripButton";
@@ -410,6 +415,56 @@
             this.contentSplitContainer.SplitterDistance = 231;
             this.contentSplitContainer.TabIndex = 1;
             // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addRootPersonToolStripMenuItem,
+            this.addPersonToolStripMenuItem,
+            this.propertyTopSeparator,
+            this.propertiesToolStripMenuItem,
+            this.propertyBottomSeparator,
+            this.deleteToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(156, 104);
+            // 
+            // addRootPersonToolStripMenuItem
+            // 
+            this.addRootPersonToolStripMenuItem.Name = "addRootPersonToolStripMenuItem";
+            this.addRootPersonToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addRootPersonToolStripMenuItem.Text = "Add Root Person";
+            this.addRootPersonToolStripMenuItem.Click += new System.EventHandler(this.addRootPersonToolStripMenuItem_Click);
+            // 
+            // addPersonToolStripMenuItem
+            // 
+            this.addPersonToolStripMenuItem.Name = "addPersonToolStripMenuItem";
+            this.addPersonToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addPersonToolStripMenuItem.Text = "Add Person";
+            this.addPersonToolStripMenuItem.Click += new System.EventHandler(this.addPersonToolStripMenuItem_Click);
+            // 
+            // propertyTopSeparator
+            // 
+            this.propertyTopSeparator.Name = "propertyTopSeparator";
+            this.propertyTopSeparator.Size = new System.Drawing.Size(152, 6);
+            // 
+            // propertiesToolStripMenuItem
+            // 
+            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.propertiesToolStripMenuItem.Text = "Properties";
+            this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
+            // 
+            // propertyBottomSeparator
+            // 
+            this.propertyBottomSeparator.Name = "propertyBottomSeparator";
+            this.propertyBottomSeparator.Size = new System.Drawing.Size(152, 6);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
             // wpfTreeViewHost
             // 
             this.wpfTreeViewHost.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -430,51 +485,19 @@
             this.wpfVisualFTreeHost.Text = "wpfVisualFTreeHost";
             this.wpfVisualFTreeHost.Child = this.visualFamilyTreeView;
             // 
-            // contextMenuStrip
+            // addRootPersonMainMenuItem
             // 
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addRootPersonToolStripMenuItem,
-            this.addPersonToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.propertiesToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.deleteToolStripMenuItem});
-            this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(156, 126);
+            this.addRootPersonMainMenuItem.Name = "addRootPersonMainMenuItem";
+            this.addRootPersonMainMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addRootPersonMainMenuItem.Text = "Add Root Person";
+            this.addRootPersonMainMenuItem.Click += new System.EventHandler(this.addRootPersonMainMenuItem_Click);
             // 
-            // addRootPersonToolStripMenuItem
+            // addPersonMainMenuItem
             // 
-            this.addRootPersonToolStripMenuItem.Name = "addRootPersonToolStripMenuItem";
-            this.addRootPersonToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.addRootPersonToolStripMenuItem.Text = "Add Root Person";
-            // 
-            // addPersonToolStripMenuItem
-            // 
-            this.addPersonToolStripMenuItem.Name = "addPersonToolStripMenuItem";
-            this.addPersonToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.addPersonToolStripMenuItem.Text = "Add Person";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 6);
-            // 
-            // propertiesToolStripMenuItem
-            // 
-            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.propertiesToolStripMenuItem.Text = "Properties";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 6);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
+            this.addPersonMainMenuItem.Name = "addPersonMainMenuItem";
+            this.addPersonMainMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addPersonMainMenuItem.Text = "Add Person";
+            this.addPersonMainMenuItem.Click += new System.EventHandler(this.addPersonMainMenuItem_Click);
             // 
             // FTreeMainForm
             // 
@@ -548,10 +571,12 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addRootPersonToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addPersonToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator propertyTopSeparator;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator propertyBottomSeparator;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addRootPersonMainMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addPersonMainMenuItem;
     }
 }
 
