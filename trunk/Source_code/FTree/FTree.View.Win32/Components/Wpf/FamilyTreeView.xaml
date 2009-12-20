@@ -46,7 +46,7 @@
         This Style binds a TreeViewItem to a PersonViewModel. 
         -->
         <Style TargetType="{x:Type TreeViewItem}">
-                    <EventSetter
+            <EventSetter
         Event="TreeViewItem.MouseRightButtonUp"
         Handler="TreeViewItem_MouseRightButtonUp"/>
             <EventSetter
