@@ -15,23 +15,30 @@
             Source="OrgChartTreeViewItemStyle.xaml" />
                 </ResourceDictionary.MergedDictionaries>
                 
-                <!--<Style TargetType="{x:Type TreeViewItem}">
+                <!-- Inherit the exsitent style in OrgChartTreeViewItemStyle.xaml.-->
+                <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource VisualTreeViewItemStyle}">
                     <EventSetter
         Event="TreeViewItem.MouseRightButtonUp"
         Handler="TreeViewItem_MouseRightButtonUp"/>
                     <EventSetter
         Event="TreeViewItem.MouseRightButtonDown"
         Handler="TreeViewItem_MouseRightButtonDown"/>
-                </Style>-->
+                    <EventSetter
+        Event="TreeViewItem.MouseLeftButtonUp"
+        Handler="TreeViewItem_MouseLeftButtonUp"/>
+                    <EventSetter
+        Event="TreeViewItem.MouseLeftButtonDown"
+        Handler="TreeViewItem_MouseLeftButtonDown"/>
+                </Style>
                 
                 <!-- This template explains how to render 
              a Node object and its child nodes. -->
                 <HierarchicalDataTemplate 
           DataType="{x:Type local:PersonViewModel}" 
           ItemsSource="{Binding Children}"
-          >
+          >                    
                     <TextBlock Text="{Binding FullName}" />
-                </HierarchicalDataTemplate>
+                </HierarchicalDataTemplate>                
             </ResourceDictionary>
         </TreeView.Resources>
 

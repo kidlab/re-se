@@ -41,7 +41,11 @@ namespace FTree.View.Win32
             this.familyTreeView.InternalTreeView.SelectedItemChanged += new System.Windows.RoutedPropertyChangedEventHandler<object>(InternalTreeView_SelectedItemChanged);
 
             this.familyTreeView.ItemMouseRightButtonUp += new System.Windows.Input.MouseButtonEventHandler(familyTreeView_ItemMouseRightButtonUp);
-        } 
+
+            this.visualFamilyTreeView.ItemMouseRightButtonUp += new System.Windows.Input.MouseButtonEventHandler(visualFamilyTreeView_ItemMouseRightButtonUp);
+
+            this.visualFamilyTreeView.ItemMouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(visualFamilyTreeView_ItemMouseLeftButtonUp);
+        }
 
         #endregion
 
@@ -179,9 +183,49 @@ namespace FTree.View.Win32
             
             // Show the suitable context menu.
             System.Windows.Point point = e.GetPosition(familyTreeView);
-            contextMenuStrip.Tag = item.Header;
             contextMenuStrip.Show(wpfTreeViewHost, (int)point.X, (int)point.Y);
         }
+
+        private void visualFamilyTreeView_ItemMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            System.Windows.Controls.TreeViewItem item = sender
+                as System.Windows.Controls.TreeViewItem;
+
+            if (item != null
+                    && item.Header is PersonViewModel)
+            {
+                PersonViewModel tmpPerson = item.Header as PersonViewModel;
+                _currentPerson = tmpPerson.Person;
+
+                _enablePersonControls();
+            }
+        }
+
+        private void visualFamilyTreeView_ItemMouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            System.Windows.Controls.TreeViewItem item = sender
+                as System.Windows.Controls.TreeViewItem;
+
+            if (visualFamilyTreeView.InternalVisualTreeView.Items.Count <= 0
+                    || item == null
+                    || item.Header == null)
+                return;
+
+            if (item.Header is PersonViewModel)
+            {
+                // Not need to add root person.
+                addRootPersonToolStripMenuItem.Enabled = false;
+                addRootPersonToolStripMenuItem.Visible = false;
+
+                propertiesToolStripMenuItem.Enabled = true;
+                propertiesToolStripMenuItem.Visible = true;
+                propertyBottomSeparator.Visible = true;
+            }
+
+            // Show the suitable context menu.
+            System.Windows.Point point = e.GetPosition(visualFamilyTreeView);
+            contextMenuStrip.Show(wpfVisualFTreeHost, (int)point.X, (int)point.Y);
+        }        
 
         private void addFamilyToolStripButton_Click(object sender, EventArgs e)
         {
@@ -217,7 +261,6 @@ namespace FTree.View.Win32
         {
             _showMemberReportForm();
         }
-
 
         private void familyToolStripMenuItem_Click(object sender, EventArgs e)
         {
