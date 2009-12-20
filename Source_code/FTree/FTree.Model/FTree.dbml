@@ -42,9 +42,9 @@
   </Table>
   <Table Name="dbo.EVENT" Member="EVENTs">
     <Type Name="EVENT">
-      <Column Name="IDEvent" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDAchievement" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="EVENT_MEMBER_EVENT" Member="MEMBER_EVENTs" ThisKey="IDEvent" OtherKey="IDEvent" Type="MEMBER_EVENT" />
+      <Association Name="EVENT_MEMBER_EVENT" Member="MEMBER_EVENTs" ThisKey="IDAchievement" OtherKey="IDAchievement" Type="MEMBER_EVENT" />
     </Type>
   </Table>
   <Table Name="dbo.FAMILY" Member="FAMILies">
@@ -86,12 +86,12 @@
   </Table>
   <Table Name="dbo.MEMBER_EVENT" Member="MEMBER_EVENTs">
     <Type Name="MEMBER_EVENT">
-      <Column Name="IDEventMem" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDAchievementMember" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="IDMember" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IDEvent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="EventDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IDAchievement" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AchievementDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="EVENT_MEMBER_EVENT" Member="EVENT" ThisKey="IDEvent" OtherKey="IDEvent" Type="EVENT" IsForeignKey="true" />
+      <Association Name="EVENT_MEMBER_EVENT" Member="EVENT" ThisKey="IDAchievement" OtherKey="IDAchievement" Type="EVENT" IsForeignKey="true" />
       <Association Name="MEMBER_MEMBER_EVENT" Member="MEMBER" ThisKey="IDMember" OtherKey="IDMember" Type="MEMBER" IsForeignKey="true" />
     </Type>
   </Table>
@@ -100,6 +100,7 @@
       <Column Name="IDMember1" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="IDMember2" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="IDRelationship" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MarriedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="MEMBER_RELATIONSHIP" Member="MEMBER" ThisKey="IDMember1" OtherKey="IDMember" Type="MEMBER" IsForeignKey="true" />
       <Association Name="MEMBER_RELATIONSHIP1" Member="MEMBER1" ThisKey="IDMember2" OtherKey="IDMember" Type="MEMBER" IsForeignKey="true" />
       <Association Name="RELATIONSHIP_TYPE_RELATIONSHIP" Member="RELATIONSHIP_TYPE" ThisKey="IDRelationship" OtherKey="IDRelationship" Type="RELATIONSHIP_TYPE" IsForeignKey="true" />

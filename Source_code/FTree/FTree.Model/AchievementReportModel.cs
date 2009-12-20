@@ -139,33 +139,33 @@ namespace FTree.Model
         /// core method for update row to Datagridview
         /// </summary>
         /// <returns></returns>
-        public List<AchievementReportDTO> AchievementReport(int fromYear, int toYear)
-        {
+        //public List<AchievementReportDTO> AchievementReport(int fromYear, int toYear)
+        //{
             
-            FTreeDataContext ftree = new FTreeDataContext();
-            Table<MEMBER_EVENT> mee = ftree.GetTable<MEMBER_EVENT>();
-            Table<EVENT> eve = ftree.GetTable<EVENT>();
+        //    FTreeDataContext ftree = new FTreeDataContext();
+        //    Table<MEMBER_EVENT> mee = ftree.GetTable<MEMBER_EVENT>();
+        //    Table<EVENT> eve = ftree.GetTable<EVENT>();
 
             
-            var matches1 = from me in mee
-                           join e in eve on me.EVENT.IDEvent equals e.IDEvent
-                           where (me.EventDate.GetValueOrDefault().Year <= toYear &&
-                            me.EventDate.GetValueOrDefault().Year >= fromYear
-                            ) 
-                           group me by me.EVENT.Name into g
-                           select new { Name = g.Key, Num = g.Count() };
+        //    var matches1 = from me in mee
+        //                   join e in eve on me.EVENT.IDEvent equals e.IDEvent
+        //                   where (me.EventDate.GetValueOrDefault().Year <= toYear &&
+        //                    me.EventDate.GetValueOrDefault().Year >= fromYear
+        //                    ) 
+        //                   group me by me.EVENT.Name into g
+        //                   select new { Name = g.Key, Num = g.Count() };
 
-            List<AchievementReportDTO> list_arDTO = new List<AchievementReportDTO>();
+        //    List<AchievementReportDTO> list_arDTO = new List<AchievementReportDTO>();
             
-            foreach (var achive in matches1)
-            {
-                AchievementReportDTO arDTO = new AchievementReportDTO();
-                arDTO.AchievementName = achive.Name;
-                arDTO.Total = achive.Num;
-                list_arDTO.Add(arDTO);
-            }
-            return list_arDTO;            
-        }
+        //    foreach (var achive in matches1)
+        //    {
+        //        AchievementReportDTO arDTO = new AchievementReportDTO();
+        //        arDTO.AchievementName = achive.Name;
+        //        arDTO.Total = achive.Num;
+        //        list_arDTO.Add(arDTO);
+        //    }
+        //    return list_arDTO;            
+        //}
         #endregion
         
         #region IModel<AchievementReportDTO> Members
@@ -195,9 +195,31 @@ namespace FTree.Model
             throw new NotImplementedException();
         }
 
-        List<AchievementReportDTO> IAchievementReportModel.AchievementReport(int from, int to)
+        List<AchievementReportDTO> IAchievementReportModel.AchievementReport(int fromYear, int toYear)
         {
-            throw new NotImplementedException();
+            FTreeDataContext ftree = new FTreeDataContext();
+            Table<MEMBER_EVENT> mee = ftree.GetTable<MEMBER_EVENT>();
+            Table<EVENT> eve = ftree.GetTable<EVENT>();
+
+
+            var matches1 = from me in mee
+                           join e in eve on me.EVENT.IDAchievement equals e.IDAchievement
+                           where (me.AchievementDate.GetValueOrDefault().Year <= toYear &&
+                            me.AchievementDate.GetValueOrDefault().Year >= fromYear
+                            )
+                           group me by me.EVENT.Name into g
+                           select new { Name = g.Key, Num = g.Count() };
+
+            List<AchievementReportDTO> list_arDTO = new List<AchievementReportDTO>();
+
+            foreach (var achive in matches1)
+            {
+                AchievementReportDTO arDTO = new AchievementReportDTO();
+                arDTO.AchievementName = achive.Name;
+                arDTO.Total = achive.Num;
+                list_arDTO.Add(arDTO);
+            }
+            return list_arDTO;   
         }
 
         #endregion

@@ -68,7 +68,7 @@ namespace FTree.Model
             try
             {
                 _refreshDataContext();
-                EVENT eventType = _db.EVENTs.SingleOrDefault(eType => eType.IDEvent == id);
+                EVENT eventType = _db.EVENTs.SingleOrDefault(eType => eType.IDAchievement == id);
                 return ConvertToDTO(eventType);
             }
             catch (Exception exc)
@@ -85,7 +85,7 @@ namespace FTree.Model
                 EVENT mapper = ConvertToMapper(obj);
                 _db.EVENTs.InsertOnSubmit(mapper);
                 this._save();
-                obj.ID = mapper.IDEvent; 
+                obj.ID = mapper.IDAchievement; 
             }
             catch (Exception exc)
             {
@@ -148,7 +148,7 @@ namespace FTree.Model
         internal static AchievementType ConvertToDTO(EVENT mapper)
         {
             AchievementType dto = new AchievementType();
-            dto.ID = mapper.IDEvent;
+            dto.ID = mapper.IDAchievement;
             dto.Name = mapper.Name;
             dto.State = DataState.Copied;
             return dto;
@@ -156,7 +156,7 @@ namespace FTree.Model
 
         private static void _updateModel(ref EVENT mapper, AchievementType dto)
         {
-            mapper.IDEvent = dto.ID;
+            mapper.IDAchievement = dto.ID;
             mapper.Name = dto.Name;
         }
 
@@ -164,7 +164,7 @@ namespace FTree.Model
         {
             IEnumerable<EVENT> matches =
                 from entry in _db.EVENTs
-                where entry.IDEvent == dto.ID
+                where entry.IDAchievement == dto.ID
                 select entry;
 
             return matches;
