@@ -258,13 +258,13 @@ namespace FTree.Model
             {
                 MEMBER_EVENT mem_event = new MEMBER_EVENT();
                 mem_event.IDMember = person.ID;
-                mem_event.IDEvent = achievement.AchievementType.ID;
-                mem_event.EventDate = achievement.AchievementDate;
+                mem_event.IDAchievement = achievement.AchievementType.ID;
+                mem_event.AchievementDate = achievement.AchievementDate;
                 mem_event.Description = achievement.Description;
 
                 _db.MEMBER_EVENTs.InsertOnSubmit(mem_event);
                 this._save();
-                achievement.ID = mem_event.IDEventMem;
+                achievement.ID = mem_event.IDAchievementMember;
                 person.Achievements.Add(achievement);
             }
             catch (Exception exc)
@@ -509,8 +509,8 @@ namespace FTree.Model
             {
                 AchievementInfo aInfo = new AchievementInfo();
                 aInfo.AchievementType = AchievementTypeModel.ConvertToDTO(memEvent.EVENT);
-                aInfo.AchievementDate = memEvent.EventDate.GetValueOrDefault();
-                aInfo.ID = memEvent.IDEventMem;
+                aInfo.AchievementDate = memEvent.AchievementDate.GetValueOrDefault();
+                aInfo.ID = memEvent.IDAchievementMember;
                 aInfo.Description = memEvent.Description;
 
                 achievements.Add(aInfo);
