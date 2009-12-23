@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="FTree" Class="FTreeDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Data\FTree.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="FTree.Model.Properties.Settings" SettingsPropertyName="FTreeConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BIRTHPLACE" Member="BIRTHPLACEs">
+    <Type Name="BIRTHPLACE">
+      <Column Name="IDBirthPlace" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="BIRTHPLACE_MEMBER" Member="MEMBERs" ThisKey="IDBirthPlace" OtherKey="IDBirthPlace" Type="MEMBER" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RELATIONSHIP_TYPE" Member="RELATIONSHIP_TYPEs">
+    <Type Name="RELATIONSHIP_TYPE">
+      <Column Name="IDRelationship" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="RELATIONSHIP_TYPE_RELATIONSHIP" Member="RELATIONSHIPs" ThisKey="IDRelationship" OtherKey="IDRelationship" Type="RELATIONSHIP" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BURYPLACE" Member="BURYPLACEs">
+    <Type Name="BURYPLACE">
+      <Column Name="IDBuryPlace" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="BURYPLACE_DEATH_INFO" Member="DEATH_INFOs" ThisKey="IDBuryPlace" OtherKey="IDBuryPlace" Type="DEATH_INFO" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BURYREASON" Member="BURYREASONs">
+    <Type Name="BURYREASON">
+      <Column Name="IDBuryReason" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="BURYREASON_DEATH_INFO" Member="DEATH_INFOs" ThisKey="IDBuryReason" OtherKey="IDBuryReason" Type="DEATH_INFO" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DEATH_INFO" Member="DEATH_INFOs">
+    <Type Name="DEATH_INFO">
+      <Column Name="IDMember" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDBuryPlace" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDBuryReason" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BuryDay" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="BURYPLACE_DEATH_INFO" Member="BURYPLACE" ThisKey="IDBuryPlace" OtherKey="IDBuryPlace" Type="BURYPLACE" IsForeignKey="true" />
+      <Association Name="BURYREASON_DEATH_INFO" Member="BURYREASON" ThisKey="IDBuryReason" OtherKey="IDBuryReason" Type="BURYREASON" IsForeignKey="true" />
+      <Association Name="MEMBER_DEATH_INFO" Member="MEMBER" ThisKey="IDMember" OtherKey="IDMember" Type="MEMBER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EVENT" Member="EVENTs">
+    <Type Name="EVENT">
+      <Column Name="IDEvent" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="EVENT_MEMBER_EVENT" Member="MEMBER_EVENTs" ThisKey="IDEvent" OtherKey="IDEvent" Type="MEMBER_EVENT" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FAMILY" Member="FAMILies">
+    <Type Name="FAMILY">
+      <Column Name="IDFamily" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="FAMILY_MEMBER" Member="MEMBERs" ThisKey="IDFamily" OtherKey="IDFamily" Type="MEMBER" />
+    </Type>
+  </Table>
+  <Table Name="dbo.JOB" Member="JOBs">
+    <Type Name="JOB">
+      <Column Name="IDJob" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="JOB_MEMBER" Member="MEMBERs" ThisKey="IDJob" OtherKey="IDJob" Type="MEMBER" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MEMBER" Member="MEMBERs">
+    <Type Name="MEMBER">
+      <Column Name="IDMember" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDFamily" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Gender" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="IDBirthPlace" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDJob" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GenLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DayJointFamily" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="MEMBER_DEATH_INFO" Member="DEATH_INFO" ThisKey="IDMember" OtherKey="IDMember" Type="DEATH_INFO" Cardinality="One" />
+      <Association Name="MEMBER_MEMBER_EVENT" Member="MEMBER_EVENTs" ThisKey="IDMember" OtherKey="IDMember" Type="MEMBER_EVENT" />
+      <Association Name="MEMBER_RELATIONSHIP" Member="RELATIONSHIPs" ThisKey="IDMember" OtherKey="IDMember1" Type="RELATIONSHIP" />
+      <Association Name="MEMBER_RELATIONSHIP1" Member="RELATIONSHIPs1" ThisKey="IDMember" OtherKey="IDMember2" Type="RELATIONSHIP" />
+      <Association Name="BIRTHPLACE_MEMBER" Member="BIRTHPLACE" ThisKey="IDBirthPlace" OtherKey="IDBirthPlace" Type="BIRTHPLACE" IsForeignKey="true" />
+      <Association Name="FAMILY_MEMBER" Member="FAMILY" ThisKey="IDFamily" OtherKey="IDFamily" Type="FAMILY" IsForeignKey="true" />
+      <Association Name="JOB_MEMBER" Member="JOB" ThisKey="IDJob" OtherKey="IDJob" Type="JOB" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MEMBER_EVENT" Member="MEMBER_EVENTs">
+    <Type Name="MEMBER_EVENT">
+      <Column Name="IDEventMem" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDMember" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDEvent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="EVENT_MEMBER_EVENT" Member="EVENT" ThisKey="IDEvent" OtherKey="IDEvent" Type="EVENT" IsForeignKey="true" />
+      <Association Name="MEMBER_MEMBER_EVENT" Member="MEMBER" ThisKey="IDMember" OtherKey="IDMember" Type="MEMBER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RELATIONSHIP" Member="RELATIONSHIPs">
+    <Type Name="RELATIONSHIP">
+      <Column Name="IDMember1" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDMember2" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDRelationship" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MEMBER_RELATIONSHIP" Member="MEMBER" ThisKey="IDMember1" OtherKey="IDMember" Type="MEMBER" IsForeignKey="true" />
+      <Association Name="MEMBER_RELATIONSHIP1" Member="MEMBER1" ThisKey="IDMember2" OtherKey="IDMember" Type="MEMBER" IsForeignKey="true" />
+      <Association Name="RELATIONSHIP_TYPE_RELATIONSHIP" Member="RELATIONSHIP_TYPE" ThisKey="IDRelationship" OtherKey="IDRelationship" Type="RELATIONSHIP_TYPE" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

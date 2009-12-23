@@ -1,0 +1,82 @@
+<UserControl 
+  x:Class="FTree.View.Win32.Components.Wpf.ListBoxAnimation"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <UserControl.Resources>
+    <Style TargetType="{x:Type ListBoxItem}">
+
+      <!-- This LayoutTransform is targeted by the 
+           Property Trigger Enter and Exit Actions. -->
+      <Setter Property="LayoutTransform">
+        <Setter.Value>
+          <ScaleTransform ScaleX="1" ScaleY="1" />
+        </Setter.Value>
+      </Setter>
+
+      <Setter Property="RenderTransformOrigin" Value="0,0.5" />
+
+      <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Trigger.EnterActions>
+            <BeginStoryboard>
+              <Storyboard >
+                <DoubleAnimation 
+                  Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                  To="1.5" Duration="0:0:0.1"  />
+                <DoubleAnimation 
+                  Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                  To="1.5" Duration="0:0:0.1"  />
+              </Storyboard>
+            </BeginStoryboard>
+          </Trigger.EnterActions>
+
+          <Trigger.ExitActions>
+            <BeginStoryboard>
+              <Storyboard FillBehavior="Stop">
+                <DoubleAnimation 
+                  Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                  To="1" Duration="0:0:0.1" />
+                <DoubleAnimation 
+                  Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                  To="1" Duration="0:0:0.1" />
+              </Storyboard>
+            </BeginStoryboard>
+          </Trigger.ExitActions>
+        </Trigger>
+        
+        <Trigger Property="IsFocused" Value="True">
+          <Trigger.EnterActions>
+            <BeginStoryboard>
+              <Storyboard >
+                <DoubleAnimation 
+                  Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                  To="1.5" Duration="0:0:0.1"  />
+                <DoubleAnimation 
+                  Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                  To="1.5" Duration="0:0:0.1"  />
+              </Storyboard>
+            </BeginStoryboard>
+          </Trigger.EnterActions>
+
+          <Trigger.ExitActions>
+            <BeginStoryboard>
+              <Storyboard FillBehavior="Stop">
+                <DoubleAnimation 
+                  Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                  To="1" Duration="0:0:0.1" />
+                <DoubleAnimation 
+                  Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                  To="1" Duration="0:0:0.1" />
+              </Storyboard>
+            </BeginStoryboard>
+          </Trigger.ExitActions>
+        </Trigger>      
+      </Style.Triggers>
+    </Style>
+  </UserControl.Resources>
+    
+    <ListBox
+        x:Name="listBox"
+        x:FieldModifier="private" FontSize="12">
+    </ListBox>
+</UserControl>
