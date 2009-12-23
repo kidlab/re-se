@@ -1,0 +1,5 @@
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\MVPCore\bin\Debug\MVPCore.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\MVPCore\bin\Debug\MVPCore.pdb
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\MVPCore\obj\Debug\ResolveAssemblyReference.cache
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\MVPCore\obj\Debug\MVPCore.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\MVPCore\obj\Debug\MVPCore.pdb

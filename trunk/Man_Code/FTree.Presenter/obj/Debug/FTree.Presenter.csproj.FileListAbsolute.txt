@@ -1,0 +1,15 @@
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\Data\FTree.mdf
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\Data\FTree_log.ldf
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\FTree.Presenter.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\FTree.Presenter.pdb
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\FTree.Common.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\FTree.DTO.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\FTree.Model.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\MVPCore.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\FTree.Model.pdb
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\FTree.DTO.pdb
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\MVPCore.pdb
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\bin\Debug\FTree.Common.pdb
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\obj\Debug\ResolveAssemblyReference.cache
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\obj\Debug\FTree.Presenter.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Presenter\obj\Debug\FTree.Presenter.pdb

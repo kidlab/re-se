@@ -1,0 +1,7 @@
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Common\bin\Debug\FTree.Common.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Common\bin\Debug\FTree.Common.pdb
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Common\obj\Debug\ResolveAssemblyReference.cache
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Common\obj\Debug\FTree.Common.StringRes.resources
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Common\obj\Debug\FTree.Common.csproj.GenerateResource.Cache
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Common\obj\Debug\FTree.Common.dll
+E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.Common\obj\Debug\FTree.Common.pdb

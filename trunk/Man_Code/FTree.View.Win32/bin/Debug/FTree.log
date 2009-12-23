@@ -1,0 +1,7 @@
+﻿****************************************************
+
+[FTree.View.Win32.FamilyMemberForm][version: 1.0.0.0][12/23/2009 22:46:34.0781250]:
+Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at FTree.View.Win32.FamilyMemberForm.ValidateInputData() in E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.View.Win32\FamilyMemberForm.cs:line 809
+   at FTree.View.Win32.FamilyMemberForm.btnOK_Click(Object sender, EventArgs e) in E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.View.Win32\FamilyMemberForm.cs:line 160
