@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTree.Common", "FTree.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTree.DTO", "FTree.DTO\FTree.DTO.csproj", "{40865DC9-05AA-4786-8914-E5F673578971}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FTreeSetup", "FTreeSetup\FTreeSetup.vdproj", "{8610F7EB-BC9A-4FC8-ACF3-7E7DEE14C242}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,8 @@ Global
 		{40865DC9-05AA-4786-8914-E5F673578971}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40865DC9-05AA-4786-8914-E5F673578971}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40865DC9-05AA-4786-8914-E5F673578971}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8610F7EB-BC9A-4FC8-ACF3-7E7DEE14C242}.Debug|Any CPU.ActiveCfg = Debug
+		{8610F7EB-BC9A-4FC8-ACF3-7E7DEE14C242}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
