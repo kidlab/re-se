@@ -21,8 +21,8 @@ namespace FTree.View.Win32
         {
             InitializeComponent();
             this._presenter = new FamilyReportPresenter(this);
-            toolTip1.SetToolTip(maskedTextBox1, "You can just enter 4 numbers");
-            toolTip1.SetToolTip(maskedTextBox2, "You can just enter 4 numbers");
+            toolTip.SetToolTip(txtFromYear, "You can just enter 4 numbers");
+            toolTip.SetToolTip(txtToYear, "You can just enter 4 numbers");
         }
 
         private void FamilyReport_Load(object sender, EventArgs e)
@@ -30,21 +30,32 @@ namespace FTree.View.Win32
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
-            if (!ValidateInputData())
-                return;
-            List<FamilyReportDTO> list_arDTO = this._presenter.FamilyReport(Int32.Parse(this.maskedTextBox1.Text), Int32.Parse(this.maskedTextBox2.Text));
-            dataGridView1.DataSource = list_arDTO;
-            dataGridView1.Refresh();
+            try
+            {
+                if (!ValidateInputData())
+                    return;
+                List<FamilyReportDTO> list_arDTO = this._presenter.FamilyReport(Int32.Parse(this.txtFromYear.Text), Int32.Parse(this.txtToYear.Text));
+                dgResult.DataSource = list_arDTO;
+                dgResult.Refresh();
+            }
+            catch (FTreePresenterException exc)
+            {
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_CREATE_REPORT_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyReportForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_CREATE_REPORT_FAILED));
+            }
         }
-
         
         #region IView Members
 
         public string ViewName
         {
-            get { throw new NotImplementedException(); }
+            get { return this.ToString(); }
         }
 
         #endregion
@@ -96,12 +107,12 @@ namespace FTree.View.Win32
 
         public bool ValidateInputData()
         {
-            if (String.IsNullOrEmpty(this.maskedTextBox1.Text.Trim()))
+            if (String.IsNullOrEmpty(this.txtFromYear.Text.Trim()))
             {
                 MessageBox.Show("Enter From Year");
                 return false;
             }
-            if (String.IsNullOrEmpty(this.maskedTextBox2.Text.Trim()))
+            if (String.IsNullOrEmpty(this.txtToYear.Text.Trim()))
             {
                 MessageBox.Show("Enter To Year");
                 return false;

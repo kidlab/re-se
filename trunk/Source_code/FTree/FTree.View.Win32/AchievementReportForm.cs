@@ -10,10 +10,6 @@ using FTree.Presenter;
 using FTree.DTO;
 using FTree.Common;
 
-
-
-
-
 namespace FTree.View.Win32
 {
     /// <summary>
@@ -22,51 +18,49 @@ namespace FTree.View.Win32
     /// </summary>
     public partial class AchievementReportForm : BaseDialogForm, IAchievementReportView, IValidator
     {
+        #region VARIABLES
+
+        private AchievementReportPresenter _presenter;
+
+        #endregion
+
         #region CONSTRUCTOR
+
         public AchievementReportForm()
         {
             InitializeComponent();
             _presenter = new AchievementReportPresenter(this);
-            toolTip1.SetToolTip(maskedTextBox1, "You can just enter 4 numbers");
-            toolTip1.SetToolTip(maskedTextBox2, "You can just enter 4 numbers");
-
-            //ListViewItem item1 = new ListViewItem("Something");
-            //item1.SubItems.Add("SubItem1a");
-            //item1.SubItems.Add("SubItem1b");
-
-            //ListViewItem item2 = new ListViewItem("Something2");
-            //item2.SubItems.Add("SubItem2a");
-            //item2.SubItems.Add("SubItem2a");
-
-            //ListViewItem item3 = new ListViewItem("Somethin3");
-            //item3.SubItems.Add("SubItem3a");
-            //item3.SubItems.Add("SubItem3a");
-
-            //listView1.Items.AddRange(new ListViewItem[] { item1, item2, item3 });
-
-            
-          //  var query =          from book in books
-          //where book.Length > 10
-          //orderby book
-          //select new { Book = book.ToUpper() };
-
-          //  dataGridView1.DataSource = query.ToList();
+            toolTip.SetToolTip(txtFromYear, "You can just enter 4 numbers");
+            toolTip.SetToolTip(txtToYear, "You can just enter 4 numbers");
         }
+
         #endregion
 
-        #region EVENT
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        #region UI EVENTS
+
+        private void btnSearch_Click(object sender, EventArgs e)
         {
 
+            try
+            {
+                if (!ValidateInputData())
+                    return;
+                List<AchievementReportDTO> list_arDTO = this._presenter.AchievementReport(Int32.Parse(this.txtFromYear.Text), Int32.Parse(this.txtToYear.Text));
+                dgResult.DataSource = list_arDTO;
+                dgResult.Refresh();
+            }
+            catch (FTreePresenterException exc)
+            {
+                UIUtils.Error(exc.Message);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(AchievementReportForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_CREATE_REPORT_FAILED));
+            }
         }
-        #endregion
 
-        #region VARIABLES
-
-        private AchievementReportPresenter _presenter;
-        
-
-        #endregion
+        #endregion        
 
         #region IAchievementReportView Members
 
@@ -88,7 +82,7 @@ namespace FTree.View.Win32
 
         public string ViewName
         {
-            get { throw new NotImplementedException(); }
+            get { return this.ToString(); }
         }
 
         #endregion
@@ -140,12 +134,12 @@ namespace FTree.View.Win32
 
         public bool ValidateInputData()
         {
-            if (String.IsNullOrEmpty(this.maskedTextBox1.Text.Trim()))
+            if (String.IsNullOrEmpty(this.txtFromYear.Text.Trim()))
             {
                 MessageBox.Show("Enter From Year");
                 return false;
             }
-            if (String.IsNullOrEmpty(this.maskedTextBox2.Text.Trim()))
+            if (String.IsNullOrEmpty(this.txtToYear.Text.Trim()))
             {
                 MessageBox.Show("Enter To Year");
                 return false;
@@ -153,16 +147,6 @@ namespace FTree.View.Win32
             return true;
         }
 
-        #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (!ValidateInputData())
-                return;
-            List<AchievementReportDTO> list_arDTO= this._presenter.AchievementReport(Int32.Parse(this.maskedTextBox1.Text), Int32.Parse(this.maskedTextBox2.Text));
-            dataGridView1.DataSource = list_arDTO;        
-            dataGridView1.Refresh();                     
-        }
-        
+        #endregion        
     }
 }
