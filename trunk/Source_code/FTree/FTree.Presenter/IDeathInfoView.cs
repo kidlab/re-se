@@ -16,7 +16,12 @@ namespace FTree.Presenter
         IList<DeathReasonDTO> DeathReasonsList { get; set; }
         DeathReasonDTO DeathReason { get; set; }
 
-        IList<BuryPlaceDTO> DeathPlacesList { get; set; }
-        BuryPlaceDTO DeathPlace { get; set; }
+        IList<BuryPlaceDTO> BuryPlacesList { get; set; }
+        BuryPlaceDTO BuryPlace { get; set; }
+
+        /// <summary>
+        /// Gets or sets the information of this person's death.
+        /// </summary>
+        DeathInfo DeathInfo { get; set; }
     }
 }

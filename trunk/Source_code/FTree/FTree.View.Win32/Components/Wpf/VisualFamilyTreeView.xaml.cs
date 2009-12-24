@@ -44,7 +44,7 @@ namespace FTree.View.Win32.Components.Wpf
 
         public VisualFamilyTreeView()
         {
-            InitializeComponent();            
+            InitializeComponent();    
         }
 
         public void SetDataBinding(FamilyViewModel root)

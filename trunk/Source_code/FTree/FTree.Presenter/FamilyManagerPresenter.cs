@@ -74,6 +74,32 @@ namespace FTree.Presenter
             }
         }
 
+        /// <summary>
+        /// Load the full family tree from the root person of current family.
+        /// </summary>
+        public void LoadFamilyTree()
+        {
+            try
+            {
+                if (_view.CurrentFamily == null
+                        || _view.CurrentFamily.RootPerson == null)
+                    return;
+
+                _view.CurrentFamily.RootPerson = 
+                    _model.LoadFullFamilyTree(_view.CurrentFamily.RootPerson.ID);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_FTREE_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_FTREE_FAILED));
+            }
+        }
+
         public void Add()
         {
             try
@@ -187,6 +213,62 @@ namespace FTree.Presenter
             {
                 Tracer.Log(typeof(FamilyMemberPresenter), exc);
                 throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_UPDATE_ENTRY_FAILED));
+            }
+        }
+
+        /// <summary>
+        /// Searches for a FamilyMember in current family.
+        /// </summary>
+        /// <param name="memberID"></param>
+        /// <returns></returns>
+        public FamilyMemberDTO SearchInCurrentFamily(int memberID)
+        {
+            try
+            {
+                if(_view.CurrentFamily == null || 
+                        _view.CurrentFamily.RootPerson == null)
+                    return null;
+
+                Stack<FamilyMemberDTO> stack = new Stack<FamilyMemberDTO>();
+                FamilyMemberDTO result = _view.CurrentFamily.RootPerson;
+
+                while (true)
+                {
+                    if (result.ID == memberID)
+                        return result;
+
+                    if (result.Father != null && result.Father.ID == memberID)
+                        return result.Father;
+
+                    if (result.Mother != null && result.Mother.ID == memberID)
+                        return result.Mother;
+
+                    if (result.RelativePerson != null && result.RelativePerson.ID == memberID)
+                        return result.RelativePerson;
+
+                    // Now, push all his/her spouses to stack.
+                    if (result.Spouses != null && result.Spouses.Count > 0)
+                        foreach (FamilyMemberDTO spouse in result.Spouses)
+                            stack.Push(spouse);
+
+                    // Push all his/her children to stack
+                    if (result.Descendants != null && result.Descendants.Count > 0)
+                        foreach (FamilyMemberDTO child in result.Descendants)
+                            stack.Push(child);
+
+                    if (stack.Count > 0)
+                        result = stack.Pop();
+                    else
+                        break;
+                }
+
+                // Not found anyone!
+                return null;
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_SEARCH_ENTRY_FAILED));
             }
         }
 

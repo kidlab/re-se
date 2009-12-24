@@ -166,6 +166,20 @@ namespace FTree.Model
             }
         }
 
+        public FamilyMemberDTO LoadFullFamilyTree(int rootID)
+        {
+            try
+            {
+                FamilyMemberModel memModel = new FamilyMemberModel();
+                return memModel.GetOne(rootID);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
         #endregion
 
         #region IFamilyModel Members

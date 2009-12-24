@@ -89,7 +89,7 @@
             this.lblImage.Location = new System.Drawing.Point(12, 9);
             this.lblImage.Name = "lblImage";
             this.lblImage.Size = new System.Drawing.Size(79, 81);
-            this.lblImage.TabIndex = 2;
+            this.lblImage.TabIndex = 5;
             // 
             // chkCreateFirstPerson
             // 
@@ -97,7 +97,7 @@
             this.chkCreateFirstPerson.Location = new System.Drawing.Point(100, 60);
             this.chkCreateFirstPerson.Name = "chkCreateFirstPerson";
             this.chkCreateFirstPerson.Size = new System.Drawing.Size(213, 17);
-            this.chkCreateFirstPerson.TabIndex = 5;
+            this.chkCreateFirstPerson.TabIndex = 2;
             this.chkCreateFirstPerson.Text = "Create first person after close this dialog";
             this.chkCreateFirstPerson.UseVisualStyleBackColor = true;
             this.chkCreateFirstPerson.CheckedChanged += new System.EventHandler(this.chkCreateFirstPerson_CheckedChanged);

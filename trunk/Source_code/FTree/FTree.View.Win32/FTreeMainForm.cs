@@ -17,13 +17,17 @@ namespace FTree.View.Win32
     public partial class FTreeMainForm : Form, IFamilyMangerView
     {
         #region VARIABLES
+
         private FamilyManagerPresenter _presenter;
 
         // Current selected Family on the treeview.
         private FamilyDTO _currentFamily;
 
-        // Current selecetd FamilyMember on the treeview.
+        // Current selected FamilyMember on the treeview.
         private FamilyMemberDTO _currentPerson;
+
+        // Current relative person of the  selected FamilyMember on the treeview.
+        private FamilyMemberDTO _currentRelativePerson;
 
         private IList<FamilyDTO> _families;
         private ObservableCollection<FamilyViewModel> _familyViewModels;
@@ -35,6 +39,7 @@ namespace FTree.View.Win32
         public FTreeMainForm()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
 
             _families = new List<FamilyDTO>();
 
@@ -45,19 +50,18 @@ namespace FTree.View.Win32
             this.visualFamilyTreeView.ItemMouseRightButtonUp += new System.Windows.Input.MouseButtonEventHandler(visualFamilyTreeView_ItemMouseRightButtonUp);
 
             this.visualFamilyTreeView.ItemMouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(visualFamilyTreeView_ItemMouseLeftButtonUp);
+
+            this.visualFamilyTreeView.InternalVisualTreeView.MouseRightButtonUp += new System.Windows.Input.MouseButtonEventHandler(InternalVisualTreeView_MouseRightButtonUp);
         }
 
         #endregion
 
         #region UI EVENTS
 
-        // Generate dummy data for testing.        
-
         private void FTreeMainForm_Load(object sender, EventArgs e)
         {
             try
             {
-                ThreadHelper.DoWork(_initPresenter);
                 ThreadHelper.DoWork(_loadData);
 
                 _generateViewModels();
@@ -135,11 +139,39 @@ namespace FTree.View.Win32
 
                 _currentFamily = tmpFamily.Family;
                 _currentPerson = null;
+                _currentRelativePerson = null;
             }
             else if (e.NewValue is PersonViewModel)
             {
                 PersonViewModel tmpPerson = e.NewValue as PersonViewModel;
+                tmpPerson.IsExpanded = true;
                 _currentPerson = tmpPerson.Person;
+                
+                if (tmpPerson.Parent is PersonViewModel)
+                {
+                    PersonViewModel relativeVM = tmpPerson.Parent as PersonViewModel;
+                    _currentRelativePerson = relativeVM.Person;
+                }
+                else if (tmpPerson.Parent is FamilyViewModel)   // This is the root person of the family.
+                {
+                    FamilyViewModel tmpFamily = tmpPerson.Parent as FamilyViewModel;
+                    _currentFamily = tmpFamily.Family;
+
+                    if (_currentFamily.RootPerson != null
+                            && !_isLoadedData(_currentFamily.RootPerson.Tag))
+                    {
+                        // Load the full tree structure.
+                        ThreadHelper.DoWork(_presenter.LoadFamilyTree);
+
+                        // Set a flag to specifiy that the node was already loaded data,
+                        // so it isn't necessary to load data next time.
+                        _currentFamily.RootPerson.Tag = true;
+
+                        _updateViewModels(_currentFamily);
+                    }
+
+                    _currentRelativePerson = null;
+                }
             }
 
             _enablePersonControls();
@@ -153,12 +185,13 @@ namespace FTree.View.Win32
             if (familyTreeView.InternalTreeView.Items.Count <= 0
                     || item == null
                     || item.Header == null)
-                return;
+                return;            
 
             if (item.Header is FamilyViewModel)
             {
                 FamilyViewModel familyVM = item.Header as FamilyViewModel;
-                
+                _currentFamily = familyVM.Family;
+
                 bool enable = 
                     (familyVM.Family == null) 
                     || (familyVM.Family.RootPerson == null);
@@ -166,15 +199,35 @@ namespace FTree.View.Win32
                 addRootPersonToolStripMenuItem.Enabled = enable;
                 addRootPersonToolStripMenuItem.Visible = enable;
 
+                addPersonToolStripMenuItem.Enabled = !enable;
+                addPersonToolStripMenuItem.Visible = !enable;
+
                 propertiesToolStripMenuItem.Enabled = false;
                 propertiesToolStripMenuItem.Visible = false;
                 propertyBottomSeparator.Visible = false;
+
+                _currentPerson = null;
+                _currentRelativePerson = null;
             }
             else if (item.Header is PersonViewModel)
             {
+                PersonViewModel personVM = item.Header as PersonViewModel;
+                _currentPerson = personVM.Person;
+
+                if (personVM.Parent is PersonViewModel)
+                {
+                    PersonViewModel relativeVM = personVM.Parent as PersonViewModel;
+                    _currentRelativePerson = relativeVM.Person;
+                }
+                else
+                    _currentRelativePerson = null;
+
                 // Not need to add root person.
                 addRootPersonToolStripMenuItem.Enabled = false;
                 addRootPersonToolStripMenuItem.Visible = false;
+
+                addPersonToolStripMenuItem.Enabled = true;
+                addPersonToolStripMenuItem.Visible = true;
 
                 propertiesToolStripMenuItem.Enabled = true;
                 propertiesToolStripMenuItem.Visible = true;
@@ -186,6 +239,37 @@ namespace FTree.View.Win32
             contextMenuStrip.Show(wpfTreeViewHost, (int)point.X, (int)point.Y);
         }
 
+        private void InternalVisualTreeView_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (visualFamilyTreeView.InternalVisualTreeView.Items.Count > 0)
+                return;
+
+            if (_currentFamily == null)
+                return;
+
+            if (_currentFamily.RootPerson == null)
+            {
+                addRootPersonToolStripMenuItem.Enabled = true;
+                addRootPersonToolStripMenuItem.Visible = true;
+
+                addPersonToolStripMenuItem.Enabled = false;
+                addPersonToolStripMenuItem.Visible = false;
+
+                propertiesToolStripMenuItem.Enabled = false;
+                propertiesToolStripMenuItem.Visible = false;
+                propertyBottomSeparator.Visible = false;
+
+                // Show the suitable context menu.
+                System.Windows.Point point = e.GetPosition(visualFamilyTreeView);
+                contextMenuStrip.Show(wpfVisualFTreeHost, (int)point.X, (int)point.Y);
+            }
+            else
+            {
+                addPersonToolStripMenuItem.Enabled = true;
+                addPersonToolStripMenuItem.Visible = true;
+            }
+        }
+
         private void visualFamilyTreeView_ItemMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             System.Windows.Controls.TreeViewItem item = sender
@@ -194,8 +278,16 @@ namespace FTree.View.Win32
             if (item != null
                     && item.Header is PersonViewModel)
             {
-                PersonViewModel tmpPerson = item.Header as PersonViewModel;
-                _currentPerson = tmpPerson.Person;
+                PersonViewModel personVM = item.Header as PersonViewModel;
+                _currentPerson = personVM.Person;
+
+                if (personVM.Parent is PersonViewModel)
+                {
+                    PersonViewModel relativeVM = personVM.Parent as PersonViewModel;
+                    _currentRelativePerson = relativeVM.Person;
+                }
+                else
+                    _currentRelativePerson = null;
 
                 _enablePersonControls();
             }
@@ -213,9 +305,23 @@ namespace FTree.View.Win32
 
             if (item.Header is PersonViewModel)
             {
+                PersonViewModel personVM = item.Header as PersonViewModel;
+                _currentPerson = personVM.Person;
+
+                if (personVM.Parent is PersonViewModel)
+                {
+                    PersonViewModel relativeVM = personVM.Parent as PersonViewModel;
+                    _currentRelativePerson = relativeVM.Person; ;
+                }
+                else
+                    _currentRelativePerson = null;
+
                 // Not need to add root person.
                 addRootPersonToolStripMenuItem.Enabled = false;
                 addRootPersonToolStripMenuItem.Visible = false;
+
+                addPersonToolStripMenuItem.Enabled = true;
+                addPersonToolStripMenuItem.Visible = true;
 
                 propertiesToolStripMenuItem.Enabled = true;
                 propertiesToolStripMenuItem.Visible = true;
@@ -234,7 +340,7 @@ namespace FTree.View.Win32
 
         private void addPersonToolStripButton_Click(object sender, EventArgs e)
         {
-            _showAddMemberForm(false);
+            _showAddMemberForm(addRootPersonMainMenuItem.Enabled);
         }
 
         private void exitToolStripButton_Click(object sender, EventArgs e)
@@ -271,6 +377,7 @@ namespace FTree.View.Win32
         {
             _showAchievementReportForm();
         }
+        
         private void familyManagerToolStripButton_Click(object sender, EventArgs e)
         {
             _showFamilyManager();
@@ -280,17 +387,20 @@ namespace FTree.View.Win32
 
         private void addRootPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            _showAddMemberForm(addRootPersonToolStripMenuItem.Enabled);
         }
 
         private void addPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (_currentPerson != null)
+                _showAddMemberForm();
+            else if (_currentFamily != null)
+                _showAddMemberForm(false);
         }
 
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            _showPersonProfile();
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -300,12 +410,15 @@ namespace FTree.View.Win32
 
         private void addRootPersonMainMenuItem_Click(object sender, EventArgs e)
         {
-
+            _showAddMemberForm(addRootPersonMainMenuItem.Enabled);
         }
 
         private void addPersonMainMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (_currentPerson != null)
+                _showAddMemberForm();
+            else if (_currentFamily != null)
+                _showAddMemberForm(false);
         }
 
         #endregion
@@ -316,6 +429,7 @@ namespace FTree.View.Win32
 
         private void _loadData()
         {
+            _initPresenter();
             _presenter.LoadAllFamilies();
         }
 
@@ -326,6 +440,7 @@ namespace FTree.View.Win32
         private void _showFamilyForm()
         {
             FamilyForm frmFamily = new FamilyForm();
+            
             if (frmFamily.ShowDialog(false) == DialogResult.OK
                     && frmFamily.AcquireAddFirstPerson)
                 _showAddMemberForm(true);
@@ -334,27 +449,64 @@ namespace FTree.View.Win32
         private void _showFamilyManager()
         {
             FamilyManagerForm frmFamilyManger = new FamilyManagerForm(_families);
-            frmFamilyManger.ShowDialog(false);
-
-            _families = frmFamilyManger.Families;
-            _generateViewModels();
+            if (frmFamilyManger.ShowDialog(false) == DialogResult.OK)
+            {
+                _generateViewModels();
+            }
         }
 
         private void _showAddMemberForm(bool isAddingRootPerson)
         {
             FamilyMemberForm frmMember = new FamilyMemberForm(isAddingRootPerson, _currentFamily);
-            frmMember.ShowDialog(false);
+            if (frmMember.ShowDialog(false) == DialogResult.OK)
+            {
+                if (!isAddingRootPerson)
+                {
+                    //if (!_isLoadedData(_currentFamily.RootPerson))
+                    //{
+                        // Load the full tree structure.
+                        ThreadHelper.DoWork(_presenter.LoadFamilyTree);
+                        _currentFamily.RootPerson.Tag = true;
+                    //}
+
+                    // Search the person was updated.
+                    _currentPerson = _presenter.SearchInCurrentFamily(frmMember.RelativePerson.ID);
+
+                    //if (_currentPerson != null)
+                    //    frmMember.UpdateRelationship(_currentPerson);
+                }
+                //_generateViewModels();
+                _updateViewModels(_currentFamily);
+            }
+        }
+
+        private void _showAddMemberForm()
+        {
+            FamilyMemberForm frmMember = new FamilyMemberForm(_currentPerson);
+            if (frmMember.ShowDialog(false) == DialogResult.OK)
+            {
+                frmMember.UpdateRelationship(_currentPerson);
+                //_generateViewModels();
+                _updateViewModels(_currentFamily);
+            }
+        }
+
+        private void _showPersonProfile()
+        {
+            FamilyMemberForm frmMember = new FamilyMemberForm(_currentRelativePerson, _currentPerson);
+            if (frmMember.ShowDialog(false) == DialogResult.OK)
+                _updateViewModels(_currentFamily);
         }
 
         private void _showAchievementForm()
         {
-            AchievementForm frmAchievement = new AchievementForm();
+            AchievementForm frmAchievement = new AchievementForm(_currentPerson);
             frmAchievement.ShowDialog(false);
         }
 
         private void _showSadNewsForm()
         {
-            SadNewsForm frmSadNews = new SadNewsForm();
+            SadNewsForm frmSadNews = new SadNewsForm(_currentPerson, true);
             frmSadNews.ShowDialog(false);
         }
 
@@ -376,14 +528,59 @@ namespace FTree.View.Win32
             frmSetting.ShowDialog(false);
         }
 
+        /// <summary>
+        /// Genrate View-Model objects to map all FamilyDTOs to the treeview
+        /// </summary>
         private void _generateViewModels()
         {
-            _familyViewModels = new ObservableCollection<FamilyViewModel>();
-            
+            //_familyViewModels = new ObservableCollection<FamilyViewModel>();
+            ObservableCollection<FamilyViewModel> familyVMs = new ObservableCollection<FamilyViewModel>();
+
             foreach (FamilyDTO dto in _families)
             {
-                _familyViewModels.Add(new FamilyViewModel(dto));
+                FamilyViewModel familyVM = new FamilyViewModel(dto);
+
+                if (dto == _currentFamily)
+                {
+                    familyVM.IsSelected = true;
+                    familyVM.IsExpanded = true;
+                }
+                familyVMs.Add(familyVM);
             }
+
+            _familyViewModels = familyVMs;
+
+            this.familyTreeView.SetDataBinding(_familyViewModels);
+        }
+
+        private void _updateViewModels(FamilyDTO familyDto)
+        {
+            if (familyDto == null)
+                return;
+
+            // Because of the object-reference feature of C#, 
+            // and the parameter 'familyDto' may not belong to the Family collection in this form,
+            // we should find the object existing in the collection that macthes the 'familyDto',
+            // then update it.
+            int fIndex = -1;
+            for (fIndex = 0; fIndex < _families.Count; fIndex++)
+            {
+                if (_families[fIndex].ID == familyDto.ID)
+                    break;
+            }
+
+            // Update the object in the collection.
+            _families[fIndex] = familyDto;
+
+            int fvmIndex = -1;
+            for (fvmIndex = 0; fvmIndex < _familyViewModels.Count; fvmIndex++)
+            {
+                if (_familyViewModels[fvmIndex].Family.ID == _families[fIndex].ID)
+                    break;
+            }
+
+            // Update the View-Model object
+            _familyViewModels[fvmIndex] = new FamilyViewModel(_families[fIndex]);
 
             this.familyTreeView.SetDataBinding(_familyViewModels);
         }
@@ -428,6 +625,21 @@ namespace FTree.View.Win32
                 addRootPersonMainMenuItem.Visible = false;
                 addRootPersonMainMenuItem.Enabled = false;
             }
+        }
+
+        /// <summary>
+        /// Detect the specific FamilyMemberDTO object was loaded data or not.
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        private bool _isLoadedData(object tag)
+        {
+            if (tag != null
+                    && tag is bool)
+                return (bool)(tag);
+
+            else 
+                return false;
         }
 
         #endregion

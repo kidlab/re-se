@@ -56,12 +56,12 @@
             this.gbxDeathReasons = new System.Windows.Forms.GroupBox();
             this.dgDeathReasons = new System.Windows.Forms.DataGridView();
             this.tabBuryPlace = new System.Windows.Forms.TabPage();
+            this.btnAddBuryPlace = new System.Windows.Forms.Button();
+            this.btnDeleteBuryPlace = new System.Windows.Forms.Button();
             this.gbxBuryPlaces = new System.Windows.Forms.GroupBox();
             this.dgBuryPlaces = new System.Windows.Forms.DataGridView();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
-            this.btnAddBuryPlace = new System.Windows.Forms.Button();
-            this.btnDeleteBuryPlace = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.tabRelation_Type.SuspendLayout();
             this.gbxRelationTypes.SuspendLayout();
@@ -476,6 +476,32 @@
             this.tabBuryPlace.Text = "Bury Places";
             this.tabBuryPlace.UseVisualStyleBackColor = true;
             // 
+            // btnAddBuryPlace
+            // 
+            this.btnAddBuryPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddBuryPlace.Image = global::FTree.View.Win32.Properties.Resources.add;
+            this.btnAddBuryPlace.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddBuryPlace.Location = new System.Drawing.Point(304, 19);
+            this.btnAddBuryPlace.Name = "btnAddBuryPlace";
+            this.btnAddBuryPlace.Size = new System.Drawing.Size(89, 32);
+            this.btnAddBuryPlace.TabIndex = 22;
+            this.btnAddBuryPlace.Text = "Add";
+            this.btnAddBuryPlace.UseVisualStyleBackColor = true;
+            this.btnAddBuryPlace.Click += new System.EventHandler(this.btnAddBuryPlace_Click);
+            // 
+            // btnDeleteBuryPlace
+            // 
+            this.btnDeleteBuryPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteBuryPlace.Image = global::FTree.View.Win32.Properties.Resources.delete;
+            this.btnDeleteBuryPlace.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteBuryPlace.Location = new System.Drawing.Point(304, 57);
+            this.btnDeleteBuryPlace.Name = "btnDeleteBuryPlace";
+            this.btnDeleteBuryPlace.Size = new System.Drawing.Size(89, 32);
+            this.btnDeleteBuryPlace.TabIndex = 21;
+            this.btnDeleteBuryPlace.Text = "Delete";
+            this.btnDeleteBuryPlace.UseVisualStyleBackColor = true;
+            this.btnDeleteBuryPlace.Click += new System.EventHandler(this.btnDeleteBuryPlace_Click);
+            // 
             // gbxBuryPlaces
             // 
             this.gbxBuryPlaces.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -537,32 +563,6 @@
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // btnAddBuryPlace
-            // 
-            this.btnAddBuryPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddBuryPlace.Image = global::FTree.View.Win32.Properties.Resources.add;
-            this.btnAddBuryPlace.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddBuryPlace.Location = new System.Drawing.Point(304, 19);
-            this.btnAddBuryPlace.Name = "btnAddBuryPlace";
-            this.btnAddBuryPlace.Size = new System.Drawing.Size(89, 32);
-            this.btnAddBuryPlace.TabIndex = 22;
-            this.btnAddBuryPlace.Text = "Add";
-            this.btnAddBuryPlace.UseVisualStyleBackColor = true;
-            this.btnAddBuryPlace.Click += new System.EventHandler(this.btnAddBuryPlace_Click);
-            // 
-            // btnDeleteBuryPlace
-            // 
-            this.btnDeleteBuryPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteBuryPlace.Image = global::FTree.View.Win32.Properties.Resources.delete;
-            this.btnDeleteBuryPlace.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeleteBuryPlace.Location = new System.Drawing.Point(304, 57);
-            this.btnDeleteBuryPlace.Name = "btnDeleteBuryPlace";
-            this.btnDeleteBuryPlace.Size = new System.Drawing.Size(89, 32);
-            this.btnDeleteBuryPlace.TabIndex = 21;
-            this.btnDeleteBuryPlace.Text = "Delete";
-            this.btnDeleteBuryPlace.UseVisualStyleBackColor = true;
-            this.btnDeleteBuryPlace.Click += new System.EventHandler(this.btnDeleteBuryPlace_Click);
             // 
             // SettingsForm
             // 

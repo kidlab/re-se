@@ -64,7 +64,7 @@
     <Compile Include="AchievementTypeModel.cs" />
     <Compile Include="BaseModel.cs" />
     <Compile Include="BuryPlaceModel.cs" />
-    <Compile Include="DeadReasonModel.cs" />
+    <Compile Include="DeathReasonModel.cs" />
     <Compile Include="FamilyModel.cs" />
     <Compile Include="FamilyReportModel.cs" />
     <Compile Include="HomeTownModel.cs" />

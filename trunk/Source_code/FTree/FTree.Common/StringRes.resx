@@ -135,6 +135,9 @@
   <data name="ERR_FAMILY_ALREADY_EXIST" xml:space="preserve">
     <value>The name of family '{0}' already exist</value>
   </data>
+  <data name="ERR_FIND_RELATIONSHIP_FAILED" xml:space="preserve">
+    <value>Cannot determine the relationship between these people</value>
+  </data>
   <data name="ERR_INSERT_FAMILY_FAILED" xml:space="preserve">
     <value>Cannot add new family</value>
   </data>
@@ -153,17 +156,29 @@
   <data name="ERR_INVALID_DATE" xml:space="preserve">
     <value>Invalid date</value>
   </data>
+  <data name="ERR_LOADING_DATA" xml:space="preserve">
+    <value>Some unexpected errors occured while loading data</value>
+  </data>
   <data name="ERR_LOAD_DATA_FAILED" xml:space="preserve">
     <value>Cannot load data</value>
   </data>
   <data name="ERR_LOAD_FAMILIES_FAILED" xml:space="preserve">
     <value>Cannot load families' information</value>
   </data>
+  <data name="ERR_LOAD_FTREE_FAILED" xml:space="preserve">
+    <value>Cannot load family tree</value>
+  </data>
   <data name="ERR_RELATION_TYPE_ALREADY_EXIST" xml:space="preserve">
     <value>The relation type '{0}' already exist</value>
   </data>
   <data name="ERR_SAVE_DATA_FAILED" xml:space="preserve">
     <value>Cannot save data</value>
+  </data>
+  <data name="ERR_SEARCH_ENTRY_FAILED" xml:space="preserve">
+    <value>Cannot find any entry</value>
+  </data>
+  <data name="ERR_SPOUSE_HAS_SAME_GENDER" xml:space="preserve">
+    <value>This couple have the same gender</value>
   </data>
   <data name="ERR_UPDATE_ENTRY_FAILED" xml:space="preserve">
     <value>Cannot update data</value>
@@ -177,12 +192,19 @@
   <data name="ERR_UPDATE_RELATION_TYPE_FAILED" xml:space="preserve">
     <value>Cannot update the relation type</value>
   </data>
+  <data name="MSG_ACTION_ON_DIED_PERSON" xml:space="preserve">
+    <value>This person was dead. Are you sure that you want to make any change on this person ?</value>
+  </data>
   <data name="MSG_CONFIRM_DEL_ENTRY" xml:space="preserve">
     <value>Are you sure that you want to delete this entry ?</value>
   </data>
   <data name="MSG_CONFIRM_DEL_FAMILY" xml:space="preserve">
     <value>Are you sure that you want to delete the family of '{0}' ?
 CAUTION: This will delete all information of family members in database.</value>
+  </data>
+  <data name="MSG_CONFIRM_DEL_PERSON" xml:space="preserve">
+    <value>Are you sure that you want to delete the person '{0}' ?
+CAUTION: This will delete all information of his/her relative members in database.</value>
   </data>
   <data name="MSG_ENTER_DATA" xml:space="preserve">
     <value>Please enter data</value>
@@ -199,6 +221,15 @@ CAUTION: This will delete all information of family members in database.</value>
   <data name="MSG_FINISH_RELATIONSHIP" xml:space="preserve">
     <value>Please supply the relative person and the relationship type. 
 You can leave both of them blank</value>
+  </data>
+  <data name="MSG_INVALID_AGE_CHILD_PARENT" xml:space="preserve">
+    <value>Child's age is greater than or equal to parent's age. Are you sure you want  to do that ?</value>
+  </data>
+  <data name="MSG_MORE_THAN_ONE_HUSBAND" xml:space="preserve">
+    <value>This person already had a husband. Are you sure that you want to add a husband to this person ?</value>
+  </data>
+  <data name="MSG_MORE_THAN_ONE_WIFE" xml:space="preserve">
+    <value>This person already had a wife. Are you sure that you want to add a wife to this person ?</value>
   </data>
   <data name="MSG_SELECT_GENDER" xml:space="preserve">
     <value>Please select a gender</value>

@@ -34,8 +34,8 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.lblImage = new System.Windows.Forms.Label();
             this.gbxAchieveInfo = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.txtDescription = new FTree.View.Win32.Components.BaseTextBox();
             this.lblDate = new System.Windows.Forms.Label();
             this.achieveDatePicker = new System.Windows.Forms.DateTimePicker();
             this.lblType = new System.Windows.Forms.Label();
@@ -79,6 +79,7 @@
             this.btnOK.TabIndex = 5;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // lblImage
             // 
@@ -93,8 +94,8 @@
             this.gbxAchieveInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbxAchieveInfo.Controls.Add(this.label1);
-            this.gbxAchieveInfo.Controls.Add(this.textBox1);
+            this.gbxAchieveInfo.Controls.Add(this.lblDescription);
+            this.gbxAchieveInfo.Controls.Add(this.txtDescription);
             this.gbxAchieveInfo.Controls.Add(this.lblDate);
             this.gbxAchieveInfo.Controls.Add(this.achieveDatePicker);
             this.gbxAchieveInfo.Controls.Add(this.lblType);
@@ -106,22 +107,22 @@
             this.gbxAchieveInfo.TabStop = false;
             this.gbxAchieveInfo.Text = "Achievement Info";
             // 
-            // label1
+            // lblDescription
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 97);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Description:";
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Location = new System.Drawing.Point(7, 97);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(63, 13);
+            this.lblDescription.TabIndex = 5;
+            this.lblDescription.Text = "Description:";
             // 
-            // textBox1
+            // txtDescription
             // 
-            this.textBox1.Location = new System.Drawing.Point(70, 113);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(221, 134);
-            this.textBox1.TabIndex = 4;
+            this.txtDescription.Location = new System.Drawing.Point(70, 113);
+            this.txtDescription.Multiline = true;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(221, 134);
+            this.txtDescription.TabIndex = 4;
             // 
             // lblDate
             // 
@@ -150,11 +151,13 @@
             // 
             // cbAchievementType
             // 
+            this.cbAchievementType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAchievementType.FormattingEnabled = true;
             this.cbAchievementType.Location = new System.Drawing.Point(70, 19);
             this.cbAchievementType.Name = "cbAchievementType";
             this.cbAchievementType.Size = new System.Drawing.Size(221, 21);
             this.cbAchievementType.TabIndex = 0;
+            this.cbAchievementType.SelectedIndexChanged += new System.EventHandler(this.cbAchievementType_SelectedIndexChanged);
             // 
             // lblPersonName
             // 
@@ -172,6 +175,7 @@
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(456, 336);
             this.Controls.Add(this.lblPersonName);
@@ -185,6 +189,7 @@
             this.MaximizeBox = false;
             this.Name = "AchievementForm";
             this.Text = "Assign An Achievement";
+            this.Load += new System.EventHandler(this.AchievementForm_Load);
             this.gbxAchieveInfo.ResumeLayout(false);
             this.gbxAchieveInfo.PerformLayout();
             this.ResumeLayout(false);
@@ -204,7 +209,7 @@
         private System.Windows.Forms.Label lblType;
         private System.Windows.Forms.DateTimePicker achieveDatePicker;
         private System.Windows.Forms.Label lblDate;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblDescription;
+        private FTree.View.Win32.Components.BaseTextBox txtDescription;
     }
 }

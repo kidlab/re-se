@@ -89,6 +89,9 @@
     <Compile Include="Components\Wpf\FamilyTreeView.xaml.cs">
       <DependentUpon>FamilyTreeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\Wpf\ListBoxAnimation.xaml.cs">
+      <DependentUpon>ListBoxAnimation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\Wpf\VisualFamilyTreeView.xaml.cs">
       <DependentUpon>VisualFamilyTreeView.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,12 @@
     <Compile Include="FTreeMainForm.Designer.cs">
       <DependentUpon>FTreeMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListResultForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListResultForm.Designer.cs">
+      <DependentUpon>ListResultForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,12 +154,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FamilyMemberForm.resx">
       <DependentUpon>FamilyMemberForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FamilyReportForm.resx">
       <DependentUpon>FamilyReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FTreeMainForm.resx">
       <DependentUpon>FTreeMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListResultForm.resx">
+      <DependentUpon>ListResultForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
@@ -209,6 +222,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ftree.ico" />
+    <None Include="images\death_info22.png" />
+    <None Include="images\death_info.png" />
     <None Include="images\delete.png" />
     <None Include="images\add.png" />
     <None Include="images\edit.png" />
@@ -260,6 +275,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Components\Wpf\FamilyTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\Wpf\ListBoxAnimation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -18,12 +18,17 @@ namespace FTree.Presenter
         /// <summary>
         /// List of all available achievement type.
         /// </summary>
-        IList<AchievementInfo> AchievementsList { get; set; }
-        
+        IList<AchievementType> AchievementTypeList { get; set; }
+
         /// <summary>
-        /// The selected achievement.
+        /// The selected 
         /// </summary>
-        AchievementInfo Achievement { get; set; }
+        AchievementType SelectedAchievementType { get;}
+
+        /// <summary>
+        /// The achievement of the person.
+        /// </summary>
+        AchievementInfo AchievementInfo { get; set; }
         
     }
 }

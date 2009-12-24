@@ -15,6 +15,11 @@ namespace FTree.DTO
 		public int ID {get; set;}
 
         /// <summary>
+        /// Gets or sets the object that contains data about this item.
+        /// </summary>
+        public object Tag { get; set; }
+
+        /// <summary>
         /// The currrent status of this object (ex: just created, copied, updated or deleted).
         /// </summary>
         public DataState State { get; set; }

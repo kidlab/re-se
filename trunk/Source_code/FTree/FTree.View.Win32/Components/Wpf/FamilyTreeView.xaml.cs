@@ -50,7 +50,7 @@ namespace FTree.View.Win32.Components.Wpf
             // Create UI-friendly wrappers around the 
             // raw data objects (i.e. the view-model).
             _familyTree = new FamilyTreeViewModel(familes);
-
+            
             // Let the UI bind to the view-model.
             base.DataContext = _familyTree;
         }

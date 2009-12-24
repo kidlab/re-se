@@ -10,5 +10,6 @@ namespace FTree.Model
     public interface IFamilyModel : ILinqModel<FamilyDTO>
     {
         IEnumerable<FTree.DTO.FamilyDTO> FindByName(String familyName);
+        FamilyMemberDTO LoadFullFamilyTree(int rootID);
     }
 }
