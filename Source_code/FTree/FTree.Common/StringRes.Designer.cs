@@ -334,6 +334,15 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This relation type cannot be changed.
+        /// </summary>
+        internal static string MSG_DEL_CONSTANT_RELATIONSHIP {
+            get {
+                return ResourceManager.GetString("MSG_DEL_CONSTANT_RELATIONSHIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The person &apos;{0}&apos; already exists.
         ///Are you sure that you want to add a new one with the same name ?.
         /// </summary>
