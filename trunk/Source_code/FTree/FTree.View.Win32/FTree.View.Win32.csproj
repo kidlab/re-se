@@ -96,6 +96,12 @@
       <DependentUpon>VisualFamilyTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataFormMode.cs" />
+    <Compile Include="DeletePersonWizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeletePersonWizardForm.Designer.cs">
+      <DependentUpon>DeletePersonWizardForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FamilyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AchievementReportForm.resx">
       <DependentUpon>AchievementReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeletePersonWizardForm.resx">
+      <DependentUpon>DeletePersonWizardForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FamilyForm.resx">
       <DependentUpon>FamilyForm.cs</DependentUpon>
@@ -222,6 +231,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ftree.ico" />
+    <None Include="images\back.png" />
+    <None Include="images\delete_person.png" />
     <None Include="images\death_info22.png" />
     <None Include="images\death_info.png" />
     <None Include="images\delete.png" />

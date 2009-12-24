@@ -295,7 +295,8 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The person &apos;{0}&apos;  was dead. Are you sure that you want to add relative for this person ?.
+        ///   Looks up a localized string similar to The person &apos;{0}&apos;  was dead.
+        ///Are you sure that you want to add relative for this person ?.
         /// </summary>
         internal static string MSG_ADD_RELATIVE_ON_DIED_PERSON {
             get {
@@ -329,6 +330,16 @@ namespace FTree.Common {
         internal static string MSG_CONFIRM_DEL_PERSON {
             get {
                 return ResourceManager.GetString("MSG_CONFIRM_DEL_PERSON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The person &apos;{0}&apos; already exists.
+        ///Are you sure that you want to add a new one with the same name ?.
+        /// </summary>
+        internal static string MSG_DUPLICATED_PEOPLE {
+            get {
+                return ResourceManager.GetString("MSG_DUPLICATED_PEOPLE", resourceCulture);
             }
         }
         
@@ -379,7 +390,8 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Child&apos;s age is greater than or equal to parent&apos;s age. Are you sure you want  to do that ?.
+        ///   Looks up a localized string similar to Child&apos;s age is greater than or equal to parent&apos;s age.
+        ///Are you sure you want  to do that ?.
         /// </summary>
         internal static string MSG_INVALID_AGE_CHILD_PARENT {
             get {
@@ -388,7 +400,8 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This person already had a husband. Are you sure that you want to add a husband to this person ?.
+        ///   Looks up a localized string similar to This person already had a husband.
+        ///Are you sure that you want to add a husband to this person ?.
         /// </summary>
         internal static string MSG_MORE_THAN_ONE_HUSBAND {
             get {
@@ -397,7 +410,8 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This person already had a wife. Are you sure that you want to add a wife to this person ?.
+        ///   Looks up a localized string similar to This person already had a wife.
+        ///Are you sure that you want to add a wife to this person ?.
         /// </summary>
         internal static string MSG_MORE_THAN_ONE_WIFE {
             get {
@@ -406,7 +420,8 @@ namespace FTree.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The person &apos;{0}&apos;  has no spouse.Are you sure that you want to add a child of this person ?.
+        ///   Looks up a localized string similar to The person &apos;{0}&apos;  has no spouse.
+        ///Are you sure that you want to add a child of this person ?.
         /// </summary>
         internal static string MSG_NO_SPOUSE_BUT_HAS_CHILD {
             get {

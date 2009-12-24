@@ -154,7 +154,7 @@ namespace FTree.View.Win32
 
         /// <summary>
         /// (Not supported) Gets or sets a list of famiies.
-        /// If ypu try to access this property, a NotSupportedException will be thrown.
+        /// If you try to access this property, a NotSupportedException will be thrown.
         /// </summary>
         public IList<FamilyDTO> Families
         {

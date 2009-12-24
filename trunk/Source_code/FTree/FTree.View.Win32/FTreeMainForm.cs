@@ -32,6 +32,8 @@ namespace FTree.View.Win32
         private IList<FamilyDTO> _families;
         private ObservableCollection<FamilyViewModel> _familyViewModels;
 
+        private System.Windows.Controls.TreeViewItem _currentRightClickedItem;
+
         #endregion
 
         #region CONSTRUCTOR
@@ -133,7 +135,8 @@ namespace FTree.View.Win32
             if (e.NewValue is FamilyViewModel)
             {
                 FamilyViewModel tmpFamily = e.NewValue as FamilyViewModel;
-                tmpFamily.IsExpanded = true;                
+                tmpFamily.IsExpanded = true;
+         
                 this.visualFamilyTreeView.SetDataBinding(tmpFamily);
                 //tmpFamily.IsExpanded = false;
 
@@ -146,16 +149,24 @@ namespace FTree.View.Win32
                 PersonViewModel tmpPerson = e.NewValue as PersonViewModel;
                 tmpPerson.IsExpanded = true;
                 _currentPerson = tmpPerson.Person;
-                
+                tmpPerson.IsSelected = true;
                 if (tmpPerson.Parent is PersonViewModel)
                 {
                     PersonViewModel relativeVM = tmpPerson.Parent as PersonViewModel;
                     _currentRelativePerson = relativeVM.Person;
+
+                    FamilyViewModel familyVM = _getFamilyFrom(relativeVM);
+
+                    if (familyVM != visualFamilyTreeView.Family)
+                        this.visualFamilyTreeView.SetDataBinding(familyVM);                   
                 }
                 else if (tmpPerson.Parent is FamilyViewModel)   // This is the root person of the family.
                 {
                     FamilyViewModel tmpFamily = tmpPerson.Parent as FamilyViewModel;
                     _currentFamily = tmpFamily.Family;
+
+                    if (tmpFamily != visualFamilyTreeView.Family)
+                        this.visualFamilyTreeView.SetDataBinding(tmpFamily);
 
                     if (_currentFamily.RootPerson != null
                             && !_isLoadedData(_currentFamily.RootPerson.Tag))
@@ -172,6 +183,8 @@ namespace FTree.View.Win32
 
                     _currentRelativePerson = null;
                 }
+
+                this.visualFamilyTreeView.SelectPerson(tmpPerson);
             }
 
             _enablePersonControls();
@@ -179,17 +192,17 @@ namespace FTree.View.Win32
 
         private void familyTreeView_ItemMouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            System.Windows.Controls.TreeViewItem item = sender 
+            _currentRightClickedItem = sender 
                 as System.Windows.Controls.TreeViewItem;
             
             if (familyTreeView.InternalTreeView.Items.Count <= 0
-                    || item == null
-                    || item.Header == null)
+                    || _currentRightClickedItem == null
+                    || _currentRightClickedItem.Header == null)
                 return;            
 
-            if (item.Header is FamilyViewModel)
+            if (_currentRightClickedItem.Header is FamilyViewModel)
             {
-                FamilyViewModel familyVM = item.Header as FamilyViewModel;
+                FamilyViewModel familyVM = _currentRightClickedItem.Header as FamilyViewModel;
                 _currentFamily = familyVM.Family;
 
                 bool enable = 
@@ -209,9 +222,9 @@ namespace FTree.View.Win32
                 _currentPerson = null;
                 _currentRelativePerson = null;
             }
-            else if (item.Header is PersonViewModel)
+            else if (_currentRightClickedItem.Header is PersonViewModel)
             {
-                PersonViewModel personVM = item.Header as PersonViewModel;
+                PersonViewModel personVM = _currentRightClickedItem.Header as PersonViewModel;
                 _currentPerson = personVM.Person;
 
                 if (personVM.Parent is PersonViewModel)
@@ -241,6 +254,9 @@ namespace FTree.View.Win32
 
         private void InternalVisualTreeView_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            _currentRightClickedItem = sender
+               as System.Windows.Controls.TreeViewItem;
+
             if (visualFamilyTreeView.InternalVisualTreeView.Items.Count > 0)
                 return;
 
@@ -272,13 +288,13 @@ namespace FTree.View.Win32
 
         private void visualFamilyTreeView_ItemMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            System.Windows.Controls.TreeViewItem item = sender
+            _currentRightClickedItem = sender
                 as System.Windows.Controls.TreeViewItem;
 
-            if (item != null
-                    && item.Header is PersonViewModel)
+            if (_currentRightClickedItem != null
+                    && _currentRightClickedItem.Header is PersonViewModel)
             {
-                PersonViewModel personVM = item.Header as PersonViewModel;
+                PersonViewModel personVM = _currentRightClickedItem.Header as PersonViewModel;
                 _currentPerson = personVM.Person;
 
                 if (personVM.Parent is PersonViewModel)
@@ -295,17 +311,17 @@ namespace FTree.View.Win32
 
         private void visualFamilyTreeView_ItemMouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            System.Windows.Controls.TreeViewItem item = sender
+            _currentRightClickedItem = sender
                 as System.Windows.Controls.TreeViewItem;
 
             if (visualFamilyTreeView.InternalVisualTreeView.Items.Count <= 0
-                    || item == null
-                    || item.Header == null)
+                    || _currentRightClickedItem == null
+                    || _currentRightClickedItem.Header == null)
                 return;
 
-            if (item.Header is PersonViewModel)
+            if (_currentRightClickedItem.Header is PersonViewModel)
             {
-                PersonViewModel personVM = item.Header as PersonViewModel;
+                PersonViewModel personVM = _currentRightClickedItem.Header as PersonViewModel;
                 _currentPerson = personVM.Person;
 
                 if (personVM.Parent is PersonViewModel)
@@ -405,7 +421,7 @@ namespace FTree.View.Win32
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            _deleteEntry();
         }
 
         private void addRootPersonMainMenuItem_Click(object sender, EventArgs e)
@@ -440,10 +456,16 @@ namespace FTree.View.Win32
         private void _showFamilyForm()
         {
             FamilyForm frmFamily = new FamilyForm();
-            
-            if (frmFamily.ShowDialog(false) == DialogResult.OK
-                    && frmFamily.AcquireAddFirstPerson)
-                _showAddMemberForm(true);
+
+            if (frmFamily.ShowDialog(false) == DialogResult.OK)
+            {
+                _currentFamily = frmFamily.CurrentFamily;
+                _families.Add(_currentFamily);
+                _familyViewModels.Add(new FamilyViewModel(_currentFamily));
+
+                if (frmFamily.AcquireAddFirstPerson)
+                    _showAddMemberForm(true);                
+            }
         }
 
         private void _showFamilyManager()
@@ -563,21 +585,35 @@ namespace FTree.View.Win32
             // we should find the object existing in the collection that macthes the 'familyDto',
             // then update it.
             int fIndex = -1;
+            bool found = false;
             for (fIndex = 0; fIndex < _families.Count; fIndex++)
             {
                 if (_families[fIndex].ID == familyDto.ID)
+                {
+                    found = true;
                     break;
+                }
             }
+
+            if (!found)
+                return;
 
             // Update the object in the collection.
             _families[fIndex] = familyDto;
 
             int fvmIndex = -1;
+            found = false;
             for (fvmIndex = 0; fvmIndex < _familyViewModels.Count; fvmIndex++)
             {
                 if (_familyViewModels[fvmIndex].Family.ID == _families[fIndex].ID)
+                {
+                    found = true;
                     break;
+                }
             }
+
+            if (!found)
+                return;
 
             // Update the View-Model object
             _familyViewModels[fvmIndex] = new FamilyViewModel(_families[fIndex]);
@@ -644,6 +680,66 @@ namespace FTree.View.Win32
 
             else 
                 return false;
+        }
+
+        private FamilyViewModel _getFamilyFrom(PersonViewModel person)
+        {
+            if (person == null)
+                return null;
+           TreeViewItemViewModel currentItem = person;
+            
+            while (true)
+            {
+                if (currentItem == null)
+                    break;
+
+                if (currentItem.Parent != null && currentItem.Parent is FamilyViewModel)
+                    return currentItem.Parent as FamilyViewModel;
+                else if (currentItem != null && currentItem is FamilyViewModel)
+                    return currentItem as FamilyViewModel;
+          
+                currentItem = currentItem.Parent;
+            }
+
+            return null;
+        }
+
+        private void _deleteEntry()
+        {
+            try
+            {
+                if (_currentRightClickedItem == null
+                        || _currentRightClickedItem.Header == null)
+                    return;
+
+                if (_currentRightClickedItem.Header is FamilyViewModel)
+                {
+                    // Ask for confirm.
+                    DialogResult result = UIUtils.ConfirmOKCancel(String.Format(Util.GetStringResource(StringResName.MSG_CONFIRM_DEL_FAMILY), _currentFamily.Name));
+
+                    if (result != DialogResult.OK)
+                        return;
+
+                    ThreadHelper.DoWork(_presenter.Delete);
+                    _families.Remove(_currentFamily);
+                    _generateViewModels();
+                }
+                else if (_currentRightClickedItem.Header is PersonViewModel)
+                {
+                    DeletePersonWizardForm frmDelete = new DeletePersonWizardForm(_currentPerson);
+                    if (frmDelete.ShowDialog(false) == DialogResult.OK)
+                    {
+                        ThreadHelper.DoWork(_presenter.LoadAllFamilies);
+                        _generateViewModels();
+                        _enablePersonControls();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FTreeMainForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
         }
 
         #endregion

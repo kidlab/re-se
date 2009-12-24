@@ -17,6 +17,7 @@
                 
                 <!-- Inherit the exsitent style in OrgChartTreeViewItemStyle.xaml.-->
                 <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource VisualTreeViewItemStyle}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                     <EventSetter
         Event="TreeViewItem.MouseRightButtonUp"
         Handler="TreeViewItem_MouseRightButtonUp"/>

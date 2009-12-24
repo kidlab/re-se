@@ -203,6 +203,25 @@ namespace FTree.Model
             }
         }
 
+        public FamilyMemberDTO GetParent(bool isFather, FamilyMemberDTO dto)
+        {
+            try
+            {
+                IEnumerable<MEMBER> matches =
+                    from member in _db.MEMBERs
+                    where member.IDMember == dto.ID
+                    select member;
+                MEMBER personMapper = matches.Single();
+                // Get father of this person.
+                return _getParent(isFather, personMapper);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
         private FamilyMemberDTO _getFamilyTree(int id, bool needFindFather, bool needFindMother)
         {
             try
@@ -485,7 +504,76 @@ namespace FTree.Model
             }
         }
 
+        /// <summary>
+        /// Deletes entirely a person and his/her family tree in DB.
+        /// CAUTION: This action cannot be undone !
+        /// </summary>
+        /// <param name="obj"></param>
         public void Delete(FamilyMemberDTO obj)
+        {
+            try
+            {
+                _entirelyDeletePerson(obj);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        private void _entirelyDeletePerson(FamilyMemberDTO obj)
+        {
+            Stack<MEMBER> stack = new Stack<MEMBER>();
+            MEMBER mapper = _search(obj).Single();
+
+            // Turn of auto submit changes.
+            //_autoSubmitChanges = false;
+
+            while (true)
+            {
+                // 1. Delete Death Info.
+                if (mapper.DEATH_INFO != null)
+                    _db.DEATH_INFOs.DeleteOnSubmit(mapper.DEATH_INFO);
+
+                // 2. Delete all Events or Achievements.
+
+                foreach (MEMBER_EVENT memEvent in mapper.MEMBER_EVENTs)
+                    _db.MEMBER_EVENTs.DeleteOnSubmit(memEvent);
+
+                // 3. Delete all relationship (recursively).
+                foreach (RELATIONSHIP relation in mapper.RELATIONSHIPs)
+                {
+                    _db.RELATIONSHIPs.DeleteOnSubmit(relation);
+                }
+
+                foreach (RELATIONSHIP relation in mapper.RELATIONSHIPs1)
+                {
+                    stack.Push(relation.MEMBER);
+                    _db.RELATIONSHIPs.DeleteOnSubmit(relation);
+                }
+
+                // 4. Delete the person in MEMEBER table. The end.
+                _db.MEMBERs.DeleteOnSubmit(mapper);
+
+                if (stack.Count > 0)
+                    mapper = stack.Pop();
+                else
+                    break;
+            }
+
+            this.Save();
+
+            // Turn on auto submit changes.
+            _autoSubmitChanges = true;
+        }
+     
+        /// <summary>
+        /// Delete a person and shift all his/her children to a specific another person.
+        /// </summary>
+        /// <param name="deletedPerson">The person which would be deleted.</param>
+        /// <param name="newParent">The person will contain the children of the deleted person.</param>
+        public void DeleteAndShiftDescendants(FamilyMemberDTO deletedPerson, FamilyMemberDTO newParent)
         {
             try
             {
@@ -514,6 +602,62 @@ namespace FTree.Model
         #endregion
 
         #region UTILITY METHODS
+
+        public IList<FamilyMemberDTO> FindByFullName(string fullName)
+        {
+            try
+            {
+                IEnumerable<FamilyMemberDTO> matches =
+                    from person in _db.MEMBERs
+                    where (person.LastName + " " + person.FirstName).ToUpper() 
+                                == fullName.ToUpper()
+                    select ConvertToDTO(person);
+
+                return matches.ToList();
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        public IList<FamilyMemberDTO> FindByFirstName(string firstName)
+        {
+            try
+            {
+                IEnumerable<FamilyMemberDTO> matches =
+                    from person in _db.MEMBERs
+                    where person.FirstName.ToUpper() == firstName.ToUpper()
+                    select ConvertToDTO(person);
+
+                return matches.ToList();
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        public IList<FamilyMemberDTO> FindByLastName(string lastName)
+        {
+            try
+            {
+                IEnumerable<FamilyMemberDTO> matches =
+                    from person in _db.MEMBERs
+                    where person.LastName.ToUpper() == lastName.ToUpper()
+                    select ConvertToDTO(person);
+
+                return matches.ToList();
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
 
         internal MEMBER ConvertToMapper(FamilyMemberDTO dto)
         {
@@ -724,21 +868,24 @@ namespace FTree.Model
             mapper.IDMember = dto.ID;
             
             if (dto.Family.ID > 0)
-                mapper.IDFamily = dto.Family.ID;
+                mapper.FAMILY = 
+                    _db.FAMILies.Single(f => f.IDFamily == dto.Family.ID);
             
             mapper.FirstName = dto.FirstName;
             mapper.LastName = dto.LastName;
             mapper.Gender = dto.IsFemale ? (byte)FTreeConst.FEMALE : (byte)FTreeConst.MALE;
             mapper.Birthday = dto.Birthday;
-            
-            if(dto.HomeTown.ID > 0)
-                mapper.IDBirthPlace = dto.HomeTown.ID;
+
+            if (dto.HomeTown.ID > 0)
+                mapper.BIRTHPLACE =
+                    _db.BIRTHPLACEs.Single(place => place.IDBirthPlace == dto.HomeTown.ID);
             
             mapper.Address = dto.Address;
             mapper.DayJointFamily = dto.DateJointFamily;
-            
-            if(dto.Job.ID > 0)
-                mapper.IDJob = dto.Job.ID;
+
+            if (dto.Job.ID > 0)
+                mapper.JOB =
+                    _db.JOBs.Single(job => job.IDJob == dto.Job.ID);
 
             if (dto.IsDead)
             {

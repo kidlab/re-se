@@ -191,7 +191,8 @@ namespace FTree.View.Win32
                 // Run the operation in different thread to avoid freezing the GUI.
                 ThreadHelper.DoWork(_presenter.Delete);
 
-                _loadAllFamilies();
+                _families.Remove(_currentFamily);
+                _bindingSource.ResetBindings(false);
             }
             catch (Exception exc)
             {
