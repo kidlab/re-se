@@ -32,6 +32,8 @@ namespace FTree.View.Win32
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!ValidateInputData())
+                return;
             List<FamilyReportDTO> list_arDTO = this._presenter.FamilyReport(Int32.Parse(this.maskedTextBox1.Text), Int32.Parse(this.maskedTextBox2.Text));
             dataGridView1.DataSource = list_arDTO;
             dataGridView1.Refresh();
@@ -94,7 +96,17 @@ namespace FTree.View.Win32
 
         public bool ValidateInputData()
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(this.maskedTextBox1.Text.Trim()))
+            {
+                MessageBox.Show("Enter From Year");
+                return false;
+            }
+            if (String.IsNullOrEmpty(this.maskedTextBox2.Text.Trim()))
+            {
+                MessageBox.Show("Enter To Year");
+                return false;
+            }
+            return true;
         }
 
         #endregion
