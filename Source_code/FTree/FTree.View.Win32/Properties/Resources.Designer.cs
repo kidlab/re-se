@@ -214,6 +214,13 @@ namespace FTree.View.Win32.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap member_list {
+            get {
+                object obj = ResourceManager.GetObject("member_list", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap member_report {
             get {
                 object obj = ResourceManager.GetObject("member_report", resourceCulture);

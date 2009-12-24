@@ -399,6 +399,11 @@ namespace FTree.View.Win32
             _showFamilyManager();
         }
 
+        private void memToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _showMemberlistForm();
+        }
+
         #region CONTEXT MENU STRIP
 
         private void addRootPersonToolStripMenuItem_Click(object sender, EventArgs e)
@@ -452,6 +457,14 @@ namespace FTree.View.Win32
         #endregion
 
         #region UTILITY METHODS
+
+        private void _showMemberlistForm()
+        {
+            if (_currentFamily == null)
+                return;
+            MemberListForm frmList = new MemberListForm(_currentFamily);
+            frmList.ShowDialog(false);
+        }
 
         private void _showFamilyForm()
         {

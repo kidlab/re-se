@@ -206,7 +206,7 @@ namespace FTree.Model
         public FamilyMemberDTO GetParent(bool isFather, FamilyMemberDTO dto)
         {
             try
-            {
+            {                 
                 IEnumerable<MEMBER> matches =
                     from member in _db.MEMBERs
                     where member.IDMember == dto.ID
