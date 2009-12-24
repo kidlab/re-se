@@ -5,6 +5,7 @@
     /// </summary>
     public enum StringResName
     {
+        ERR_CREATE_REPORT_FAILED,
         ERR_DELETE_ENTRY_FAILED,
         ERR_DELETE_FAMILY_FAILED,
         ERR_DELETE_PERSON_FAILED,

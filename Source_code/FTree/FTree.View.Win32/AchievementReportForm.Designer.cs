@@ -29,111 +29,121 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AchievementReportForm));
+            this.grbxInfo = new System.Windows.Forms.GroupBox();
+            this.txtToYear = new System.Windows.Forms.MaskedTextBox();
+            this.txtFromYear = new System.Windows.Forms.MaskedTextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.lblToYear = new System.Windows.Forms.Label();
+            this.lblFromYear = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.dgResult = new System.Windows.Forms.DataGridView();
+            this.grbxInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgResult)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // grbxInfo
             // 
-            this.groupBox1.Controls.Add(this.maskedTextBox2);
-            this.groupBox1.Controls.Add(this.maskedTextBox1);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(28, 28);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(386, 109);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Achievement Report";
+            this.grbxInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grbxInfo.Controls.Add(this.txtToYear);
+            this.grbxInfo.Controls.Add(this.txtFromYear);
+            this.grbxInfo.Controls.Add(this.btnSearch);
+            this.grbxInfo.Controls.Add(this.lblToYear);
+            this.grbxInfo.Controls.Add(this.lblFromYear);
+            this.grbxInfo.Location = new System.Drawing.Point(12, 12);
+            this.grbxInfo.Name = "grbxInfo";
+            this.grbxInfo.Size = new System.Drawing.Size(424, 114);
+            this.grbxInfo.TabIndex = 1;
+            this.grbxInfo.TabStop = false;
+            this.grbxInfo.Text = "Achievement Report";
             // 
-            // maskedTextBox2
+            // txtToYear
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(112, 70);
-            this.maskedTextBox2.Mask = "0000";
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox2.TabIndex = 6;
+            this.txtToYear.Location = new System.Drawing.Point(72, 74);
+            this.txtToYear.Mask = "0000";
+            this.txtToYear.Name = "txtToYear";
+            this.txtToYear.Size = new System.Drawing.Size(100, 20);
+            this.txtToYear.TabIndex = 6;
             // 
-            // maskedTextBox1
+            // txtFromYear
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(111, 26);
-            this.maskedTextBox1.Mask = "0000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox1.TabIndex = 5;
+            this.txtFromYear.Location = new System.Drawing.Point(72, 30);
+            this.txtFromYear.Mask = "0000";
+            this.txtFromYear.Name = "txtFromYear";
+            this.txtFromYear.Size = new System.Drawing.Size(100, 20);
+            this.txtFromYear.TabIndex = 5;
             // 
-            // button1
+            // btnSearch
             // 
-            this.button1.Location = new System.Drawing.Point(305, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSearch.Location = new System.Drawing.Point(208, 28);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 4;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // label2
+            // lblToYear
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 77);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "To year:";
+            this.lblToYear.AutoSize = true;
+            this.lblToYear.Location = new System.Drawing.Point(20, 77);
+            this.lblToYear.Name = "lblToYear";
+            this.lblToYear.Size = new System.Drawing.Size(46, 13);
+            this.lblToYear.TabIndex = 1;
+            this.lblToYear.Text = "To year:";
             // 
-            // label1
+            // lblFromYear
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "From year:";
+            this.lblFromYear.AutoSize = true;
+            this.lblFromYear.Location = new System.Drawing.Point(10, 33);
+            this.lblFromYear.Name = "lblFromYear";
+            this.lblFromYear.Size = new System.Drawing.Size(56, 13);
+            this.lblFromYear.TabIndex = 0;
+            this.lblFromYear.Text = "From year:";
             // 
-            // dataGridView1
+            // dgResult
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(28, 168);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(386, 150);
-            this.dataGridView1.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.dataGridView1, "Show list of Achievement");
+            this.dgResult.AllowUserToAddRows = false;
+            this.dgResult.AllowUserToDeleteRows = false;
+            this.dgResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgResult.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dgResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgResult.Location = new System.Drawing.Point(12, 132);
+            this.dgResult.Name = "dgResult";
+            this.dgResult.ReadOnly = true;
+            this.dgResult.Size = new System.Drawing.Size(424, 255);
+            this.dgResult.TabIndex = 2;
+            this.toolTip.SetToolTip(this.dgResult, "Show list of Achievement");
             // 
             // AchievementReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 399);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.dgResult);
+            this.Controls.Add(this.grbxInfo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AchievementReportForm";
             this.Text = "Achievement Report";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.grbxInfo.ResumeLayout(false);
+            this.grbxInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgResult)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.GroupBox grbxInfo;
+        private System.Windows.Forms.Label lblToYear;
+        private System.Windows.Forms.Label lblFromYear;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.MaskedTextBox txtFromYear;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.MaskedTextBox txtToYear;
+        private System.Windows.Forms.DataGridView dgResult;
     }
 }

@@ -61,6 +61,15 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot generate the report.
+        /// </summary>
+        internal static string ERR_CREATE_REPORT_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_CREATE_REPORT_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot delete data.
         /// </summary>
         internal static string ERR_DELETE_ENTRY_FAILED {
