@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 using System.Windows.Forms;
 using FTree.Common;
 
@@ -14,6 +15,15 @@ namespace FTree.View.Win32
         /// <param name="data">Data to count.</param>
         /// <returns>Number of existing entities with the specific name</returns>
         public delegate int CountExistentEntryDelegate(string data);
+
+        /// <summary>
+        /// The light pink color.
+        /// </summary>
+        public static readonly Color SAD_PINK_COLOR = 
+            System.Drawing.Color.FromArgb(
+                ((int)(((byte)(255)))), 
+                ((int)(((byte)(221)))), 
+                ((int)(((byte)(221)))));
 
         /// <summary>
         /// Shows an error message.

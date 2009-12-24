@@ -11,6 +11,11 @@ namespace FTree.View.Win32.Components
     /// </summary>
     public class BaseTextBox : TextBox
     {
+        /// <summary>
+        /// Used to store the original background color of the textbox.
+        /// </summary>
+        private Color _previousColor;
+
         public BaseTextBox()
         {
             this.Enter += new EventHandler(BaseTextBox_Enter);
@@ -19,12 +24,13 @@ namespace FTree.View.Win32.Components
 
         protected void BaseTextBox_Enter(object sender, EventArgs e)
         {
+            _previousColor = this.BackColor;
             this.BackColor = Color.LightYellow;
         }
 
         protected void BaseTextBox_Leave(object sender, EventArgs e)
         {
-            this.BackColor = Color.White;
+            this.BackColor = _previousColor;
         }
     }
 }

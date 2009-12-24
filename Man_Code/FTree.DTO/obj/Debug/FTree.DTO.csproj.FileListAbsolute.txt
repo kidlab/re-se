@@ -1,7 +1,0 @@
-E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.DTO\bin\Debug\FTree.DTO.dll
-E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.DTO\bin\Debug\FTree.DTO.pdb
-E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.DTO\bin\Debug\FTree.Common.dll
-E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.DTO\bin\Debug\FTree.Common.pdb
-E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.DTO\obj\Debug\ResolveAssemblyReference.cache
-E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.DTO\obj\Debug\FTree.DTO.dll
-E:\THANHMAN\LEARNING\UIT\SEMESTER_7\RE_SE\Project\FamilyTree\Source_code\FTree\FTree.DTO\obj\Debug\FTree.DTO.pdb

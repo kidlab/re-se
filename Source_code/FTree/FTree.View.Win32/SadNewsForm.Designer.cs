@@ -100,6 +100,7 @@
             this.btnOK.TabIndex = 12;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // gbxSadNews
             // 
@@ -123,11 +124,13 @@
             // 
             // cbBuryPlace
             // 
+            this.cbBuryPlace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBuryPlace.FormattingEnabled = true;
             this.cbBuryPlace.Location = new System.Drawing.Point(103, 116);
             this.cbBuryPlace.Name = "cbBuryPlace";
             this.cbBuryPlace.Size = new System.Drawing.Size(208, 21);
             this.cbBuryPlace.TabIndex = 13;
+            this.cbBuryPlace.SelectedIndexChanged += new System.EventHandler(this.cbBuryPlace_SelectedIndexChanged);
             // 
             // lblBuryPlace
             // 
@@ -174,11 +177,13 @@
             // 
             // cbDeathReasons
             // 
+            this.cbDeathReasons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDeathReasons.FormattingEnabled = true;
             this.cbDeathReasons.Location = new System.Drawing.Point(103, 13);
             this.cbDeathReasons.Name = "cbDeathReasons";
             this.cbDeathReasons.Size = new System.Drawing.Size(208, 21);
             this.cbDeathReasons.TabIndex = 3;
+            this.cbDeathReasons.SelectedIndexChanged += new System.EventHandler(this.cbDeathReasons_SelectedIndexChanged);
             // 
             // lblDeathReason
             // 
@@ -207,6 +212,7 @@
             this.MaximizeBox = false;
             this.Name = "SadNewsForm";
             this.Text = "Sad News...";
+            this.Load += new System.EventHandler(this.SadNewsForm_Load);
             this.gbxSadNews.ResumeLayout(false);
             this.gbxSadNews.PerformLayout();
             this.ResumeLayout(false);

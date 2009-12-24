@@ -52,6 +52,12 @@ namespace FTree.View.Win32
         /// </summary>
         private bool[] _alreadyLoaded;
 
+        /// <summary>
+        /// Used to store the previous color of DataGridViewRow 
+        /// to change the BackColor when mouse enters and restore the color when mouse leaves.
+        /// </summary>
+        private Color _previousRowColor;
+
         #endregion
 
         #region CONSTRUCTOR
@@ -68,6 +74,8 @@ namespace FTree.View.Win32
             _achieves = new List<AchievementType>();
             _deathReasons = new List<DeathReasonDTO>();
             _buryPlaces = new List<BuryPlaceDTO>();
+
+            _initDataGridViewMouseHoverEvents();
         }
 
         #endregion
@@ -115,6 +123,35 @@ namespace FTree.View.Win32
         {
             _loadData();
         }
+        
+        private void dataGridView_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 
+                    || !(sender is DataGridView))
+                return;
+
+            DataGridView dg = sender as DataGridView;
+
+            if (dg.Rows.Count < 0)
+                return;
+
+            _previousRowColor = dg.Rows[e.RowIndex].DefaultCellStyle.BackColor;
+            dg.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
+        }
+
+        private void dataGridView_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0
+                    || !(sender is DataGridView))
+                return;
+
+            DataGridView dg = sender as DataGridView;
+
+            if (dg.Rows.Count < 0)
+                return;
+
+            dg.Rows[e.RowIndex].DefaultCellStyle.BackColor = _previousRowColor;
+        }
 
         #region TAB RELATION TYPE
 
@@ -130,12 +167,20 @@ namespace FTree.View.Win32
 
         private void dgRelationTypes_SelectionChanged(object sender, EventArgs e)
         {
-            if (_checkRelationTypesDataGrid())
+            try
             {
+                if (_checkRelationTypesDataGrid())
+                {
 
-                string name = (string)dgRelationTypes.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
-                _currentRelationType =
-                    _relationTypes.SingleOrDefault(type => type.Name == name);
+                    string name = (string)dgRelationTypes.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                    _currentRelationType =
+                        _relationTypes.SingleOrDefault(type => type.Name == name);
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOADING_DATA));
             }
         }
 
@@ -214,12 +259,20 @@ namespace FTree.View.Win32
 
         private void dgHomeTowns_SelectionChanged(object sender, EventArgs e)
         {
-            if (_checkHomeTownsDataGrid())
+            try
             {
+                if (_checkHomeTownsDataGrid())
+                {
 
-                string name = (string)dgHomeTowns.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
-                _currentHomeTown =
-                    _homeTowns.SingleOrDefault(entity => entity.Name == name);
+                    string name = (string)dgHomeTowns.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                    _currentHomeTown =
+                        _homeTowns.SingleOrDefault(entity => entity.Name == name);
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOADING_DATA));
             }
         }
 
@@ -296,12 +349,20 @@ namespace FTree.View.Win32
 
         private void dgCareers_SelectionChanged(object sender, EventArgs e)
         {
-            if (_checkCareersDataGrid())
+            try
             {
+                if (_checkCareersDataGrid())
+                {
 
-                string name = (string)dgCareers.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
-                _currentCareer =
-                    _careers.SingleOrDefault(entity => entity.Name == name);
+                    string name = (string)dgCareers.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                    _currentCareer =
+                        _careers.SingleOrDefault(entity => entity.Name == name);
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOADING_DATA));
             }
         }
 
@@ -378,12 +439,20 @@ namespace FTree.View.Win32
 
         private void dgAchievements_SelectionChanged(object sender, EventArgs e)
         {
-            if (_checkAchievesDataGrid())
+            try
             {
+                if (_checkAchievesDataGrid())
+                {
 
-                string name = (string)dgAchievements.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
-                _currentAchieve =
-                    _achieves.SingleOrDefault(entity => entity.Name == name);
+                    string name = (string)dgAchievements.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                    _currentAchieve =
+                        _achieves.SingleOrDefault(entity => entity.Name == name);
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOADING_DATA));
             }
         }
 
@@ -460,12 +529,20 @@ namespace FTree.View.Win32
 
         private void dgDeathReasons_SelectionChanged(object sender, EventArgs e)
         {
-            if (_checkDeathReasonsDataGrid())
+            try
             {
+                if (_checkDeathReasonsDataGrid())
+                {
 
-                string name = (string)dgDeathReasons.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
-                _currentDeathReason =
-                    _deathReasons.SingleOrDefault(entity => entity.Name == name);
+                    string name = (string)dgDeathReasons.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                    _currentDeathReason =
+                        _deathReasons.SingleOrDefault(entity => entity.Name == name);
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOADING_DATA));
             }
         }
 
@@ -542,12 +619,20 @@ namespace FTree.View.Win32
 
         private void dgBuryPlaces_SelectionChanged(object sender, EventArgs e)
         {
-            if (_checkBuryPlacesDataGrid())
+            try
             {
+                if (_checkBuryPlacesDataGrid())
+                {
 
-                string name = (string)dgBuryPlaces.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
-                _currentBuryPlace =
-                    _buryPlaces.SingleOrDefault(entity => entity.Name == name);
+                    string name = (string)dgBuryPlaces.SelectedRows[0].Cells[FTreeConst.NAME_FIELD].Value;
+                    _currentBuryPlace =
+                        _buryPlaces.SingleOrDefault(entity => entity.Name == name);
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(SettingsForm), exc);
+                UIUtils.Error(Util.GetStringResource(StringResName.ERR_LOADING_DATA));
             }
         }
 
@@ -630,7 +715,7 @@ namespace FTree.View.Win32
                 }
                 _setRelationTypesDataBindings();
                 _checkRelationTypesDataGrid();
-                
+                _formatDataGridRowColor(dgRelationTypes);
             }
             else if (selectedTab == tabHomeTown)
             {
@@ -642,6 +727,7 @@ namespace FTree.View.Win32
 
                 _setHomeTownDataBindings();
                 _checkHomeTownsDataGrid();
+                _formatDataGridRowColor(dgHomeTowns);
             }
             else if (selectedTab == tabOccupation)
             {
@@ -653,6 +739,7 @@ namespace FTree.View.Win32
 
                 _setCareerDataBindings();
                 _checkCareersDataGrid();
+                _formatDataGridRowColor(dgCareers);
             }
             else if (selectedTab == tabAchievements)
             {
@@ -664,6 +751,7 @@ namespace FTree.View.Win32
 
                 _setAchieveDataBindings();
                 _checkAchievesDataGrid();
+                _formatDataGridRowColor(dgAchievements);
             }
             else if (selectedTab == tabDeathReason)
             {
@@ -675,6 +763,7 @@ namespace FTree.View.Win32
 
                 _setDeathReasonDataBindings();
                 _checkDeathReasonsDataGrid();
+                _formatDataGridRowColor(dgDeathReasons);
             }
             else if (selectedTab == tabBuryPlace)
             {
@@ -686,6 +775,7 @@ namespace FTree.View.Win32
 
                 _setBuryPlaceDataBindings();
                 _checkBuryPlacesDataGrid();
+                _formatDataGridRowColor(dgBuryPlaces);
             }
             // Add all other tab pages here...
         }
@@ -1073,6 +1163,43 @@ namespace FTree.View.Win32
         private void _initPresenter()
         {
             _presenter = new SettingsManagerPresenter(this);
+        }
+
+        private void _formatDataGridRowColor(DataGridView dg)
+        {
+            if (dg == null)
+                return;
+
+            // Format the color of rows for easy-looking.
+            for (int i = 0; i < dg.Rows.Count; i++)
+            {
+                if (i % 2 == 0)
+                    dg.Rows[i].DefaultCellStyle.BackColor = Color.Azure;
+            }
+        }
+
+        /// <summary>
+        /// Assigns MouseLeave and MouseEnter events for each data grid views in this form.
+        /// </summary>
+        private void _initDataGridViewMouseHoverEvents()
+        {
+            dgRelationTypes.CellMouseEnter += new DataGridViewCellEventHandler(dataGridView_CellMouseEnter);
+            dgRelationTypes.CellMouseLeave += new DataGridViewCellEventHandler(dataGridView_CellMouseLeave);
+
+            dgHomeTowns.CellMouseEnter += new DataGridViewCellEventHandler(dataGridView_CellMouseEnter);
+            dgHomeTowns.CellMouseLeave += new DataGridViewCellEventHandler(dataGridView_CellMouseLeave);
+
+            dgCareers.CellMouseEnter += new DataGridViewCellEventHandler(dataGridView_CellMouseEnter);
+            dgCareers.CellMouseLeave += new DataGridViewCellEventHandler(dataGridView_CellMouseLeave);
+
+            dgAchievements.CellMouseEnter += new DataGridViewCellEventHandler(dataGridView_CellMouseEnter);
+            dgAchievements.CellMouseLeave += new DataGridViewCellEventHandler(dataGridView_CellMouseLeave);
+
+            dgDeathReasons.CellMouseEnter += new DataGridViewCellEventHandler(dataGridView_CellMouseEnter);
+            dgDeathReasons.CellMouseLeave += new DataGridViewCellEventHandler(dataGridView_CellMouseLeave);
+
+            dgBuryPlaces.CellMouseEnter += new DataGridViewCellEventHandler(dataGridView_CellMouseEnter);
+            dgBuryPlaces.CellMouseLeave += new DataGridViewCellEventHandler(dataGridView_CellMouseLeave);
         }
 
         #region RELATION TYPE

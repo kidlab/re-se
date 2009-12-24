@@ -37,5 +37,10 @@ namespace FTree.Presenter
         /// The selected relation type.
         /// </summary>
         RelationTypeDTO RelationType { get; set; }
+
+        /// <summary>
+        /// The selected AchievementInfo of this person.
+        /// </summary>
+        AchievementInfo SelectedAchievementInfo { get; set; }
     }
 }

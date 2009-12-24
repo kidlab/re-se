@@ -102,7 +102,7 @@ namespace FTree.Model
             _homeTownModel = new HomeTownModel(_db);
             _jobModel = new JobModel(_db);
             _achievementTypeModel = new AchievementTypeModel(_db);
-            _deadReasonModel = new DeadReasonModel(_db);
+            _deadReasonModel = new DeathReasonModel(_db);
             _buryPlaceModel = new BuryPlaceModel(_db);
         }
 

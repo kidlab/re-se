@@ -115,6 +115,15 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot determine the relationship between these people.
+        /// </summary>
+        internal static string ERR_FIND_RELATIONSHIP_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_FIND_RELATIONSHIP_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot add new family.
         /// </summary>
         internal static string ERR_INSERT_FAMILY_FAILED {
@@ -187,6 +196,24 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot load family tree.
+        /// </summary>
+        internal static string ERR_LOAD_FTREE_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_LOAD_FTREE_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some unexpected errors occured while loading data.
+        /// </summary>
+        internal static string ERR_LOADING_DATA {
+            get {
+                return ResourceManager.GetString("ERR_LOADING_DATA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The relation type &apos;{0}&apos; already exist.
         /// </summary>
         internal static string ERR_RELATION_TYPE_ALREADY_EXIST {
@@ -201,6 +228,24 @@ namespace FTree.Common {
         internal static string ERR_SAVE_DATA_FAILED {
             get {
                 return ResourceManager.GetString("ERR_SAVE_DATA_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find any entry.
+        /// </summary>
+        internal static string ERR_SEARCH_ENTRY_FAILED {
+            get {
+                return ResourceManager.GetString("ERR_SEARCH_ENTRY_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This couple have the same gender.
+        /// </summary>
+        internal static string ERR_SPOUSE_HAS_SAME_GENDER {
+            get {
+                return ResourceManager.GetString("ERR_SPOUSE_HAS_SAME_GENDER", resourceCulture);
             }
         }
         
@@ -241,6 +286,15 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This person was dead. Are you sure that you want to make any change on this person ?.
+        /// </summary>
+        internal static string MSG_ACTION_ON_DIED_PERSON {
+            get {
+                return ResourceManager.GetString("MSG_ACTION_ON_DIED_PERSON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure that you want to delete this entry ?.
         /// </summary>
         internal static string MSG_CONFIRM_DEL_ENTRY {
@@ -256,6 +310,16 @@ namespace FTree.Common {
         internal static string MSG_CONFIRM_DEL_FAMILY {
             get {
                 return ResourceManager.GetString("MSG_CONFIRM_DEL_FAMILY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want to delete the person &apos;{0}&apos; ?
+        ///CAUTION: This will delete all information of his/her relative members in database..
+        /// </summary>
+        internal static string MSG_CONFIRM_DEL_PERSON {
+            get {
+                return ResourceManager.GetString("MSG_CONFIRM_DEL_PERSON", resourceCulture);
             }
         }
         
@@ -302,6 +366,33 @@ namespace FTree.Common {
         internal static string MSG_FINISH_RELATIONSHIP {
             get {
                 return ResourceManager.GetString("MSG_FINISH_RELATIONSHIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Child&apos;s age is greater than or equal to parent&apos;s age. Are you sure you want  to do that ?.
+        /// </summary>
+        internal static string MSG_INVALID_AGE_CHILD_PARENT {
+            get {
+                return ResourceManager.GetString("MSG_INVALID_AGE_CHILD_PARENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This person already had a husband. Are you sure that you want to add a husband to this person ?.
+        /// </summary>
+        internal static string MSG_MORE_THAN_ONE_HUSBAND {
+            get {
+                return ResourceManager.GetString("MSG_MORE_THAN_ONE_HUSBAND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This person already had a wife. Are you sure that you want to add a wife to this person ?.
+        /// </summary>
+        internal static string MSG_MORE_THAN_ONE_WIFE {
+            get {
+                return ResourceManager.GetString("MSG_MORE_THAN_ONE_WIFE", resourceCulture);
             }
         }
         

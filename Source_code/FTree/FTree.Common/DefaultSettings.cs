@@ -12,5 +12,10 @@ namespace FTree.Common
             Child,
             Spouse
         }
+
+        public enum EventType
+        {
+            Marriage
+        }
     }
 }

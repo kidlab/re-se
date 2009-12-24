@@ -102,6 +102,20 @@ namespace FTree.View.Win32.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap death_info {
+            get {
+                object obj = ResourceManager.GetObject("death_info", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap death_info22 {
+            get {
+                object obj = ResourceManager.GetObject("death_info22", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap delete {
             get {
                 object obj = ResourceManager.GetObject("delete", resourceCulture);

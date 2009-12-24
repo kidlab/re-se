@@ -30,7 +30,7 @@ namespace FTree.Model
 
         #endregion
 
-        #region ILinqModel<FamilyMemberDTO> Members
+        #region CORE METHODS
 
         public IEnumerable<FamilyMemberDTO> GetEnumerator()
         {
@@ -47,10 +47,6 @@ namespace FTree.Model
                 throw new FTreeDbAccessException(exc);
             }
         }
-
-        #endregion
-
-        #region IModel<FamilyMemberDTO> Members
 
         /// <summary>
         /// Get all person in DB.
@@ -252,6 +248,29 @@ namespace FTree.Model
             }
         }
 
+        public void UpdateRelative(FamilyMemberDTO person, FamilyMemberDTO relative, RelationTypeDTO relationType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteRelative(FamilyMemberDTO person, FamilyMemberDTO relative)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public IList<AchievementInfo> GetAchievements(FamilyMemberDTO person)
+        {
+            try
+            {
+                return _getAchievements(person);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
         public void AssignAchievement(FamilyMemberDTO person, AchievementInfo achievement)
         {
             try
@@ -265,7 +284,6 @@ namespace FTree.Model
                 _db.MEMBER_EVENTs.InsertOnSubmit(mem_event);
                 this._save();
                 achievement.ID = mem_event.IDAchievementMember;
-                person.Achievements.Add(achievement);
             }
             catch (Exception exc)
             {
@@ -274,20 +292,128 @@ namespace FTree.Model
             }
         }
 
-        public void ReportDeath(FamilyMemberDTO person, DeathInfo deathInfo)
+        public void UpdateAchievement(FamilyMemberDTO person, AchievementInfo achievement)
+        {
+            try
+            {
+                IEnumerable<MEMBER_EVENT> matches =
+                    from achieve in _db.MEMBER_EVENTs
+                    where achieve.IDAchievementMember == achievement.ID
+                    select achieve;
+
+                MEMBER_EVENT mapper = matches.Single();
+                mapper.IDAchievementMember = achievement.ID;
+                mapper.IDMember = person.ID;
+
+                // System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException: 
+                // Operation is not valid due to the current state of the object.!!!
+                // mapper.IDEvent = achievement.AchievementType.ID;
+
+                mapper.EVENT = _db.EVENTs.Single(e => e.IDAchievement == achievement.AchievementType.ID);
+                mapper.AchievementDate = achievement.AchievementDate;
+                mapper.Description = achievement.Description;
+
+                this._save();
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        public void DeleteAchievement(AchievementInfo achievement)
+        {
+            try
+            {
+                IEnumerable<MEMBER_EVENT> matches =
+                    from achieve in _db.MEMBER_EVENTs
+                    where achieve.IDAchievementMember == achievement.ID
+                    select achieve;
+                
+                MEMBER_EVENT mapper = matches.Single();
+
+                _db.MEMBER_EVENTs.DeleteOnSubmit(mapper);
+
+                this._save();
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        public void ReportDeath(FamilyMemberDTO person)
         {
             try
             {
                 DEATH_INFO death = new DEATH_INFO();
                 death.IDMember = person.ID;
-                death.IDBuryPlace = deathInfo.BuryPlace.ID;
-                death.IDBuryReason = deathInfo.Reason.ID;
-                death.BuryDay = deathInfo.DeathDay;
+                death.IDBuryPlace = person.DeathInfo.BuryPlace.ID;
+                death.IDBuryReason = person.DeathInfo.Reason.ID;
+                death.BuryDay = person.DeathInfo.DeathDay;
 
                 _db.DEATH_INFOs.InsertOnSubmit(death);
                 this._save();
 
-                deathInfo.ID = person.ID;
+                person.DeathInfo.ID = person.ID;
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        public void UpdateDeathInfo(FamilyMemberDTO person)
+        {
+            try
+            {
+                IEnumerable<DEATH_INFO> matches =
+                    from deathInf in _db.DEATH_INFOs
+                    where deathInf.IDMember == person.ID
+                    select deathInf;
+
+                DEATH_INFO mapper = matches.Single();
+                
+                mapper.IDMember = person.ID;
+
+                // System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException: 
+                // Operation is not valid due to the current state of the object.!!!
+                // mapper.IDBuryPlace = person.DeathInfo.BuryPlace.ID;
+                mapper.BURYPLACE = 
+                    _db.BURYPLACEs.Single(place => place.IDBuryPlace == person.DeathInfo.BuryPlace.ID);
+
+                mapper.BURYREASON = 
+                    _db.BURYREASONs.Single(reason => reason.IDBuryReason == person.DeathInfo.Reason.ID);
+
+                mapper.BuryDay = person.DeathInfo.DeathDay;
+
+                this._save();
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        public void DeleteDeathInfo(FamilyMemberDTO person)
+        {
+
+            try
+            {
+                IEnumerable<DEATH_INFO> matches =
+                    from deathInf in _db.DEATH_INFOs
+                    where deathInf.IDMember == person.ID
+                    select deathInf;
+
+                DEATH_INFO mapper = matches.Single();
+
+                _db.DEATH_INFOs.DeleteOnSubmit(mapper);
+
+                this._save();
             }
             catch (Exception exc)
             {
@@ -324,11 +450,24 @@ namespace FTree.Model
             }
         }
 
+        public RelationTypeDTO GetRelationship(FamilyMemberDTO youngerPerson, FamilyMemberDTO olderPerson)
+        {
+            try
+            {
+                return _findRelationship(youngerPerson, olderPerson);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
         #endregion
 
         #region UTILITY METHODS
 
-        internal static MEMBER ConvertToMapper(FamilyMemberDTO dto)
+        internal MEMBER ConvertToMapper(FamilyMemberDTO dto)
         {
             MEMBER mapper = new MEMBER();
 
@@ -351,7 +490,8 @@ namespace FTree.Model
             if (mapper.BIRTHPLACE != null)
                 dto.HomeTown = HomeTownModel.ConvertToDTO(mapper.BIRTHPLACE);
 
-            dto.GenerationNumber = (int)mapper.GenLevel;
+            if (mapper.GenLevel != null)
+                dto.GenerationNumber = (int)mapper.GenLevel;
 
             if (mapper.FAMILY != null)
                 dto.Family = FamilyModel.ConvertToDTO(mapper.FAMILY);
@@ -366,20 +506,20 @@ namespace FTree.Model
             return dto;
         }
 
-        private static DeathInfo _getDeathInfo(MEMBER mapper)
+        internal static DeathInfo _getDeathInfo(MEMBER mapper)
         {
             if (mapper.DEATH_INFO == null)
                 return null;
 
             DeathInfo deathInfo = new DeathInfo();
             deathInfo.BuryPlace = BuryPlaceModel.ConvertToDTO(mapper.DEATH_INFO.BURYPLACE);
-            deathInfo.Reason = DeadReasonModel.ConvertToDTO(mapper.DEATH_INFO.BURYREASON);
+            deathInfo.Reason = DeathReasonModel.ConvertToDTO(mapper.DEATH_INFO.BURYREASON);
             deathInfo.DeathDay = mapper.DEATH_INFO.BuryDay.GetValueOrDefault();
 
             return deathInfo;
         }
 
-        private FamilyMemberDTO _getParent(bool isFather, MEMBER personMapper)
+        internal FamilyMemberDTO _getParent(bool isFather, MEMBER personMapper)
         {
             FamilyMemberDTO parent = null;
             IEnumerable<RELATIONSHIP> relationships = null;
@@ -387,7 +527,7 @@ namespace FTree.Model
             relationships =
                     from relation in personMapper.RELATIONSHIPs
                     where (relation.IDMember1 == personMapper.IDMember)
-                        && (relation.IDRelationship == (int)DefaultSettings.RelationType.Child)
+                        && (relation.RELATIONSHIP_TYPE.Name.ToUpper() == DefaultSettings.RelationType.Child.ToString().ToUpper())
                     select relation;
             List<RELATIONSHIP> lstRelations = relationships.ToList();
 
@@ -418,9 +558,9 @@ namespace FTree.Model
             return parent;
         }
 
-        private static List<FamilyMemberDTO> _getSpouses(MEMBER personMapper)
+        internal List<FamilyMemberDTO> _getSpouses(MEMBER personMapper)
         {
-            List<FamilyMemberDTO> spouses = null;
+            List<FamilyMemberDTO> spouses = new List<FamilyMemberDTO>();
             IEnumerable<RELATIONSHIP> relationships = null;
 
             if (IsFemale(personMapper))
@@ -429,12 +569,11 @@ namespace FTree.Model
                 relationships =
                     from relation in personMapper.RELATIONSHIPs1
                     where (relation.IDMember2 == personMapper.IDMember)
-                        && (relation.IDRelationship == (int)DefaultSettings.RelationType.Spouse)
+                        && (relation.RELATIONSHIP_TYPE.Name.ToUpper() == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
                     select relation;
                 List<RELATIONSHIP> lstRelations = relationships.ToList();
                 if (lstRelations.Count > 0)
                 {
-                    spouses = new List<FamilyMemberDTO>();
                     foreach (RELATIONSHIP r in lstRelations)
                     {
                         FamilyMemberDTO husband = ConvertToDTO(r.MEMBER);
@@ -448,12 +587,11 @@ namespace FTree.Model
                 relationships =
                     from relation in personMapper.RELATIONSHIPs
                     where (relation.IDMember1 == personMapper.IDMember)
-                        && (relation.IDRelationship == (int)DefaultSettings.RelationType.Spouse)
+                        && (relation.RELATIONSHIP_TYPE.Name.ToUpper() == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
                     select relation;
                 List<RELATIONSHIP> lstRelations = relationships.ToList();
                 if (lstRelations.Count > 0)
                 {
-                    spouses = new List<FamilyMemberDTO>();
                     foreach (RELATIONSHIP r in lstRelations)
                     {
                         FamilyMemberDTO wife = ConvertToDTO(r.MEMBER1);
@@ -465,7 +603,7 @@ namespace FTree.Model
             return spouses;
         }
 
-        private static List<FamilyMemberDTO> _getChildren(MEMBER personMapper)
+        internal List<FamilyMemberDTO> _getChildren(MEMBER personMapper)
         {
             List<FamilyMemberDTO> children = null;
             IEnumerable<RELATIONSHIP> relationships = null;
@@ -473,7 +611,7 @@ namespace FTree.Model
             relationships =
                     from relation in personMapper.RELATIONSHIPs1
                     where (relation.IDMember2 == personMapper.IDMember)
-                        && (relation.IDRelationship == (int)DefaultSettings.RelationType.Child)
+                        && (relation.RELATIONSHIP_TYPE.Name.ToUpper() == DefaultSettings.RelationType.Child.ToString().ToUpper())
                     select relation;
             List<RELATIONSHIP> lstRelations = relationships.ToList();
             if (lstRelations.Count > 0)
@@ -489,21 +627,28 @@ namespace FTree.Model
             return children;
         }
 
-        private static List<int> _getChildrenIDs(MEMBER personMapper)
+        internal static List<int> _getChildrenIDs(MEMBER personMapper)
         {
             IEnumerable<int> relationships = null;
 
             relationships =
                     from relation in personMapper.RELATIONSHIPs1
                     where (relation.IDMember2 == personMapper.IDMember)
-                        && (relation.IDRelationship == (int)DefaultSettings.RelationType.Child)
+                        && (relation.RELATIONSHIP_TYPE.Name.ToUpper() == DefaultSettings.RelationType.Child.ToString().ToUpper())
                     select relation.IDMember1;
 
             return relationships.ToList(); ;
         }
 
-        private static List<AchievementInfo> _getAchievements(MEMBER personMapper)
+        private List<AchievementInfo> _getAchievements(FamilyMemberDTO dto)
         {
+            IEnumerable<MEMBER> matches =
+                from person in _db.MEMBERs
+                where person.IDMember == dto.ID
+                select person;
+
+            MEMBER personMapper = matches.Single();
+
             List<AchievementInfo> achievements = new List<AchievementInfo>();
             foreach (MEMBER_EVENT memEvent in personMapper.MEMBER_EVENTs)
             {
@@ -512,7 +657,7 @@ namespace FTree.Model
                 aInfo.AchievementDate = memEvent.AchievementDate.GetValueOrDefault();
                 aInfo.ID = memEvent.IDAchievementMember;
                 aInfo.Description = memEvent.Description;
-
+                aInfo.State = DataState.Copied;
                 achievements.Add(aInfo);
             }
 
@@ -524,7 +669,7 @@ namespace FTree.Model
             return (byte)personMapper.Gender == FTreeConst.FEMALE ? true : false;
         }
 
-        private static void _updateModel(ref MEMBER mapper, FamilyMemberDTO dto)
+        private void _updateModel(ref MEMBER mapper, FamilyMemberDTO dto)
         {
             mapper.IDMember = dto.ID;
             
@@ -547,10 +692,17 @@ namespace FTree.Model
 
             if (dto.IsDead)
             {
-                mapper.DEATH_INFO.IDMember = dto.ID;
+                // System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException: 
+                // Operation is not valid due to the current state of the object.!!!
+                //  mapper.DEATH_INFO.IDBuryReason = bla bla bla... (ERROR!)
+                mapper.DEATH_INFO.MEMBER = mapper;
                 mapper.DEATH_INFO.BuryDay = dto.DeathInfo.DeathDay;
-                mapper.DEATH_INFO.IDBuryReason = dto.DeathInfo.Reason.ID;
-                mapper.DEATH_INFO.IDBuryPlace = dto.DeathInfo.BuryPlace.ID;
+
+                mapper.DEATH_INFO.BURYREASON = 
+                    _db.BURYREASONs.Single(reason => reason.IDBuryReason == dto.DeathInfo.Reason.ID);
+
+                mapper.DEATH_INFO.BURYPLACE = 
+                    _db.BURYPLACEs.Single(place => place.IDBuryPlace == dto.DeathInfo.BuryPlace.ID);
             }
 
             if (dto.GenerationNumber > 0)
@@ -565,6 +717,25 @@ namespace FTree.Model
                 select entry;
 
             return matches;
+        }
+
+        private RelationTypeDTO _findRelationship(FamilyMemberDTO youngerPerson, FamilyMemberDTO olderPerson)
+        {
+            RelationTypeDTO relation = null;
+
+            IEnumerable<RELATIONSHIP_TYPE> matches =
+                from relationship in _db.RELATIONSHIPs
+                join relationType in _db.RELATIONSHIP_TYPEs
+                on relationship.IDRelationship equals relationType.IDRelationship
+                where (youngerPerson.ID == relationship.IDMember1)
+                    && (olderPerson.ID == relationship.IDMember2)
+                select relationType;
+
+            RELATIONSHIP_TYPE mapper = matches.SingleOrDefault();
+
+            relation = RelationTypeModel.ConvertToDTO(mapper);
+
+            return relation;
         }
 
         #endregion

@@ -76,7 +76,7 @@ namespace FTree.Model
             try
             {
                 if (_autoSubmitChanges)
-                    Save();
+                    this.Save();
             }
             catch (Exception exc)
             {

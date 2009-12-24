@@ -12,13 +12,13 @@ namespace FTree.Presenter.ViewModel
     {
         #region VARIABLES
 
-        private static readonly TreeViewItemViewModel DummyChild = new TreeViewItemViewModel();
-
         private readonly ObservableCollection<TreeViewItemViewModel> _children;
         private readonly TreeViewItemViewModel _parent;
 
-        bool _isExpanded;
-        bool _isSelected;
+        private bool _isExpanded;
+        private bool _isSelected;
+        private bool _isLoadChildren = false;
+        protected static bool _isLazyLoad = true;
 
         #endregion
 
@@ -30,8 +30,7 @@ namespace FTree.Presenter.ViewModel
 
             _children = new ObservableCollection<TreeViewItemViewModel>();
 
-            if (lazyLoadChildren)
-                _children.Add(DummyChild);
+            _isLazyLoad = lazyLoadChildren;
         }
 
         // This is used to create the DummyChild instance.
@@ -49,14 +48,6 @@ namespace FTree.Presenter.ViewModel
         public ObservableCollection<TreeViewItemViewModel> Children
         {
             get { return _children; }
-        }
-
-        /// <summary>
-        /// Returns true if this object's Children have not yet been populated.
-        /// </summary>
-        public bool HasDummyChild
-        {
-            get { return this.Children.Count == 1 && this.Children[0] == DummyChild; }
         }
 
         /// <summary>
@@ -79,10 +70,10 @@ namespace FTree.Presenter.ViewModel
                     _parent.IsExpanded = true;
 
                 // Lazy load the child items, if necessary.
-                if (this.HasDummyChild)
+                if (_isLazyLoad && !_isLoadChildren)
                 {
-                    this.Children.Remove(DummyChild);
                     this.LoadChildren();
+                    _isLoadChildren = true;
                 }
             }
         }
@@ -104,10 +95,26 @@ namespace FTree.Presenter.ViewModel
             }
         }
 
+        /// <summary>
+        /// Get the parent TreeViewItemViewModel containing this item.
+        /// </summary>
         public TreeViewItemViewModel Parent
         {
             get { return _parent; }
         }
+
+        /// <summary>
+        /// Gets the value determining to load children of this object lazily or not.
+        /// </summary>
+        public bool IsLazyLoading
+        {
+            get { return _isLazyLoad; }
+        }
+
+        /// <summary>
+        /// Gets or sets the object that contains data about this item.
+        /// </summary>
+        public object Tag;
 
         #endregion
 
@@ -118,7 +125,7 @@ namespace FTree.Presenter.ViewModel
         /// Subclasses can override this to populate the Children collection.
         /// </summary>
         protected virtual void LoadChildren()
-        {
+        {            
         }
 
         #endregion
