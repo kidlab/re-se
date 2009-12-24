@@ -188,8 +188,13 @@ namespace FTree.View.Win32
         {
             if (dgRelationTypes.Columns[e.ColumnIndex].Name != FTreeConst.NAME_FIELD)
                 return;
-
+            
             _strOldData = dgRelationTypes[e.ColumnIndex, e.RowIndex].Value.ToString();
+
+            if (_isUnChangeableRelationType(_strOldData.ToUpper().Trim()))
+            {
+                e.Cancel = true;
+            }
         }
 
         private void dgRelationTypes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -819,6 +824,11 @@ namespace FTree.View.Win32
         {
             try
             {
+                if (_isUnChangeableRelationType(_currentRelationType.Name.ToUpper().Trim()))
+                {
+                    return;
+                }
+
                 // Ask for confirm.
                 DialogResult result = UIUtils.ConfirmOKCancel(Util.GetStringResource(StringResName.MSG_CONFIRM_DEL_ENTRY));
 
@@ -1200,6 +1210,18 @@ namespace FTree.View.Win32
 
             dgBuryPlaces.CellMouseEnter += new DataGridViewCellEventHandler(dataGridView_CellMouseEnter);
             dgBuryPlaces.CellMouseLeave += new DataGridViewCellEventHandler(dataGridView_CellMouseLeave);
+        }
+
+        private bool _isUnChangeableRelationType(string name)
+        {
+            if (name == DefaultSettings.RelationType.Child.ToString().ToUpper()
+                    || name == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
+            {
+                UIUtils.Warning(Util.GetStringResource(StringResName.MSG_DEL_CONSTANT_RELATIONSHIP));
+                return true;
+            }
+
+            return false;
         }
 
         #region RELATION TYPE

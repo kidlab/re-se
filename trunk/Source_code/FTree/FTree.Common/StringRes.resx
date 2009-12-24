@@ -210,6 +210,9 @@ CAUTION: This will delete all information of family members in database.</value>
     <value>Are you sure that you want to delete the person '{0}' ?
 CAUTION: This will delete all information of his/her relative members in database.</value>
   </data>
+  <data name="MSG_DEL_CONSTANT_RELATIONSHIP" xml:space="preserve">
+    <value>This relation type cannot be changed</value>
+  </data>
   <data name="MSG_DUPLICATED_PEOPLE" xml:space="preserve">
     <value>The person '{0}' already exists.
 Are you sure that you want to add a new one with the same name ?</value>
