@@ -55,16 +55,23 @@
             this.familyManagerToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.addFamilyToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.addPersonToolStripButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.addRootPersonMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPersonMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.achieveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.reportDeathToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.reportToolStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.familyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.achievementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.memToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.contentSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.wpfTreeViewHost = new System.Windows.Forms.Integration.ElementHost();
+            this.familyTreeView = new FTree.View.Win32.Components.Wpf.FamilyTreeView();
+            this.wpfVisualFTreeHost = new System.Windows.Forms.Integration.ElementHost();
+            this.visualFamilyTreeView = new FTree.View.Win32.Components.Wpf.VisualFamilyTreeView();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addRootPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,12 +79,6 @@
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.propertyBottomSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wpfTreeViewHost = new System.Windows.Forms.Integration.ElementHost();
-            this.familyTreeView = new FTree.View.Win32.Components.Wpf.FamilyTreeView();
-            this.wpfVisualFTreeHost = new System.Windows.Forms.Integration.ElementHost();
-            this.visualFamilyTreeView = new FTree.View.Win32.Components.Wpf.VisualFamilyTreeView();
-            this.addRootPersonMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addPersonMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.mainLayoutPanel.SuspendLayout();
             this.mainToolStrip.SuspendLayout();
@@ -319,6 +320,20 @@
             this.addPersonToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.addPersonToolStripButton.ButtonClick += new System.EventHandler(this.addPersonToolStripButton_Click);
             // 
+            // addRootPersonMainMenuItem
+            // 
+            this.addRootPersonMainMenuItem.Name = "addRootPersonMainMenuItem";
+            this.addRootPersonMainMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addRootPersonMainMenuItem.Text = "Add Root Person";
+            this.addRootPersonMainMenuItem.Click += new System.EventHandler(this.addRootPersonMainMenuItem_Click);
+            // 
+            // addPersonMainMenuItem
+            // 
+            this.addPersonMainMenuItem.Name = "addPersonMainMenuItem";
+            this.addPersonMainMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addPersonMainMenuItem.Text = "Add Person";
+            this.addPersonMainMenuItem.Click += new System.EventHandler(this.addPersonMainMenuItem_Click);
+            // 
             // achieveToolStripButton
             // 
             this.achieveToolStripButton.Image = global::FTree.View.Win32.Properties.Resources.achievement;
@@ -348,7 +363,8 @@
             // 
             this.reportToolStripSplitButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.familyToolStripMenuItem,
-            this.achievementToolStripMenuItem});
+            this.achievementToolStripMenuItem,
+            this.memToolStripMenuItem});
             this.reportToolStripSplitButton.Image = global::FTree.View.Win32.Properties.Resources.report;
             this.reportToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.reportToolStripSplitButton.Name = "reportToolStripSplitButton";
@@ -361,7 +377,7 @@
             // 
             this.familyToolStripMenuItem.Image = global::FTree.View.Win32.Properties.Resources.member_report;
             this.familyToolStripMenuItem.Name = "familyToolStripMenuItem";
-            this.familyToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.familyToolStripMenuItem.Size = new System.Drawing.Size(184, 54);
             this.familyToolStripMenuItem.Text = "Family";
             this.familyToolStripMenuItem.Click += new System.EventHandler(this.familyToolStripMenuItem_Click);
             // 
@@ -369,9 +385,17 @@
             // 
             this.achievementToolStripMenuItem.Image = global::FTree.View.Win32.Properties.Resources.achievement_report;
             this.achievementToolStripMenuItem.Name = "achievementToolStripMenuItem";
-            this.achievementToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.achievementToolStripMenuItem.Size = new System.Drawing.Size(184, 54);
             this.achievementToolStripMenuItem.Text = "Achievement";
             this.achievementToolStripMenuItem.Click += new System.EventHandler(this.achievementToolStripMenuItem_Click);
+            // 
+            // memToolStripMenuItem
+            // 
+            this.memToolStripMenuItem.Image = global::FTree.View.Win32.Properties.Resources.member_list;
+            this.memToolStripMenuItem.Name = "memToolStripMenuItem";
+            this.memToolStripMenuItem.Size = new System.Drawing.Size(184, 54);
+            this.memToolStripMenuItem.Text = "Member List";
+            this.memToolStripMenuItem.Click += new System.EventHandler(this.memToolStripMenuItem_Click);
             // 
             // settingsToolStripButton
             // 
@@ -414,6 +438,26 @@
             this.contentSplitContainer.Size = new System.Drawing.Size(744, 448);
             this.contentSplitContainer.SplitterDistance = 231;
             this.contentSplitContainer.TabIndex = 1;
+            // 
+            // wpfTreeViewHost
+            // 
+            this.wpfTreeViewHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wpfTreeViewHost.Location = new System.Drawing.Point(0, 0);
+            this.wpfTreeViewHost.Name = "wpfTreeViewHost";
+            this.wpfTreeViewHost.Size = new System.Drawing.Size(231, 448);
+            this.wpfTreeViewHost.TabIndex = 0;
+            this.wpfTreeViewHost.Text = "wpfTreeViewHost";
+            this.wpfTreeViewHost.Child = this.familyTreeView;
+            // 
+            // wpfVisualFTreeHost
+            // 
+            this.wpfVisualFTreeHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wpfVisualFTreeHost.Location = new System.Drawing.Point(0, 0);
+            this.wpfVisualFTreeHost.Name = "wpfVisualFTreeHost";
+            this.wpfVisualFTreeHost.Size = new System.Drawing.Size(509, 448);
+            this.wpfVisualFTreeHost.TabIndex = 0;
+            this.wpfVisualFTreeHost.Text = "wpfVisualFTreeHost";
+            this.wpfVisualFTreeHost.Child = this.visualFamilyTreeView;
             // 
             // contextMenuStrip
             // 
@@ -465,44 +509,11 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
-            // wpfTreeViewHost
-            // 
-            this.wpfTreeViewHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wpfTreeViewHost.Location = new System.Drawing.Point(0, 0);
-            this.wpfTreeViewHost.Name = "wpfTreeViewHost";
-            this.wpfTreeViewHost.Size = new System.Drawing.Size(231, 448);
-            this.wpfTreeViewHost.TabIndex = 0;
-            this.wpfTreeViewHost.Text = "wpfTreeViewHost";
-            this.wpfTreeViewHost.Child = this.familyTreeView;
-            // 
-            // wpfVisualFTreeHost
-            // 
-            this.wpfVisualFTreeHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wpfVisualFTreeHost.Location = new System.Drawing.Point(0, 0);
-            this.wpfVisualFTreeHost.Name = "wpfVisualFTreeHost";
-            this.wpfVisualFTreeHost.Size = new System.Drawing.Size(509, 448);
-            this.wpfVisualFTreeHost.TabIndex = 0;
-            this.wpfVisualFTreeHost.Text = "wpfVisualFTreeHost";
-            this.wpfVisualFTreeHost.Child = this.visualFamilyTreeView;
-            // 
-            // addRootPersonMainMenuItem
-            // 
-            this.addRootPersonMainMenuItem.Name = "addRootPersonMainMenuItem";
-            this.addRootPersonMainMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.addRootPersonMainMenuItem.Text = "Add Root Person";
-            this.addRootPersonMainMenuItem.Click += new System.EventHandler(this.addRootPersonMainMenuItem_Click);
-            // 
-            // addPersonMainMenuItem
-            // 
-            this.addPersonMainMenuItem.Name = "addPersonMainMenuItem";
-            this.addPersonMainMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.addPersonMainMenuItem.Text = "Add Person";
-            this.addPersonMainMenuItem.Click += new System.EventHandler(this.addPersonMainMenuItem_Click);
-            // 
             // FTreeMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(750, 522);
             this.Controls.Add(this.mainLayoutPanel);
             this.Controls.Add(this.mainMenuStrip);
@@ -577,6 +588,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addRootPersonMainMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addPersonMainMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem memToolStripMenuItem;
     }
 }
 

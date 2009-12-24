@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,71 @@ namespace FTree.Presenter
             try
             {                
                 _view.Families = _model.GetAll();
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_FAMILIES_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_FAMILIES_FAILED));
+            }
+        }
+
+        public IList<MemberReportItem> GetFamilyMemberReport(IList<FamilyMemberDTO> members)
+        {
+            try
+            {
+                IList<MemberReportItem> result = new List<MemberReportItem>();
+                int order = 0;
+
+                foreach (FamilyMemberDTO member in members)
+                {
+                    MemberReportItem item = new MemberReportItem();
+                    item.ID = member.ID;
+                    item.Number = ++order;
+                    item.FullName = member.ToString();
+                    item.BirthDay = member.Birthday;
+                    item.GenLevel = member.GenerationNumber;
+
+                    if (member.Father != null)
+                        item.FatherName = member.Father.ToString();
+                    if (member.Mother != null)
+                        item.MotherName = member.Mother.ToString();
+
+                    result.Add(item);
+                }
+
+                return result;
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_FAMILIES_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_LOAD_FAMILIES_FAILED));
+            }
+        }
+
+        public IList<FamilyMemberDTO> LoadALlMembers(int familyID)
+        {
+            try
+            {
+                IFamilyMemberModel model = new FamilyMemberModel();
+                IList<FamilyMemberDTO> result = model.GetAll(familyID);
+
+                foreach (FamilyMemberDTO dto in result)
+                {
+                    dto.Father = model.GetParent(true, dto);
+                    dto.Mother = model.GetParent(false, dto);
+                }
+
+                return result;
             }
             catch (FTreeDbAccessException exc)
             {
@@ -483,6 +549,16 @@ namespace FTree.Presenter
         {
             _model = null;
             _view = null;
+        }
+
+        public class MemberReportItem : DataTransferObject
+        {
+            public int Number { get; set; }
+            public string FullName { get; set; }
+            public DateTime BirthDay { get; set; }
+            public int GenLevel { get; set; }
+            public string FatherName { get; set; }
+            public string MotherName { get; set; }
         }
 
         #endregion

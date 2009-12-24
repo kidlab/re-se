@@ -138,6 +138,12 @@
     <Compile Include="ListResultForm.Designer.cs">
       <DependentUpon>ListResultForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MemberListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MemberListForm.Designer.cs">
+      <DependentUpon>MemberListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListResultForm.resx">
       <DependentUpon>ListResultForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemberListForm.resx">
+      <DependentUpon>MemberListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
@@ -231,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ftree.ico" />
+    <None Include="images\member_list.png" />
     <None Include="images\back.png" />
     <None Include="images\delete_person.png" />
     <None Include="images\death_info22.png" />
