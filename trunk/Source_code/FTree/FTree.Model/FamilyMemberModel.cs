@@ -707,7 +707,7 @@ namespace FTree.Model
             deathInfo.BuryPlace = BuryPlaceModel.ConvertToDTO(mapper.DEATH_INFO.BURYPLACE);
             deathInfo.Reason = DeathReasonModel.ConvertToDTO(mapper.DEATH_INFO.BURYREASON);
             deathInfo.DeathDay = mapper.DEATH_INFO.BuryDay.GetValueOrDefault();
-
+            deathInfo.State = DataState.Copied;
             return deathInfo;
         }
 
@@ -892,7 +892,7 @@ namespace FTree.Model
                 // System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException: 
                 // Operation is not valid due to the current state of the object.!!!
                 //  mapper.DEATH_INFO.IDBuryReason = bla bla bla... (ERROR!)
-                mapper.DEATH_INFO.MEMBER = mapper;
+                //mapper.DEATH_INFO.MEMBER = mapper;
                 mapper.DEATH_INFO.BuryDay = dto.DeathInfo.DeathDay;
 
                 mapper.DEATH_INFO.BURYREASON = 
