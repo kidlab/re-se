@@ -165,6 +165,9 @@ namespace FTree.View.Win32
                     case DataFormMode.Edit:
                         if (_isDataChanged())
                         {
+                            if (!_acceptDuplicatedPerson())
+                                return;
+
                             _generateDTO();
                             ThreadHelper.DoWork(_presenter.Update);
                         }
@@ -173,6 +176,10 @@ namespace FTree.View.Win32
 
                     case DataFormMode.CreateNew:
                         _generateDTO();
+
+                        if (!_acceptDuplicatedPerson())
+                            return;
+
                         if (!_checkRelationshipConstraint())
                             return;
                         _addNewPerson();
@@ -773,8 +780,12 @@ namespace FTree.View.Win32
             else
                 this.BackColor = System.Drawing.SystemColors.Control;
         }
+
         private bool _checkRelationshipConstraint()
         {
+            if (_selectedRelativePerson == null)
+                return true;
+
             string name = _selectedRelationType.Name.ToUpper();
 
             #region Check Spouses > 1
@@ -831,6 +842,21 @@ namespace FTree.View.Win32
             }
 
             #endregion
+
+            return true;
+        }
+
+        private bool _acceptDuplicatedPerson()
+        {
+            int num = _presenter.CountPersonByFullname(_currentMember.ToString());
+            if ((_mode == DataFormMode.CreateNew && num > 0)
+                    || (_mode == DataFormMode.Edit && num > 1))
+            {
+                string message = String.Format(Util.GetStringResource(StringResName.MSG_DUPLICATED_PEOPLE), _currentMember.ToString());
+                DialogResult result = UIUtils.ConfirmOKCancel(message);
+                if (result == DialogResult.Cancel)
+                    return false;
+            }
 
             return true;
         }

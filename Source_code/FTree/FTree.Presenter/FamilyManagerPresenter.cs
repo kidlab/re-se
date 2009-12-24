@@ -156,10 +156,19 @@ namespace FTree.Presenter
             }
         }
 
+        /// <summary>
+        /// Delete entirely a family, included all its members.
+        /// </summary>
         public void Delete()
         {
             try
             {
+                if (_view.CurrentFamily.RootPerson != null)
+                {
+                    IFamilyMemberModel memModel = new FamilyMemberModel();
+                    memModel.Delete(_view.CurrentFamily.RootPerson);
+                }
+
                 _model.Delete(_view.CurrentFamily);
             }
             catch (FTreeDbAccessException exc)
@@ -171,6 +180,194 @@ namespace FTree.Presenter
             {
                 Tracer.Log(typeof(FamilyManagerPresenter), exc);
                 throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_FAMILY_FAILED));
+            }
+        }
+
+        /// <summary>
+        /// Delete entirely a member's information in DB.
+        /// </summary>
+        /// <param name="person"></param>
+        public static void DeletePerson(FamilyMemberDTO person)
+        {
+            try
+            {
+                if (person == null)
+                    return;
+
+                IFamilyMemberModel memModel = new FamilyMemberModel();
+                memModel.Delete(person);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        /// <summary>
+        /// Delete entirely a member's information in DB, included all its descendant and relationship, except spouses.
+        /// </summary>
+        /// <param name="person"></param>
+        public static void DeleteKeepSpouse(FamilyMemberDTO person)
+        {
+            try
+            {
+                IFamilyMemberModel memModel = new FamilyMemberModel();
+
+                // Keep all spouses of this person.
+                // 1. Gets the parent of this person.
+                FamilyMemberDTO relative = null;
+                if (person.Father != null)
+                    relative = person.Father;
+                else if (person.Mother != null)
+                    relative = person.Mother;
+                else
+                {
+                    // Try to search in DB.
+                    relative = memModel.GetParent(true, person);
+
+                    if(relative == null)
+                        relative = memModel.GetParent(false, person);
+                }
+
+                if (relative != null && person.Spouses != null)
+                {
+                    RelationTypeModel typeModel = new RelationTypeModel();
+                    RelationTypeDTO relationType = typeModel.FindByName(DefaultSettings.RelationType.Child.ToString()).Single();
+
+                    // 2. Add relationship between spouses and parent.
+                    foreach (FamilyMemberDTO spouse in person.Spouses)
+                        memModel.AddRelative(spouse, relative, relationType);
+                }
+
+                memModel.Delete(person);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        /// <summary>
+        /// Delete a member's information in DB, except spouses and children.
+        /// </summary>
+        /// <param name="person"></param>
+        public static void DeleteKeepSpouseAndChildren(FamilyMemberDTO person)
+        {
+            try
+            {
+                IFamilyMemberModel memModel = new FamilyMemberModel();
+
+                if (person.Spouses != null && person.Spouses.Count > 0)
+                {
+                    // Keep all spouses and children of this person.
+                    // 1. Gets the parent of this person.
+                    FamilyMemberDTO relative = null;
+                    if (person.Father != null)
+                        relative = person.Father;
+                    else if (person.Mother != null)
+                        relative = person.Mother;
+                    else
+                    {
+                        // Try to search in DB.
+                        relative = memModel.GetParent(true, person);
+
+                        if (relative == null)
+                            relative = memModel.GetParent(false, person);
+                    }
+
+                    RelationTypeModel typeModel = new RelationTypeModel();
+                    RelationTypeDTO relationType = typeModel.FindByName(DefaultSettings.RelationType.Child.ToString()).Single();
+
+                    if (relative != null)
+                    {                       
+
+                        // 2. Add relationship between spouses and parent.
+                        foreach (FamilyMemberDTO spouse in person.Spouses)
+                            memModel.AddRelative(spouse, relative, relationType);
+                    }
+
+                    // 3. Add relationship between spouse and children.
+                    foreach (FamilyMemberDTO child in person.Descendants)
+                        memModel.AddRelative(child, person.Spouses[0], relationType);
+                }
+
+                memModel.Delete(person);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+        }
+
+        /// <summary>
+        /// Delete a member's information in DB, then shift all his children to a new one.
+        /// </summary>
+        /// <param name="person"></param>
+        /// <param name="newParent">The new person will manage the children of the deleted person.</param>
+        public static void DeleteKeepChildren(FamilyMemberDTO person)
+        {
+            try
+            {
+                if (person == null)
+                    return;
+
+                IFamilyMemberModel memModel = new FamilyMemberModel();
+
+                // 1. Gets the parent of this person.
+                FamilyMemberDTO newParent = null;
+                if (person.Father != null)
+                    newParent = person.Father;
+                else if (person.Mother != null)
+                    newParent = person.Mother;
+                else
+                {
+                    // Try to search in DB.
+                    newParent = memModel.GetParent(true, person);
+
+                    if (newParent == null)
+                        newParent = memModel.GetParent(false, person);
+                }
+
+
+                if (newParent != null)
+                {
+                    RelationTypeModel typeModel = new RelationTypeModel();
+                    RelationTypeDTO relationType = typeModel.FindByName(DefaultSettings.RelationType.Child.ToString()).Single();
+
+                    // Add relationship between new parent and children.
+                    foreach (FamilyMemberDTO child in person.Descendants)
+                        memModel.AddRelative(child, newParent, relationType);
+                }
+
+                memModel.Delete(person);
+            }
+            catch (FTreeDbAccessException exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyManagerPresenter), exc);
+                throw new FTreePresenterException(exc, Util.GetStringResource(StringResName.ERR_DELETE_ENTRY_FAILED));
             }
         }
 

@@ -51,16 +51,16 @@
             this.lblInfo.AutoSize = true;
             this.lblInfo.Location = new System.Drawing.Point(12, 9);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(111, 13);
+            this.lblInfo.Size = new System.Drawing.Size(69, 13);
             this.lblInfo.TabIndex = 1;
-            this.lblInfo.Text = "Report a sad news of:";
+            this.lblInfo.Text = "Sad news of:";
             // 
             // lblPersonName
             // 
             this.lblPersonName.AutoSize = true;
             this.lblPersonName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPersonName.ForeColor = System.Drawing.Color.Red;
-            this.lblPersonName.Location = new System.Drawing.Point(129, 9);
+            this.lblPersonName.Location = new System.Drawing.Point(87, 9);
             this.lblPersonName.Name = "lblPersonName";
             this.lblPersonName.Size = new System.Drawing.Size(82, 13);
             this.lblPersonName.TabIndex = 10;

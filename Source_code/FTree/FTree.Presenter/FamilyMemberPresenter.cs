@@ -379,6 +379,12 @@ namespace FTree.Presenter
             _view = null;
         }
 
+        public int CountPersonByFullname(string fullName)
+        {
+            IList<FamilyMemberDTO> matches = _model.FindByFullName(fullName.Trim());
+            return matches.Count;
+        }
+
         /// <summary>
         /// Checks that the current selected relative person already had spouse(s) or not.
         /// </summary>

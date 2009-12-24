@@ -151,6 +151,8 @@ namespace FTree.Model
         {
             try
             {
+                _refreshDataContext();
+
                 FAMILY mapper = _search(obj).SingleOrDefault();
 
                 if (mapper == null)

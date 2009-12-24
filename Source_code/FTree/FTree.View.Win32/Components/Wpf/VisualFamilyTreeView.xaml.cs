@@ -1,8 +1,13 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FTree.Presenter;
 using FTree.Presenter.ViewModel;
+using FTree.DTO;
+using FTree.Common;
 
 namespace FTree.View.Win32.Components.Wpf
 {
@@ -42,6 +47,11 @@ namespace FTree.View.Win32.Components.Wpf
             get { return visualTree; }
         }
 
+        public FamilyViewModel Family
+        {
+            get { return _family; }
+        }
+
         public VisualFamilyTreeView()
         {
             InitializeComponent();    
@@ -57,6 +67,45 @@ namespace FTree.View.Win32.Components.Wpf
                 _family.Children[0].IsExpanded = true;
             // Let the UI bind to the view-model.
             base.DataContext = _family;
+        }
+
+        public void SelectPerson(PersonViewModel person)
+        {
+            try
+            {
+                if (this.visualTree.Items.Count <= 0 || person == null)
+                    return;
+
+                Stack<PersonViewModel> stack = new Stack<PersonViewModel>();
+                PersonViewModel item = this.visualTree.Items[0] as PersonViewModel;
+
+                while (true)
+                {
+                    if (item == null)
+                        return;
+
+
+                    if (item.FullName == person.FullName)
+                    {
+                        item.IsSelected = true;
+                        return;
+                    }
+
+                    foreach (PersonViewModel subItem in item.Children)
+                    {
+                        stack.Push(subItem);
+                    }
+
+                    if (stack.Count > 0)
+                        item = stack.Pop();
+                    else
+                        break;
+                }
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(VisualFamilyTreeView), exc);
+            }
         }
 
         #region MOUSE LEFT EVENTS

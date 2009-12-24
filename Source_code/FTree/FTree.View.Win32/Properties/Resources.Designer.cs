@@ -95,6 +95,13 @@ namespace FTree.View.Win32.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap back {
+            get {
+                object obj = ResourceManager.GetObject("back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap cancel {
             get {
                 object obj = ResourceManager.GetObject("cancel", resourceCulture);
@@ -119,6 +126,13 @@ namespace FTree.View.Win32.Properties {
         internal static System.Drawing.Bitmap delete {
             get {
                 object obj = ResourceManager.GetObject("delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap delete_person {
+            get {
+                object obj = ResourceManager.GetObject("delete_person", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
