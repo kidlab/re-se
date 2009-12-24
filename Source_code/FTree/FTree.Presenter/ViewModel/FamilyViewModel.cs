@@ -27,14 +27,6 @@ namespace FTree.Presenter.ViewModel
         public string FamilyName
         {
             get { return _family.Name; }
-            set
-            {
-                if (value != _family.Name)
-                {
-                    _family.Name = value;
-                    this.OnPropertyChanged("FamilyName");
-                }
-            }
         }
 
         /// <summary>

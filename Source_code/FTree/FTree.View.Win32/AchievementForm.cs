@@ -61,6 +61,24 @@ namespace FTree.View.Win32
         {
             try
             {
+                #region Check person was died but was added achievement.
+
+                if (_mode == DataFormMode.CreateNew
+                        && _person != null
+                        && _person.IsDead)
+                {
+                    string message = Util.GetStringResource(StringResName.MSG_ACTION_ON_DIED_PERSON);
+                    DialogResult result =
+                        UIUtils.ConfirmOKCancel(message);
+                    if (result == DialogResult.Cancel)
+                    {
+                        this.DialogResult = DialogResult.Cancel;
+                        return;
+                    }
+                }
+
+                #endregion
+
                 ThreadHelper.DoWork(_initPresenter);
                 ThreadHelper.DoWork(_loadData);
             }

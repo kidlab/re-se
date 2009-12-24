@@ -22,8 +22,12 @@ namespace FTree.Model
         void UpdateDeathInfo(FamilyMemberDTO person);
         void DeleteDeathInfo(FamilyMemberDTO person);
 
+        IList<FamilyMemberDTO> GetSpouses(FamilyMemberDTO person);
+        IList<FamilyMemberDTO> GetDescendants(FamilyMemberDTO person);
+
         IList<FamilyMemberDTO> GetAll(int familyID);
         IList<FamilyMemberDTO> GetAll(string familyName);
+
         RelationTypeDTO GetRelationship(FamilyMemberDTO youngerPerson, FamilyMemberDTO olderPerson);
     }
 }

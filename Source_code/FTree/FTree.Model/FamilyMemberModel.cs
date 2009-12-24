@@ -161,6 +161,48 @@ namespace FTree.Model
             }
         }
 
+        /// <summary>
+        /// Gets all wives or husbands of a person.
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns></returns>
+        public IList<FamilyMemberDTO> GetSpouses(FamilyMemberDTO person)
+        {
+            try
+            {
+                _refreshDataContext();
+                MEMBER mapper = _search(person).SingleOrDefault();
+
+                return _getSpouses(mapper);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
+        /// <summary>
+        /// Gets all children of a person (only one level).
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns></returns>
+        public IList<FamilyMemberDTO> GetDescendants(FamilyMemberDTO person)
+        {
+            try
+            {
+                _refreshDataContext();
+                MEMBER mapper = _search(person).SingleOrDefault();
+
+                return _getChildren(mapper);
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberModel), exc);
+                throw new FTreeDbAccessException(exc);
+            }
+        }
+
         private FamilyMemberDTO _getFamilyTree(int id, bool needFindFather, bool needFindMother)
         {
             try
@@ -237,6 +279,12 @@ namespace FTree.Model
                 relationship.IDMember1 = person.ID;
                 relationship.IDMember2 = relative.ID;
                 relationship.IDRelationship = relationType.ID;
+
+                // Add the marriage date.
+                if (relationType.Name.ToUpper() == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
+                {
+                    relationship.MarriedDate = person.MarriedDate;
+                }
 
                 _db.RELATIONSHIPs.InsertOnSubmit(relationship);
                 this._save();
@@ -577,6 +625,7 @@ namespace FTree.Model
                     foreach (RELATIONSHIP r in lstRelations)
                     {
                         FamilyMemberDTO husband = ConvertToDTO(r.MEMBER);
+                        husband.MarriedDate = r.MarriedDate.GetValueOrDefault();
                         spouses.Add(husband);
                     }
                 }
@@ -595,6 +644,7 @@ namespace FTree.Model
                     foreach (RELATIONSHIP r in lstRelations)
                     {
                         FamilyMemberDTO wife = ConvertToDTO(r.MEMBER1);
+                        wife.MarriedDate = r.MarriedDate.GetValueOrDefault();
                         spouses.Add(wife);
                     }
                 }

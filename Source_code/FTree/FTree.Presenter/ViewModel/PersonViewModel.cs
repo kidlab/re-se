@@ -35,26 +35,20 @@ namespace FTree.Presenter.ViewModel
         public string FirstName
         {
             get { return _person.FirstName; }
-            set
-            {
-                if (value != _person.FirstName)
-                {
-                    _person.FirstName = value;
-                    this.OnPropertyChanged("FirstName");
-                }
-            }
         }
 
         public string LastName
         {
             get { return _person.LastName; }
-            set
+        }
+
+        public string SpouseName
+        {
+            get
             {
-                if (value != _person.LastName)
-                {
-                    _person.LastName = value;
-                    this.OnPropertyChanged("LastName");
-                }
+                if (_person.Spouses != null && _person.Spouses.Count > 0)
+                    return " & " + _person.Spouses[0].ToString();
+                return String.Empty;
             }
         }
 

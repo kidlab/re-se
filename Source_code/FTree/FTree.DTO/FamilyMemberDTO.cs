@@ -26,6 +26,7 @@ namespace FTree.DTO
         public FamilyMemberDTO Father { get; set; }
         public FamilyMemberDTO Mother { get; set; }
         public FamilyMemberDTO RelativePerson { get; set; }
+        public DateTime MarriedDate { get; set; }
         public IList<FamilyMemberDTO> Spouses { get; set; }
         public IList<FamilyMemberDTO> Descendants { get; set; }
         public int GenerationNumber { get; set; }
