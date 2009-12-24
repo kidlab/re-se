@@ -173,7 +173,9 @@ namespace FTree.View.Win32
 
                     case DataFormMode.CreateNew:
                         _generateDTO();
-                        ThreadHelper.DoWork(_addNewPerson);
+                        if (!_checkRelationshipConstraint())
+                            return;
+                        _addNewPerson();
                         break;
 
                     default:
@@ -412,12 +414,14 @@ namespace FTree.View.Win32
         private void _addNewPerson()
         {
             if (_isRootPerson)
-                _currentMember.GenerationNumber = 1;
-            _presenter.Add();
+                _currentMember.GenerationNumber = 1;            
+
+            // Add new person.
+            ThreadHelper.DoWork(_presenter.Add);
         }
 
         private void _addAchievement()
-        {
+        {   
             AchievementForm frmAchievement = new AchievementForm(_currentMember);
             frmAchievement.SetAutoSave(false);
             if (frmAchievement.ShowDialog(false) == DialogResult.OK)
@@ -514,6 +518,13 @@ namespace FTree.View.Win32
 
             if (cbOccupation.SelectedItem != null)
                 _currentMember.Job = cbOccupation.SelectedItem as JobDTO;
+            string name = _selectedRelationType.Name.ToUpper();
+
+            if (name == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
+            {
+                _currentMember.MarriedDate = marriageDatePicker.Value;
+            }
+
         }
 
         /// <summary>
@@ -762,6 +773,67 @@ namespace FTree.View.Win32
             else
                 this.BackColor = System.Drawing.SystemColors.Control;
         }
+        private bool _checkRelationshipConstraint()
+        {
+            string name = _selectedRelationType.Name.ToUpper();
+
+            #region Check Spouses > 1
+
+            if (name == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
+            {
+                bool hasSpouse = _presenter.CheckPersonHasSpouse();
+
+                if (hasSpouse && _selectedRelativePerson.IsFemale)
+                {
+                    DialogResult result =
+                        UIUtils.ConfirmOKCancel(Util.GetStringResource(StringResName.MSG_MORE_THAN_ONE_HUSBAND));
+                    if (result == DialogResult.Cancel)
+                        return false;
+                }
+                else if (hasSpouse && !_selectedRelativePerson.IsFemale)
+                {
+                    DialogResult result =
+                        UIUtils.ConfirmOKCancel(Util.GetStringResource(StringResName.MSG_MORE_THAN_ONE_WIFE));
+                    if (result == DialogResult.Cancel)
+                        return false;
+                }
+            }
+
+            #endregion
+
+            #region Check no wife/husband but add new child.
+
+            if (name == DefaultSettings.RelationType.Child.ToString().ToUpper())
+            {
+                bool hasSpouse = _presenter.CheckPersonHasSpouse();
+
+                if (!hasSpouse)
+                {
+                    string message = String.Format(Util.GetStringResource(StringResName.MSG_NO_SPOUSE_BUT_HAS_CHILD), _selectedRelativePerson.ToString());
+                    DialogResult result =
+                        UIUtils.ConfirmOKCancel(message);
+                    if (result == DialogResult.Cancel)
+                        return false;
+                }
+            }
+
+            #endregion
+
+            #region Check person was died but was added as relative.
+
+            if (_selectedRelativePerson.IsDead)
+            {
+                string message = String.Format(Util.GetStringResource(StringResName.MSG_ADD_RELATIVE_ON_DIED_PERSON), _selectedRelativePerson.ToString());
+                DialogResult result =
+                    UIUtils.ConfirmOKCancel(message);
+                if (result == DialogResult.Cancel)
+                    return false;
+            }
+
+            #endregion
+
+            return true;
+        }
 
         #endregion
 
@@ -799,9 +871,8 @@ namespace FTree.View.Win32
                     return false;
                 }
 
-                if ((_selectedRelativePerson.IsFemale
-                    && rbFemale.Checked)
-                        || (!_selectedRelativePerson.IsFemale && rbMale.Checked)
+                if (((_selectedRelativePerson.IsFemale && rbFemale.Checked)
+                        || (!_selectedRelativePerson.IsFemale && rbMale.Checked))
                     && _selectedRelationType.Name.ToUpper() == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
                 {
                     _setErrorToolTip(rbMale, Util.GetStringResource(StringResName.ERR_SPOUSE_HAS_SAME_GENDER));

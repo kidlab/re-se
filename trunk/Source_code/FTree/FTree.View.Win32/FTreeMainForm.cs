@@ -620,7 +620,11 @@ namespace FTree.View.Win32
             {
                 addPersonToolStripButton.Enabled = true;
                 achieveToolStripButton.Enabled = true;
-                reportDeathToolStripButton.Enabled = true;
+
+                if (_currentPerson.IsDead)
+                    reportDeathToolStripButton.Enabled = false;
+                else
+                    reportDeathToolStripButton.Enabled = true;
 
                 addRootPersonMainMenuItem.Visible = false;
                 addRootPersonMainMenuItem.Enabled = false;

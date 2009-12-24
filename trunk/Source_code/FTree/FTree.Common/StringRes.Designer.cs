@@ -295,6 +295,15 @@ namespace FTree.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The person &apos;{0}&apos;  was dead. Are you sure that you want to add relative for this person ?.
+        /// </summary>
+        internal static string MSG_ADD_RELATIVE_ON_DIED_PERSON {
+            get {
+                return ResourceManager.GetString("MSG_ADD_RELATIVE_ON_DIED_PERSON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure that you want to delete this entry ?.
         /// </summary>
         internal static string MSG_CONFIRM_DEL_ENTRY {
@@ -393,6 +402,15 @@ namespace FTree.Common {
         internal static string MSG_MORE_THAN_ONE_WIFE {
             get {
                 return ResourceManager.GetString("MSG_MORE_THAN_ONE_WIFE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The person &apos;{0}&apos;  has no spouse.Are you sure that you want to add a child of this person ?.
+        /// </summary>
+        internal static string MSG_NO_SPOUSE_BUT_HAS_CHILD {
+            get {
+                return ResourceManager.GetString("MSG_NO_SPOUSE_BUT_HAS_CHILD", resourceCulture);
             }
         }
         

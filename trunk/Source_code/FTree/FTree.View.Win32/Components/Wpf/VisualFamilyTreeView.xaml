@@ -36,8 +36,11 @@
                 <HierarchicalDataTemplate 
           DataType="{x:Type local:PersonViewModel}" 
           ItemsSource="{Binding Children}"
-          >                    
-                    <TextBlock Text="{Binding FullName}" />
+          > 
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FullName}" />
+                        <TextBlock Text="{Binding SpouseName}"/>
+                   </StackPanel>
                 </HierarchicalDataTemplate>                
             </ResourceDictionary>
         </TreeView.Resources>

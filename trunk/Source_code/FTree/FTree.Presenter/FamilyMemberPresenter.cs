@@ -379,6 +379,29 @@ namespace FTree.Presenter
             _view = null;
         }
 
+        /// <summary>
+        /// Checks that the current selected relative person already had spouse(s) or not.
+        /// </summary>
+        /// <returns>True if this person had married, otherwise returns False.</returns>
+        public bool CheckPersonHasSpouse()
+        {
+            try
+            {
+                _view.RelativePerson.Spouses = _model.GetSpouses(_view.RelativePerson);
+
+                if (_view.RelativePerson.Spouses != null
+                        && _view.RelativePerson.Spouses.Count > 0)
+                    return true;
+                return false;
+            }
+            catch (Exception exc)
+            {
+                Tracer.Log(typeof(FamilyMemberPresenter), exc);
+            }
+
+            return false;
+        }
+
         public static void DetermineRelationship(FamilyMemberDTO person, FamilyMemberDTO relative, RelationTypeDTO relationType)
         {
             if (person == null 
@@ -395,6 +418,7 @@ namespace FTree.Presenter
             }
             else if (relationType.Name == DefaultSettings.RelationType.Spouse.ToString())
             {
+                person.GenerationNumber = relative.GenerationNumber;
                 relative.Spouses.Add(person);
             }
         }

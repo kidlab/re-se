@@ -77,7 +77,7 @@
                <StackPanel Orientation="Horizontal">                       
                     <TextBlock Text="{Binding FamilyName}" />
                </StackPanel>
-           </HierarchicalDataTemplate>
+                </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate 
           DataType="{x:Type local:PersonViewModel}" 
@@ -85,6 +85,7 @@
           >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding FullName}" />
+                        <TextBlock Text="{Binding SpouseName}" Foreground="#fe8c0e"/>
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>

@@ -178,7 +178,7 @@
             this.lblFamilyName.AutoSize = true;
             this.lblFamilyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFamilyName.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.lblFamilyName.Location = new System.Drawing.Point(153, 15);
+            this.lblFamilyName.Location = new System.Drawing.Point(94, 15);
             this.lblFamilyName.Name = "lblFamilyName";
             this.lblFamilyName.Size = new System.Drawing.Size(78, 13);
             this.lblFamilyName.TabIndex = 20;
@@ -189,9 +189,9 @@
             this.lblInfo.AutoSize = true;
             this.lblInfo.Location = new System.Drawing.Point(13, 15);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(143, 13);
+            this.lblInfo.Size = new System.Drawing.Size(75, 13);
             this.lblInfo.TabIndex = 19;
-            this.lblInfo.Text = "Add new person to family of::";
+            this.lblInfo.Text = "Family\'s name:";
             // 
             // dateJointPicker
             // 

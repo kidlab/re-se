@@ -195,6 +195,9 @@
   <data name="MSG_ACTION_ON_DIED_PERSON" xml:space="preserve">
     <value>This person was dead. Are you sure that you want to make any change on this person ?</value>
   </data>
+  <data name="MSG_ADD_RELATIVE_ON_DIED_PERSON" xml:space="preserve">
+    <value>The person '{0}'  was dead. Are you sure that you want to add relative for this person ?</value>
+  </data>
   <data name="MSG_CONFIRM_DEL_ENTRY" xml:space="preserve">
     <value>Are you sure that you want to delete this entry ?</value>
   </data>
@@ -230,6 +233,9 @@ You can leave both of them blank</value>
   </data>
   <data name="MSG_MORE_THAN_ONE_WIFE" xml:space="preserve">
     <value>This person already had a wife. Are you sure that you want to add a wife to this person ?</value>
+  </data>
+  <data name="MSG_NO_SPOUSE_BUT_HAS_CHILD" xml:space="preserve">
+    <value>The person '{0}'  has no spouse.Are you sure that you want to add a child of this person ?</value>
   </data>
   <data name="MSG_SELECT_GENDER" xml:space="preserve">
     <value>Please select a gender</value>
