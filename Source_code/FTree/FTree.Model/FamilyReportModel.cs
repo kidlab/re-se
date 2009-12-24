@@ -79,10 +79,11 @@ namespace FTree.Model
             Table<MEMBER> member = ftree.GetTable<MEMBER>();
             Table<DEATH_INFO> death = ftree.GetTable<DEATH_INFO>();
             Table<RELATIONSHIP> relation = ftree.GetTable<RELATIONSHIP>();
+            Table<RELATIONSHIP_TYPE> rtype = ftree.GetTable<RELATIONSHIP_TYPE>();
 
             var matches1 = from m in member
                            where (m.Birthday.GetValueOrDefault().Year <= toYear &&
-                            m.Birthday.GetValueOrDefault().Year >= fromYear
+                            m.Birthday.GetValueOrDefault().Year >= fromYear                            
                             )
                            group m by m.Birthday.GetValueOrDefault().Year into bornMemberByYear
                            select new
@@ -100,9 +101,12 @@ namespace FTree.Model
                                Year = dieMemberByYear.Key,
                                TotalDead = dieMemberByYear.Count()
                            };
+            var idrel = rtype.SingleOrDefault(p => p.Name == "Husband");                       
+                       
             var matches3 = from m in relation
                            where (m.MarriedDate.GetValueOrDefault().Year <= toYear &&
                             m.MarriedDate.GetValueOrDefault().Year >= fromYear
+                            && (m.IDRelationship == idrel.IDRelationship)
                             )
                            group m by m.MarriedDate.GetValueOrDefault().Year into MemberByYear
                            select new
