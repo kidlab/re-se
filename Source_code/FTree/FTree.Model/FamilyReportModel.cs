@@ -101,7 +101,8 @@ namespace FTree.Model
                                Year = dieMemberByYear.Key,
                                TotalDead = dieMemberByYear.Count()
                            };
-            var idrel = rtype.SingleOrDefault(p => p.Name == "Husband");                       
+            //var idrel = rtype.SingleOrDefault(p => p.Name == "Husband");                       
+            var idrel = rtype.SingleOrDefault(p => p.Name == "Spouse");                       
                        
             var matches3 = from m in relation
                            where (m.MarriedDate.GetValueOrDefault().Year <= toYear &&
