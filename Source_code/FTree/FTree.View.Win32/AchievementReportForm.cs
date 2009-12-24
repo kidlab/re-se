@@ -140,20 +140,28 @@ namespace FTree.View.Win32
 
         public bool ValidateInputData()
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(this.maskedTextBox1.Text.Trim()))
+            {
+                MessageBox.Show("Enter From Year");
+                return false;
+            }
+            if (String.IsNullOrEmpty(this.maskedTextBox2.Text.Trim()))
+            {
+                MessageBox.Show("Enter To Year");
+                return false;
+            }
+            return true;
         }
 
         #endregion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!ValidateInputData())
+                return;
             List<AchievementReportDTO> list_arDTO= this._presenter.AchievementReport(Int32.Parse(this.maskedTextBox1.Text), Int32.Parse(this.maskedTextBox2.Text));
             dataGridView1.DataSource = list_arDTO;        
-            dataGridView1.Refresh();
-            //MessageBox.Show(dataGridView1.IsDisposed.ToString());//fasle
-            //MessageBox.Show(dataGridView1.ShowCellErrors.ToString());//true
-            //MessageBox.Show(dataGridView1.BindingContext.ToString());
-            //MessageBox.Show(dataGridView1.ColumnCount.ToString());//0            
+            dataGridView1.Refresh();                     
         }
         
     }
