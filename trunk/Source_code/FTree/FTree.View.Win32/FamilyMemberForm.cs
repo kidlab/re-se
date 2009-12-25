@@ -792,7 +792,11 @@ namespace FTree.View.Win32
 
             if (name == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
             {
-                bool hasSpouse = _presenter.CheckPersonHasSpouse();
+                bool hasSpouse = false;
+                if (_selectedRelativePerson.Spouses != null && _selectedRelativePerson.Spouses.Count > 0)
+                    hasSpouse = true;
+                else 
+                    hasSpouse = _presenter.CheckPersonHasSpouse();
 
                 if (hasSpouse && _selectedRelativePerson.IsFemale)
                 {
@@ -816,7 +820,11 @@ namespace FTree.View.Win32
 
             if (name == DefaultSettings.RelationType.Child.ToString().ToUpper())
             {
-                bool hasSpouse = _presenter.CheckPersonHasSpouse();
+                bool hasSpouse = false;
+                if (_selectedRelativePerson.Spouses != null && _selectedRelativePerson.Spouses.Count > 0)
+                    hasSpouse = true;
+                else
+                    hasSpouse = _presenter.CheckPersonHasSpouse();
 
                 if (!hasSpouse)
                 {
