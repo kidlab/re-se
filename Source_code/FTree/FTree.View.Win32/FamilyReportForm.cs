@@ -42,6 +42,7 @@ namespace FTree.View.Win32
             }
             catch (FTreePresenterException exc)
             {
+                Tracer.Log(typeof(FamilyReportForm), exc);
                 UIUtils.Error(Util.GetStringResource(StringResName.ERR_CREATE_REPORT_FAILED));
             }
             catch (Exception exc)

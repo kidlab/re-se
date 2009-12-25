@@ -219,6 +219,9 @@ namespace FTree.View.Win32
                 propertiesToolStripMenuItem.Visible = false;
                 propertyBottomSeparator.Visible = false;
 
+                showAllSpousesToolStripMenuItem.Visible = false;
+                showAllSpousesToolStripMenuItem.Enabled = false;
+
                 _currentPerson = null;
                 _currentRelativePerson = null;
             }
@@ -241,6 +244,17 @@ namespace FTree.View.Win32
 
                 addPersonToolStripMenuItem.Enabled = true;
                 addPersonToolStripMenuItem.Visible = true;
+
+                if (_currentPerson.Spouses != null && _currentPerson.Spouses.Count > 0)
+                {
+                    showAllSpousesToolStripMenuItem.Visible = true;
+                    showAllSpousesToolStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    showAllSpousesToolStripMenuItem.Visible = false;
+                    showAllSpousesToolStripMenuItem.Enabled = false;
+                }
 
                 propertiesToolStripMenuItem.Enabled = true;
                 propertiesToolStripMenuItem.Visible = true;
@@ -274,6 +288,9 @@ namespace FTree.View.Win32
                 propertiesToolStripMenuItem.Enabled = false;
                 propertiesToolStripMenuItem.Visible = false;
                 propertyBottomSeparator.Visible = false;
+
+                showAllSpousesToolStripMenuItem.Visible = false;
+                showAllSpousesToolStripMenuItem.Enabled = false;
 
                 // Show the suitable context menu.
                 System.Windows.Point point = e.GetPosition(visualFamilyTreeView);
@@ -339,6 +356,17 @@ namespace FTree.View.Win32
                 addPersonToolStripMenuItem.Enabled = true;
                 addPersonToolStripMenuItem.Visible = true;
 
+                if (_currentPerson.Spouses != null && _currentPerson.Spouses.Count > 0)
+                {
+                    showAllSpousesToolStripMenuItem.Visible = true;
+                    showAllSpousesToolStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    showAllSpousesToolStripMenuItem.Visible = false;
+                    showAllSpousesToolStripMenuItem.Enabled = false;
+                }
+
                 propertiesToolStripMenuItem.Enabled = true;
                 propertiesToolStripMenuItem.Visible = true;
                 propertyBottomSeparator.Visible = true;
@@ -402,6 +430,11 @@ namespace FTree.View.Win32
         private void memToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _showMemberlistForm();
+        }
+
+        private void showAllSpousesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         #region CONTEXT MENU STRIP
@@ -788,6 +821,5 @@ namespace FTree.View.Win32
         }
 
         #endregion
-
     }
 }

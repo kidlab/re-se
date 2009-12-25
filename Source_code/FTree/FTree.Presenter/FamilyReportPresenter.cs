@@ -36,7 +36,6 @@ namespace FTree.Presenter
         #endregion
 
         public List<FamilyReportDTO> FamilyReport(int fromYear, int toYear)
-        //public void AchievementReport()
         {
             try
             {

@@ -128,10 +128,10 @@
             this.rbDeleEntirelyPerson.AutoSize = true;
             this.rbDeleEntirelyPerson.Location = new System.Drawing.Point(6, 19);
             this.rbDeleEntirelyPerson.Name = "rbDeleEntirelyPerson";
-            this.rbDeleEntirelyPerson.Size = new System.Drawing.Size(121, 17);
+            this.rbDeleEntirelyPerson.Size = new System.Drawing.Size(126, 17);
             this.rbDeleEntirelyPerson.TabIndex = 0;
             this.rbDeleEntirelyPerson.TabStop = true;
-            this.rbDeleEntirelyPerson.Text = "Entirely delete peron";
+            this.rbDeleEntirelyPerson.Text = "Entirely delete person";
             this.rbDeleEntirelyPerson.UseVisualStyleBackColor = true;
             // 
             // DeletePersonWizardForm

@@ -82,7 +82,10 @@ namespace FTree.Model
                     _db.MEMBERs.Where(member => member.IDFamily == familyID)
                     .Select(familyMember => ConvertToDTO(familyMember));
 
-                return matches.ToList();
+                IList<FamilyMemberDTO> lstMembers = matches.ToList();
+                _loadRelatives(lstMembers);
+
+                return lstMembers; 
             }
             catch (Exception exc)
             {
@@ -109,7 +112,10 @@ namespace FTree.Model
                     where family.Name == familyName
                     select ConvertToDTO(member);
 
-                return matches.ToList();
+                IList<FamilyMemberDTO> lstMembers = matches.ToList();
+                _loadRelatives(lstMembers);
+
+                return lstMembers; 
             }
             catch (Exception exc)
             {
@@ -152,6 +158,12 @@ namespace FTree.Model
                 MEMBER mapper = matches.Single();
 
                 FamilyMemberDTO personDto = ConvertToDTO(mapper);
+
+                personDto.Father = _getParent(true, mapper);
+                personDto.Mother = _getParent(false, mapper);
+                personDto.Spouses = _getSpouses(mapper);
+                personDto.Descendants = _getChildren(mapper);
+
                 return personDto;
             }
             catch (Exception exc)
@@ -668,13 +680,13 @@ namespace FTree.Model
             return mapper;
         }
 
-        internal static FamilyMemberDTO ConvertToDTO(MEMBER mapper)
+        internal FamilyMemberDTO ConvertToDTO(MEMBER mapper)
         {
             FamilyMemberDTO dto = new FamilyMemberDTO();
             dto.ID = mapper.IDMember;
             dto.FirstName = mapper.FirstName;
             dto.LastName = mapper.LastName;
-            dto.IsFemale = IsFemale(mapper);
+            dto.IsFemale = IsFemale(mapper);            
 
             if (mapper.JOB != null)
                 dto.Job = JobModel.ConvertToDTO(mapper.JOB);
@@ -698,7 +710,7 @@ namespace FTree.Model
             return dto;
         }
 
-        internal static DeathInfo _getDeathInfo(MEMBER mapper)
+        internal DeathInfo _getDeathInfo(MEMBER mapper)
         {
             if (mapper.DEATH_INFO == null)
                 return null;
@@ -763,6 +775,16 @@ namespace FTree.Model
                     where (relation.IDMember2 == personMapper.IDMember)
                         && (relation.RELATIONSHIP_TYPE.Name.ToUpper() == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
                     select relation;
+
+                if (relationships.Count() <= 0)
+                {
+                    relationships =
+                    from relation in personMapper.RELATIONSHIPs
+                    where (relation.IDMember1 == personMapper.IDMember)
+                        && (relation.RELATIONSHIP_TYPE.Name.ToUpper() == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
+                    select relation;
+                }
+
                 List<RELATIONSHIP> lstRelations = relationships.ToList();
                 if (lstRelations.Count > 0)
                 {
@@ -778,10 +800,20 @@ namespace FTree.Model
             {
                 // Get his wife(s).
                 relationships =
+                    from relation in personMapper.RELATIONSHIPs1
+                    where (relation.IDMember2 == personMapper.IDMember)
+                        && (relation.RELATIONSHIP_TYPE.Name.ToUpper() == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
+                    select relation;
+
+                if (relationships.Count() <= 0)
+                {
+                    relationships =
                     from relation in personMapper.RELATIONSHIPs
                     where (relation.IDMember1 == personMapper.IDMember)
                         && (relation.RELATIONSHIP_TYPE.Name.ToUpper() == DefaultSettings.RelationType.Spouse.ToString().ToUpper())
                     select relation;
+                }
+
                 List<RELATIONSHIP> lstRelations = relationships.ToList();
                 if (lstRelations.Count > 0)
                 {
@@ -933,6 +965,18 @@ namespace FTree.Model
             relation = RelationTypeModel.ConvertToDTO(mapper);
 
             return relation;
+        }
+
+        private void _loadRelatives(IList<FamilyMemberDTO> lstMembers)
+        {
+            foreach (FamilyMemberDTO dto in lstMembers)
+            {
+                MEMBER mapper = _db.MEMBERs.Single(m => m.IDMember == dto.ID);
+                dto.Father = _getParent(true, mapper);
+                dto.Mother = _getParent(false, mapper);
+                dto.Spouses = _getSpouses(mapper);
+                dto.Descendants = _getChildren(mapper);
+            }
         }
 
         #endregion

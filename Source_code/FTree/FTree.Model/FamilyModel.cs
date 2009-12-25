@@ -260,7 +260,7 @@ namespace FTree.Model
             List<MEMBER> members = matches.ToList();
             
             if (members.Count > 0)
-                rootPerson = FamilyMemberModel.ConvertToDTO(members[0]);
+                rootPerson = new FamilyMemberModel().ConvertToDTO(members[0]);
 
             return rootPerson;
         }
