@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FTree.DTO
 {
-    public class FamilyReportDTO : Object 
+    public class FamilyReportDTO : DataTransferObject 
         //DataTransferObject
     {
         //public DateTime TimeToReport { get; set; }

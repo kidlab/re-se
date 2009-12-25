@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FTree.Presenter.AchievementPresenter" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAIAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAIgCA=</HashCode>
+      <FileName>AchievementPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.AchievementReportPresenter" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIIAAAAAAAAAAAAgAAAAAAJAEAIAAAAAAACAAAAAAA=</HashCode>
+      <FileName>AchievementReportPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.DeathInfoPresenter" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAIAAAAIEAAAAAAAAEAAAAAAIAAAAAAAAAAAAgCA=</HashCode>
+      <FileName>DeathInfoPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.FamilyManagerPresenter" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAEAEAEAAAAQAAAEAAAEMAAAAAAgCgAgBgCA=</HashCode>
+      <FileName>FamilyManagerPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.FamilyMemberPresenter" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAYAAAKAAAAECAAAAAAAAAERIBEIAAAAAAAAAAIIgDA=</HashCode>
+      <FileName>FamilyMemberPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.FamilyReportPresenter" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAIAAAAAAABAAAA=</HashCode>
+      <FileName>FamilyReportPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.FTreePresenterException" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FTreePresenterException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.SettingsManagerPresenter" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hwAAAAwgAAYkQAQgAAgAGAARAgwYAQAEApEAAEgAgCA=</HashCode>
+      <FileName>SettingsManagerPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.ViewModel.FamilyTreeViewModel" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QYQAAAAAAAAQAAAAAAAAAAAAAAAEIgIAAIgAAAIAAAg=</HashCode>
+      <FileName>ViewModel\FamilyTreeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.ViewModel.FamilyViewModel" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAEAAAAABACAAAAAAAAABAA=</HashCode>
+      <FileName>ViewModel\FamilyViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.ViewModel.PersonViewModel" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAEAAAAAAAIAAAAAAABAAAAAABCCAAAAAAAAAAAg=</HashCode>
+      <FileName>ViewModel\PersonViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Presenter.ViewModel.TreeViewItemViewModel" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAQAAAAAgEBIAIAAEQACQgAAABAAAAAAAAAAAQAI=</HashCode>
+      <FileName>ViewModel\TreeViewItemViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="FTree.Presenter.IAchievementReportView" Collapsed="true">
+    <Position X="5.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IAchievementReportView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Presenter.IAchievementView" Collapsed="true">
+    <Position X="7" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAEAAQ=</HashCode>
+      <FileName>IAchievementView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Presenter.IDeathInfoView" Collapsed="true">
+    <Position X="8.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAIAAAAIIAAAAQEBAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDeathInfoView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Presenter.IFamilyMangerView" Collapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>IFamilyMangerView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Presenter.IFamilyMemberView" Collapsed="true">
+    <Position X="7" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAABABAAAAAEAgAAAAAAAAAAAAQAAAAAQABgA=</HashCode>
+      <FileName>IFamilyMemberView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Presenter.IFamilyReportView" Collapsed="true">
+    <Position X="8.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IFamilyReportView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Presenter.ISettingsManagerView" Collapsed="true">
+    <Position X="5.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAQABEAAACAAAAACAAAAAIAAACAAAAA=</HashCode>
+      <FileName>ISettingsManagerView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FTree.Model.AchievementReportModel" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYCAAAAAAQEQBAAAAAgAAEBAGEAAAAAAgCiAAAgAAA=</HashCode>
+      <FileName>AchievementReportModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.AchievementTypeModel" Collapsed="true">
+    <Position X="8.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAQAAAAABAAAAAAEAAAAAEAAAAAggAAAAAqAAA=</HashCode>
+      <FileName>AchievementTypeModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.BaseModel" Collapsed="true">
+    <Position X="11.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhIAAAAAgAAAAAAAQAAAAAAAAAAAAABAgAAABgAA=</HashCode>
+      <FileName>BaseModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Model.BuryPlaceModel" Collapsed="true">
+    <Position X="16.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAQAAAAABAAAAAAEAAAAAEAAAAAggAAAAAqAAA=</HashCode>
+      <FileName>BuryPlaceModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.DeathReasonModel" Collapsed="true">
+    <Position X="9.5" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="FTree.Model.BaseModel" ManuallyRouted="true">
+      <Path>
+        <Point X="12.5" Y="7.259" />
+        <Point X="12.5" Y="9.66" />
+        <Point X="10.25" Y="9.66" />
+        <Point X="10.25" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAYAAAAQAAAAABAAAAAAEAAAAAEAAAAAggAAAAAqAAA=</HashCode>
+      <FileName>DeathReasonModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.FamilyMemberModel" Collapsed="true">
+    <Position X="5.75" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="FTree.Model.BaseModel" ManuallyRouted="true">
+      <Path>
+        <Point X="12.5" Y="7.259" />
+        <Point X="12.5" Y="9.689" />
+        <Point X="6.5" Y="9.689" />
+        <Point X="6.5" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>NAYjpAAQAAACDBACAAABEAAJAAECCiAoggAAAQw4ABQ=</HashCode>
+      <FileName>FamilyMemberModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.FamilyModel" Collapsed="true">
+    <Position X="17" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="FTree.Model.BaseModel" ManuallyRouted="true">
+      <Path>
+        <Point X="12.5" Y="7.259" />
+        <Point X="12.5" Y="9.723" />
+        <Point X="17.75" Y="9.723" />
+        <Point X="17.75" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>gAYAIAAQAAAAABAAACAAEAAAAAEAAAAAggAAAAAqAAA=</HashCode>
+      <FileName>FamilyModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.freportStruct" Collapsed="true">
+    <Position X="12.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>FamilyReportModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Model.FamilyReportModel" Collapsed="true">
+    <Position X="11.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAABAAAAAAAAAAAAEAAAAAAgAAAABgAAA=</HashCode>
+      <FileName>FamilyReportModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.FTreeDataContext" Collapsed="true">
+    <Position X="14" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEFAKAACICEAxAQBYiMCABASBqAAIECAJg0DAAABAAU=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Model.BIRTHPLACE" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAjAAABAAAgQAAAQAEAIAQRiGAAYACAAAgAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.RELATIONSHIP_TYPE" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAiAAABAQQgAAAgQAEQIAQhiCAAQAAAAgAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.BURYPLACE" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAjAAABAAAAAACAQEGAIBQRyCAAQAAAAAIAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.BURYREASON" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAjAAABAAABAACAQAEAIBQB6CAAQAAAQIAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.DEATH_INFO" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgGAABACABAMRBQEGABAARqCAAAAAAQIIAAAASABA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.EVENT" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAADAAAAACAAQAEAIAQJiCgCRAAAAAAAAAAEAAE=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.FAMILY" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAABAABgQAAAQAEAIAQFiGAASACAAAgAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.309" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.JOB" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAABAQEgQAAAQAEAIAQBjOAAQAAEAAwAAABAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.MEMBER" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QQAhEEgTCSFyAEDAUJEQIEY9nKgIKACCyoQMBABEABg=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.MEMBER_EVENT" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAgBACEgAGhAwAECAAADiCACBAAEAIwACEACIBE=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.RELATIONSHIP" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAggAABASUAAQBgRCESBAAB2CgAAAAAAAAAAAkKAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FTree.Model.FTreeDbAccessException" Collapsed="true">
+    <Position X="8.75" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FTreeDbAccessException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Model.HomeTownModel" Collapsed="true">
+    <Position X="14" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAQAAAAABAAAAAAEAAAAAEAAAAAggAAAAAqAAA=</HashCode>
+      <FileName>HomeTownModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.JobModel" Collapsed="true">
+    <Position X="14.25" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="FTree.Model.BaseModel" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.5" Y="7.259" />
+        <Point X="12.5" Y="9.66" />
+        <Point X="15" Y="9.66" />
+        <Point X="15" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAYAAAAQAAAAABAAAAAAEAAAAAEAAAAAggAAAAAqAAA=</HashCode>
+      <FileName>JobModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.RelationTypeModel" Collapsed="true">
+    <Position X="11.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAQAAAAABAAAAAAEAAAAAEAAAAAggAAAAAqAAA=</HashCode>
+      <FileName>RelationTypeModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FTree.Model.SettingsManagerModel" Collapsed="true">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAYEAAAAIAAAAABAAAAAAAAABABAgADIgAgACAABAA=</HashCode>
+      <FileName>SettingsManagerModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.Model.Properties.Settings" Collapsed="true">
+    <Position X="12.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAgBAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="FTree.Model.IAchievementReportModel" Collapsed="true">
+    <Position X="8.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAgAAAAAABAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>IAchievementReportModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Model.IAchievementTypeModel" Collapsed="true">
+    <Position X="10.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>IAchievementTypeModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Model.IBuryPlaceModel" Collapsed="true">
+    <Position X="12.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>IBuryPlaceModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Model.IDeathReasonModel" Collapsed="true">
+    <Position X="14" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>IDeathReasonModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Model.IFamilyMemberModel" Collapsed="true">
+    <Position X="8.75" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAACBAAAAAACDAAAAAABAAABAAACAiAgAgAAAAwQABQ=</HashCode>
+      <FileName>IFamilyMemberModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Model.IFamilyModel" Collapsed="true">
+    <Position X="10.5" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>IFamilyModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Model.IFamilyReportModel" Collapsed="true">
+    <Position X="12.25" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>IFamilyReportModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Model.IHomeTownModel" Collapsed="true">
+    <Position X="14" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>IHomeTownModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Model.IJobModel" Collapsed="true">
+    <Position X="8.75" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>IJobModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FTree.Model.IRelationTypeModel" Collapsed="true">
+    <Position X="10.5" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>IRelationTypeModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
