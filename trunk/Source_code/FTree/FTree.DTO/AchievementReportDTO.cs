@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FTree.DTO
 {
-    public class AchievementReportDTO : Object
+    public class AchievementReportDTO : DataTransferObject
         //DataTransferObject
     {
         //public DateTime AchievementDate { get; set; }

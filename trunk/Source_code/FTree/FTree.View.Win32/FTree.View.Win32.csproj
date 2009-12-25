@@ -240,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ftree.ico" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="images\member_list.png" />
     <None Include="images\back.png" />
     <None Include="images\delete_person.png" />

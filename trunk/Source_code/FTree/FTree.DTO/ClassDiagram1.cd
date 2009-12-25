@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FTree.DTO.AchievementInfo" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAgAAgEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AchievementInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.AchievementReportDTO" Collapsed="true">
+    <Position X="11.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AchievementReportDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.AchievementType" Collapsed="true">
+    <Position X="18.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AchievementType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.BuryPlaceDTO" Collapsed="true">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BuryPlaceDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.DataTransferObject" Collapsed="true">
+    <Position X="12.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>DataTransferObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.DeathInfo" Collapsed="true">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DeathInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.DeathReasonDTO" Collapsed="true">
+    <Position X="15.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DeathReasonDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.FamilyDTO" Collapsed="true">
+    <Position X="7.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>FamilyDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.FamilyMemberDTO" Collapsed="true">
+    <Position X="14" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAIAICAAEAAEgFAAAAAAKQAAaIIABAAAIBAg=</HashCode>
+      <FileName>FamilyMemberDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.FamilyReportDTO" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAACAAAAAAAACAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>FamilyReportDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.HomeTownDTO" Collapsed="true">
+    <Position X="18" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HomeTownDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.JobDTO" Collapsed="true">
+    <Position X="9.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>JobDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FTree.DTO.RelationTypeDTO" Collapsed="true">
+    <Position X="16.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RelationTypeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="FTree.DTO.DataState" Collapsed="true">
+    <Position X="12.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAABAAEAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
