@@ -228,7 +228,7 @@ namespace FTree.Model
                 }
                 else
                 {
-                    dicResult.Add(year, new FamilyReportDTO { Year = year });
+                    dicResult.Add(year, new FamilyReportDTO { Year = year, BirthQuantity = 1 });
                 }
             }
 
@@ -241,7 +241,7 @@ namespace FTree.Model
                 }
                 else
                 {
-                    dicResult.Add(year, new FamilyReportDTO { Year = year });
+                    dicResult.Add(year, new FamilyReportDTO { Year = year, DeathQuantity = 1 });
                 }
             }
 
@@ -258,22 +258,22 @@ namespace FTree.Model
                 }
                 else
                 {
-                    dicResult.Add(year, new FamilyReportDTO { Year = year });
+                    dicResult.Add(year, new FamilyReportDTO { Year = year, MarriageQuantity = 1 });
                 }
             }
 
-            List<FamilyReportDTO> report = new List<FamilyReportDTO>();
+            // List<FamilyReportDTO> report = new List<FamilyReportDTO>();
+            // foreach (FamilyReportDTO dto in dicResult.Values)
+            // {
+                // if (dto.BirthQuantity != 0
+                        // || dto.DeathQuantity != 0
+                        // || dto.MarriageQuantity != 0)
+                    // report.Add(dto);
 
-            foreach (FamilyReportDTO dto in dicResult.Values)
-            {
-                if (dto.BirthQuantity != 0
-                        || dto.DeathQuantity != 0
-                        || dto.MarriageQuantity != 0)
-                    report.Add(dto);
-
-            }
-            return report;
-            //return dicResult.Values.ToList();
+            // }
+            // return report;
+			
+            return dicResult.Values.ToList();
         }
         #endregion
     }
