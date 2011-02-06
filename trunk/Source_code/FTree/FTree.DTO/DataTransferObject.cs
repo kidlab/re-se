@@ -12,7 +12,7 @@ namespace FTree.DTO
         /// <summary>
         /// Identification number of this object.
         /// </summary>
-		public int ID {get; set;}
+        public int ID { get; set; }
 
         /// <summary>
         /// Gets or sets the object that contains data about this item.
